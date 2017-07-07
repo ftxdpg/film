@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!-- 扫描controller（controller层注入） -->
+    <context:component-scan base-package="com.film.controller"/>
+
+    <!--
+		使用mvc:annotation-driven可以代替注解映射器和注解适配器
+		mvc:annotation-driven默认加载了很多参数绑定的方法
+
+		配置校验器：校验器的名字，在这里配置完校验器之后，还要在pojo类中添加校验规则
+	-->
+    <mvc:annotation-driven
+            conversion-service="conversionService" validator="validator">
+    </mvc:annotation-driven>
+
+    <!-- 配置视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- jsp前缀路径 -->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!-- jsp后缀文件类型  -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 解析静态资源，当请求被web.xml的"/"拦截之后，就会被解析，就会被映射 -->
+    <mvc:resources location="/WEB-INF/resources" mapping="/**"/>
+
+    <!-- 日期类型转换器 -->
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <!-- 日期类型转换 -->
+                <bean class="com.film.converter.DateConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 校验器，配置完校验器之后，还要把校验器写到处理器适配器中 -->
+    <bean name="validator"
+          class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <!-- hibernate校验器 -->
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+        <!-- 使用指定的校验器资源，它有默认的 -->
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+
+    <!-- 指定的校验器 -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <!-- 资源文件名 -->
+        <property name="basenames" value="CustomValidationMessages"/>
+        <!-- 资源文件编码格式 -->
+        <property name="fileEncodings" value="utf-8" />
+        <!-- 对资源文件内容缓存时间，单位秒 -->
+        <property name="cacheSeconds" value="120"/>
+    </bean>
+
+    <!-- 文件上传 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设置文件上传的大小 -->
+        <property name="maxUploadSize">
+            <value>5242880</value>
+        </property>
+    </bean>
+
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <!-- 登录验证拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.film.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>
