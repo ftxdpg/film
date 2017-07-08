@@ -77,12 +77,14 @@ http://www.springframework.org/schema/beans"
     </bean>
 
     <!-- mybatis文件配置，扫描所有mapper文件 -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" p:dataSource-ref="dataSource"
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+          p:dataSource-ref="dataSource"
           p:configLocation="classpath:mybatis-config.xml"
           p:mapperLocations="classpath:com/film/dao/*Mapper.xml"/>
 
-    <!-- spring与mybatis整合配置，扫描所有dao -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" p:basePackage="com.gw.dao"
+    <!-- spring与mybatis整合配置，扫描所有dao，运行时不要被扫描到 -->
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer"
+          p:basePackage="com.film.dao"
           p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
 
     <!-- 对dataSource 数据源进行事务管理 -->
