@@ -187,7 +187,7 @@
 
         <plugins>
             <!-- 通用mapper自动生成 -->
-            <!--<plugin>
+            <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.2</version>
@@ -208,7 +208,7 @@
                         <version>${mapper.version}</version>
                     </dependency>
                 </dependencies>
-            </plugin>-->
+            </plugin>
 
             <!-- 编译插件 -->
             <plugin>
