@@ -9,11 +9,11 @@
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx.xsd
- http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task.xsd
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop.xsd
-http://www.springframework.org/schema/beans"
->
+    http://www.springframework.org/schema/beans">
 
     <!--
         自动扫描包 ,将带有注解的类 纳入spring容器管理，
@@ -82,10 +82,10 @@ http://www.springframework.org/schema/beans"
           p:configLocation="classpath:mybatis-config.xml"
           p:mapperLocations="classpath:com/film/dao/*Mapper.xml"/>
 
-    <!-- spring与mybatis整合配置，扫描所有dao，运行时不要被扫描到 -->
-    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer"
-          p:basePackage="com.film.dao"
-          p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
+    <!-- 通用mapper接口，运行时不要被扫描到 -->
+    <!--<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer"-->
+          <!--p:basePackage="com.film.dao"-->
+          <!--p:sqlSessionFactoryBeanName="sqlSessionFactory"/>-->
 
     <!-- 对dataSource 数据源进行事务管理 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"

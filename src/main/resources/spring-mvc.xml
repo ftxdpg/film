@@ -23,7 +23,7 @@
     <!-- 配置视图解析器 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- jsp前缀路径 -->
-        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="prefix" value="/WEB-INF/"/>
         <!-- jsp后缀文件类型  -->
         <property name="suffix" value=".jsp"/>
     </bean>
@@ -35,10 +35,10 @@
     <bean id="conversionService"
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
-            <list>
+            <set>
                 <!-- 日期类型转换 -->
                 <bean class="com.film.converter.DateConverter"/>
-            </list>
+            </set>
         </property>
     </bean>
 
@@ -72,11 +72,11 @@
     </bean>
 
     <!-- 拦截器 -->
-    <mvc:interceptors>
-        <!-- 登录验证拦截器 -->
+    <!--<mvc:interceptors>
+        &lt;!&ndash; 登录验证拦截器 &ndash;&gt;
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean class="com.film.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 </beans>
