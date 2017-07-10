@@ -1,9 +1,7 @@
 package com.film.dao;
 
-/**
- * Created by 曹金洲.
- * 创建的时间：2017/7/7.
- * 作用：
- */
-public class FilmMapper {
+import com.film.model.Film;
+import tk.mybatis.mapper.common.Mapper;
+
+public interface FilmMapper extends Mapper<Film> {
 }
