@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
@@ -62,60 +63,17 @@
                 <ul id="navigation">
                     <li>
                         <span class="sub-nav-toggle plus"></span>
-                        <a href="#">Pages</a>
-                        <ul>
-                            <li class="menu__nav-item"><a href="movie-page-left.html">Single movie (rigth sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="movie-page-right.html">Single movie (left sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="movie-page-full.html">Single movie (full widht)</a></li>
-                            <li class="menu__nav-item"><a href="movie-list-left.html">Movies list (rigth sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="movie-list-right.html">Movies list (left sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="movie-list-full.html">Movies list (full widht)</a></li>
-                            <li class="menu__nav-item"><a href="single-cinema.html">Single cinema</a></li>
-                            <li class="menu__nav-item"><a href="cinema-list.html">Cinemas list</a></li>
-                            <li class="menu__nav-item"><a href="trailer.html">Trailers</a></li>
-                            <li class="menu__nav-item"><a href="rates-left.html">Rates (rigth sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="rates-right.html">Rates (left sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="rates-full.html">Rates (full widht)</a></li>
-                            <li class="menu__nav-item"><a href="offers.html">Offers</a></li>
-                            <li class="menu__nav-item"><a href="contact.html">Contact us</a></li>
-                            <li class="menu__nav-item"><a href="404.html">404 error</a></li>
-                            <li class="menu__nav-item"><a href="coming-soon.html">Coming soon</a></li>
-                            <li class="menu__nav-item"><a href="login.html">Login/Registration</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <span class="sub-nav-toggle plus"></span>
-                        <a href="page-elements.html">Features</a>
-                        <ul>
-                            <li class="menu__nav-item"><a href="typography.html">Typography</a></li>
-                            <li class="menu__nav-item"><a href="page-elements.html">Shortcodes</a></li>
-                            <li class="menu__nav-item"><a href="column.html">Columns</a></li>
-                            <li class="menu__nav-item"><a href="icon-font.html">Icons</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <span class="sub-nav-toggle plus"></span>
-                        <a href="page-elements.html">Booking steps</a>
-                        <ul>
-                            <li class="menu__nav-item"><a href="book1.html">Booking step 1</a></li>
-                            <li class="menu__nav-item"><a href="book2.html">Booking step 2</a></li>
-                            <li class="menu__nav-item"><a href="book3-buy.html">Booking step 3 (buy)</a></li>
-                            <li class="menu__nav-item"><a href="book3-reserve.html">Booking step 3 (reserve)</a></li>
-                            <li class="menu__nav-item"><a href="book-final.html">Final ticket view</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <span class="sub-nav-toggle plus"></span>
-                        <a href="gallery-four.html">Gallery</a>
+                        <a href="">观看历史</a>
                         <ul>
                             <li class="menu__nav-item"><a href="gallery-four.html">4 col gallery</a></li>
                             <li class="menu__nav-item"><a href="gallery-three.html">3 col gallery</a></li>
                             <li class="menu__nav-item"><a href="gallery-two.html">2 col gallery</a></li>
                         </ul>
                     </li>
+
                     <li>
                         <span class="sub-nav-toggle plus"></span>
-                        <a href="news-left.html">News</a>
+                        <a href="">消息</a>
                         <ul>
                             <li class="menu__nav-item"><a href="news-left.html">News (rigth sidebar)</a></li>
                             <li class="menu__nav-item"><a href="news-right.html">News (left sidebar)</a></li>
@@ -125,12 +83,67 @@
                             <li class="menu__nav-item"><a href="single-page-full.html">Single post (full widht)</a></li>
                         </ul>
                     </li>
+
                     <li>
                         <span class="sub-nav-toggle plus"></span>
-                        <a href="#">Mega menu</a>
+                        <a href="">电影分类</a>
                         <ul class="mega-menu container">
                             <li class="col-md-3 mega-menu__coloum">
-                                <h4 class="mega-menu__heading">Now in the cinema</h4>
+                                <ul class="mega-menu__list">
+                                    <%-- 第一格 --%>
+                                    <li class="mega-menu__nav-item"><a href="#">喜剧</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">悲剧</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">爱情</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">动作</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">枪战</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">犯罪</a></li>
+                                </ul>
+                            </li>
+
+                            <%-- 第二格 --%>
+                            <li class="col-md-3 mega-menu__coloum">
+                                <ul class="mega-menu__list">
+                                    <li class="mega-menu__nav-item"><a href="#">惊悚</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">恐怖</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">悬疑</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">动画</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">家庭</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">奇幻</a></li>
+                                </ul>
+                            </li>
+
+                            <%-- 第三格 --%>
+                            <li class="col-md-3 mega-menu__coloum">
+                                <ul class="mega-menu__list">
+                                    <li class="mega-menu__nav-item"><a href="#">魔幻</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">科幻</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">战争</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">青春</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">记录</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">经典</a></li>
+                                </ul>
+                            </li>
+
+                            <%-- 第四格 --%>
+                            <li class="col-md-3 mega-menu__coloum">
+                                <ul class="mega-menu__list">
+                                    <li class="mega-menu__nav-item"><a href="#">华语</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">美国</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">欧洲</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">日本</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">泰国</a></li>
+                                    <li class="mega-menu__nav-item"><a href="#">其他</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <span class="sub-nav-toggle plus"></span>
+                        <a href="">电影院信息</a>
+                        <ul class="mega-menu container">
+                            <li class="col-md-3 mega-menu__coloum">
+                                <h4 class="mega-menu__heading">电影院准备上映</h4>
                                 <ul class="mega-menu__list">
                                     <li class="mega-menu__nav-item"><a href="#">The Counselor</a></li>
                                     <li class="mega-menu__nav-item"><a href="#">Bad Grandpa</a></li>
@@ -151,7 +164,7 @@
                             </li>
 
                             <li class="col-md-3 mega-menu__coloum">
-                                <h4 class="mega-menu__heading">Ending soon</h4>
+                                <h4 class="mega-menu__heading">电影院准备结束</h4>
                                 <ul class="mega-menu__list">
                                     <li class="mega-menu__nav-item"><a href="#">Escape Plan</a></li>
                                     <li class="mega-menu__nav-item"><a href="#">Rush</a></li>
@@ -174,26 +187,37 @@
 
             <!-- Additional header buttons / Auth and direct link to booking-->
             <div class="control-panel">
-                <div class="auth auth--home">
-                    <div class="auth__show">
-                        <span class="auth__image">
-                          <img alt="" src="${pageContext.request.contextPath}/resources/images/31-31.png">
-                        </span>
-                    </div>
-                    <a href="#" class="btn btn--sign btn--singin">
-                        me
-                    </a>
-                    <ul class="auth__function">
-                        <li><a href="#" class="auth__function-item">观看列表</a></li>
-                        <li><a href="#" class="auth__function-item">已购影票</a></li>
-                        <li><a href="#" class="auth__function-item">讨论过的</a></li>
-                        <li><a href="#" class="auth__function-item">用户设置</a></li>
-                    </ul>
-
-                </div>
+                <c:choose>
+                    <c:when test="${!empty sessionScope.user}">
+                        <div class="auth auth--home">
+                            <div class="auth__show">
+                            <span class="auth__image">
+                              <img alt="" src="${pageContext.request.contextPath}/resources/images/31-31.png">
+                            </span>
+                            </div>
+                            <a href="#" class="btn btn--sign btn--singin">
+                                me
+                            </a>
+                            <ul class="auth__function">
+                                <li><a href="#" class="auth__function-item">收藏列表</a></li>
+                                <li><a href="#" class="auth__function-item">已购影票</a></li>
+                                <li><a href="#" class="auth__function-item">讨论过的</a></li>
+                                <li><a href="#" class="auth__function-item">用户设置</a></li>
+                                <li><a href="#" class="auth__function-item">注销</a></li>
+                            </ul>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="auth auth--home" style="margin-top: 6px; left: -150px; top: -8px;">
+                            <a href="${pageContext.request.contextPath}/user/loginUI" class="btn btn--sign">登录</a>
+                        </div>
+                        <div class="auth auth--home" style="top: -8px; margin-top: 1px; left: -100px;">
+                            <a href="${pageContext.request.contextPath}/user/emailRegist" class="btn btn--sign" style="top: 5px;">注册</a>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
                 <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">预定电影票</a>
             </div>
-
         </div>
     </header>
 
@@ -201,7 +225,6 @@
     <div class="bannercontainer">
         <div class="banner">
             <ul>
-
                 <li data-transition="fade" data-slotamount="7" class="slide" data-slide='Rush.'>
                     <img alt='' src="${pageContext.request.contextPath}/resources/images/b1.jpg">
                     <div class="caption slide__name margin-slider"
@@ -980,35 +1003,6 @@ Start doing.'>
     </footer>
 </div>
 
-<!-- open/close -->
-<div class="overlay overlay-hugeinc">
-
-    <section class="container">
-
-        <div class="col-sm-4 col-sm-offset-4">
-            <button type="button" class="overlay-close">Close</button>
-            <form id="login-form" class="login" method='get' novalidate=''>
-                <p class="login__title">sign in <br><span class="login-edition">welcome to A.Movie</span></p>
-
-                <p class="login__tracker">or</p>
-
-                <div class="field-wrap">
-                    <input type='email' placeholder='Email' name='user-email' class="login__input">
-                    <input type='password' placeholder='Password' name='user-password' class="login__input">
-
-                    <input type='checkbox' id='#informed' class='login__check styled'>
-                    <label for='#informed' class='login__check-info'>remember me</label>
-                </div>
-
-                <div class="login__control">
-                    <button type='submit' class="btn btn-md btn--warning btn--wider">sign in</button>
-                    <a href="#" class="login__tracker form__tracker">Forgot password?</a>
-                </div>
-            </form>
-        </div>
-
-    </section>
-</div>
 
 <!-- JavaScript-->
 <!-- jQuery 1.9.1-->
