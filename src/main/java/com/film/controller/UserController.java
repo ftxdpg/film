@@ -2,6 +2,7 @@ package com.film.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Created by 曹金洲.
@@ -19,13 +20,13 @@ public class UserController {
     }
 
     // 邮箱注册页面
-    @RequestMapping("/emailReg")
+    @RequestMapping(value = "/emailReg", method = RequestMethod.POST)
     public String emailReg(){
         return "redirect:/front/user/emailReg";
     }
 
     // 短信注册页面
-    @RequestMapping("/messageReg")
+    @RequestMapping(value = "/messageReg", method = RequestMethod.POST)
     public String messageReg(){
         return "redirect:/front/user/messageReg";
     }

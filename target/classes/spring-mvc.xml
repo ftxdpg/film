@@ -31,7 +31,7 @@
     <!-- 解析静态资源，当请求被web.xml的"/"拦截之后，就会被解析，就会被映射 -->
     <mvc:resources location="resources" mapping="/**"/>
 
-    <!-- 日期类型转换器1 -->
+    <!-- 日期类型转换器 -->
     <bean id="conversionService"
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">

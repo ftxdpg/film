@@ -1,6 +1,8 @@
 package com.film.model;
 
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.util.List;
 
 @Table(name = "user")
 public class User {
@@ -13,59 +15,57 @@ public class User {
 
     private String phone;
 
-    /**
-     * @return uid
-     */
+    // 用户与电影的关系
+    private List<UserFilm> films;
+
+    // 用户与地址的关系
+    private List<Address> addresses;
+
     public Integer getUid() {
         return uid;
     }
 
-    /**
-     * @param uid
-     */
     public void setUid(Integer uid) {
         this.uid = uid;
     }
 
-    /**
-     * @return eamil
-     */
     public String getEamil() {
         return eamil;
     }
 
-    /**
-     * @param eamil
-     */
     public void setEamil(String eamil) {
         this.eamil = eamil;
     }
 
-    /**
-     * @return name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @return phone
-     */
     public String getPhone() {
         return phone;
     }
 
-    /**
-     * @param phone
-     */
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<UserFilm> getFilms() {
+        return films;
+    }
+
+    public void setFilms(List<UserFilm> films) {
+        this.films = films;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 }

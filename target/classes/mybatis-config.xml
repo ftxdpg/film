@@ -9,6 +9,8 @@
         <plugin interceptor="com.github.pagehelper.PageHelper">
             <property name="dialect" value="mysql"/>
         </plugin>
+        <plugin interceptor="com.github.abel533.mapperhelper.MapperInterceptor">
+        </plugin>
     </plugins>
 
 </configuration>

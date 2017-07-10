@@ -4,70 +4,53 @@ import javax.persistence.*;
 
 @Table(name = "user_film")
 public class UserFilm {
-    @Id
-    @Column(name = "film_id")
-    private Integer filmId;
 
-    @Id
-    @Column(name = "user_id")
-    private Integer userId;
+    private Integer id;
+
+    private User user;
+
+    private Film film;
 
     private String collect;
 
     private Double score;
 
-    /**
-     * @return film_id
-     */
-    public Integer getFilmId() {
-        return filmId;
+    public Integer getId() {
+        return id;
     }
 
-    /**
-     * @param filmId
-     */
-    public void setFilmId(Integer filmId) {
-        this.filmId = filmId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    /**
-     * @return user_id
-     */
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    /**
-     * @param userId
-     */
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    /**
-     * @return collect
-     */
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
+    }
+
     public String getCollect() {
         return collect;
     }
 
-    /**
-     * @param collect
-     */
     public void setCollect(String collect) {
         this.collect = collect;
     }
 
-    /**
-     * @return score
-     */
     public Double getScore() {
         return score;
     }
 
-    /**
-     * @param score
-     */
     public void setScore(Double score) {
         this.score = score;
     }

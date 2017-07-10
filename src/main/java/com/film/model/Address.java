@@ -1,6 +1,7 @@
 package com.film.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name = "address")
 public class Address {
@@ -12,45 +13,49 @@ public class Address {
 
     private String name;
 
-    /**
-     * @return id
-     */
+    // 地址与用户的关系
+    private List<User> users;
+
+    // 地址与订单的关系
+    private List<Order> orders;
+
     public Integer getId() {
         return id;
     }
 
-    /**
-     * @param id
-     */
     public void setId(Integer id) {
         this.id = id;
     }
 
-    /**
-     * @return email
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * @param email
-     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    /**
-     * @return name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name
-     */
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }
