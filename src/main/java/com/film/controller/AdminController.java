@@ -12,8 +12,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
 
-    @RequestMapping("loginUI")
-    public String loginUI(){
-        return "front/admin/loginUI";
-    }
 }

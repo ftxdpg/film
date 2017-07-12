@@ -31,7 +31,7 @@
     <!-- 解析静态资源，当请求被web.xml的"/"拦截之后，就会被解析，就会被映射 -->
     <mvc:resources location="resources" mapping="/**"/>
 
-    <!-- 日期类型转换器1 -->
+    <!-- 日期类型转换器 -->
     <bean id="conversionService"
           class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
@@ -47,19 +47,6 @@
           class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <!-- hibernate校验器 -->
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
-        <!-- 使用指定的校验器资源，它有默认的 -->
-        <property name="validationMessageSource" ref="messageSource"/>
-    </bean>
-
-    <!-- 指定的校验器 -->
-    <bean id="messageSource"
-          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <!-- 资源文件名 -->
-        <property name="basenames" value="CustomValidationMessages"/>
-        <!-- 资源文件编码格式 -->
-        <property name="fileEncodings" value="utf-8" />
-        <!-- 对资源文件内容缓存时间，单位秒 -->
-        <property name="cacheSeconds" value="120"/>
     </bean>
 
     <!-- 文件上传 -->
@@ -72,11 +59,11 @@
     </bean>
 
     <!-- 拦截器 -->
-    <!--<mvc:interceptors>
-        &lt;!&ndash; 登录验证拦截器 &ndash;&gt;
+    <mvc:interceptors>
+        <!-- 登录验证拦截器 -->
         <mvc:interceptor>
-            <mvc:mapping path="/**"/>
+            <mvc:mapping path="/film/**"/>
             <bean class="com.film.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
 </beans>

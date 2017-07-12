@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.film.dao.FilmMapper">
+  <resultMap id="BaseResultMap" type="com.film.model.Film">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="filmId" jdbcType="INTEGER" property="filmid" />
+    <result column="actor" jdbcType="VARCHAR" property="actor" />
+    <result column="contry" jdbcType="VARCHAR" property="contry" />
+    <result column="createtime" jdbcType="DATE" property="createtime" />
+    <result column="director" jdbcType="VARCHAR" property="director" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="point" jdbcType="DOUBLE" property="point" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+    <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
+  </resultMap>
 
 </mapper>

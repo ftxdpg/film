@@ -29,8 +29,10 @@ public class Film {
     private String introduction;
 
     // 电影与类型的关系
+    @Transient
     private List<Types> typesList;
 
+    @Transient
     private List<UserFilm> userFilms;
 
     public Integer getFilmid() {

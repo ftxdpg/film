@@ -14,9 +14,11 @@ public class Address {
     private String name;
 
     // 地址与用户的关系
+    @Transient
     private List<User> users;
 
     // 地址与订单的关系
+    @Transient
     private List<Order> orders;
 
     public Integer getId() {

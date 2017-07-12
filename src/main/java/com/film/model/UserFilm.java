@@ -7,8 +7,10 @@ public class UserFilm {
 
     private Integer id;
 
+    @Transient
     private User user;
 
+    @Transient
     private Film film;
 
     private String collect;

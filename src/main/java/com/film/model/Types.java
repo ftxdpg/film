@@ -12,6 +12,7 @@ public class Types {
     private String name;
 
     // 类型与电影的关系
+    @Transient
     private List<Film> films;
 
     public Integer getTypeid() {

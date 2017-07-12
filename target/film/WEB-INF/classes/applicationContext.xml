@@ -82,10 +82,10 @@
           p:configLocation="classpath:mybatis-config.xml"
           p:mapperLocations="classpath:com/film/dao/*Mapper.xml"/>
 
-    <!-- 通用mapper接口，运行时不要被扫描到 -->
-    <!--<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer"-->
-          <!--p:basePackage="com.film.dao"-->
-          <!--p:sqlSessionFactoryBeanName="sqlSessionFactory"/>-->
+    <!-- 通用mapper接口 -->
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer"
+          p:basePackage="com.film.dao"
+          p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
 
     <!-- 对dataSource 数据源进行事务管理 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"

@@ -1,5 +1,7 @@
 package com.film.model;
 
+import javax.persistence.Transient;
+
 /**
  * Created by 曹金洲.
  * 创建的时间：2017/7/10.
@@ -14,9 +16,11 @@ public class Order {
     private int count;
 
     // 订单与用户的关系
+    @Transient
     private User user;
 
     // 订单与地址的关系
+    @Transient
     private Address address;
 
     public Integer getOrderId() {
