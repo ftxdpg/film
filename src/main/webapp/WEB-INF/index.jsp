@@ -196,7 +196,7 @@
                             </span>
                             </div>
                             <a href="#" class="btn btn--sign btn--singin">
-                                ${sessionScope.user.name}
+                                me
                             </a>
                             <ul class="auth__function">
                                 <li><a href="#" class="auth__function-item">收藏列表</a></li>

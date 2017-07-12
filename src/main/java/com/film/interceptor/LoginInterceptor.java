@@ -30,7 +30,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		// 获取URL
 		String url = request.getRequestURI();
 		// 判断输入地址的URL，如果包含login，就放行
-		if(url.indexOf("loginUI") > 0 || url.indexOf("registUI") > 0){
+		if(url.indexOf("loginUI") > 0 || url.indexOf("RegUI") > 0){
 			return true;
 		}
 		
