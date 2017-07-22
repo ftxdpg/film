@@ -29,20 +29,24 @@ public class LoginInterceptor implements HandlerInterceptor {
 			Object object) throws Exception {
 		// 获取URL
 		String url = request.getRequestURI();
-		// 判断输入地址的URL，如果包含login，就放行
-		if(url.indexOf("loginUI") > 0 || url.indexOf("RegUI") > 0){
+		// 判断输入地址的URL，若包含common，就放行
+		if(url.indexOf("common") > 0 || url.indexOf("adminCommon") > 0){
 			return true;
 		}
 		
 		// 然后再判断session是否存在这个对象
 		HttpSession session = request.getSession();
-		if(session.getAttribute("user") != null){
+		if(session.getAttribute("user") != null || session.getAttribute("admin")!= null){
 			return true;
 		}
 		
 		// 如果还执行到这里就代表条件还不满足，所以需要进行跳转，跳转到登录页面
-		request.getRequestDispatcher("/WEB-INF/front/user/loginUI.jsp").forward(request, response);
-
+		if (url.indexOf("user") > 0) {
+			response.sendRedirect("localhost:8080/film/common/loginUI");
+		}
+		if (url.indexOf("admin") > 0) {
+			response.sendRedirect("localhost:8080/film/adminCommon/loginUI");
+		}
 		return false;
 	}
 }

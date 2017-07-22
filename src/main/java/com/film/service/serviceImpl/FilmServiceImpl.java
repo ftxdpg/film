@@ -1,0 +1,113 @@
+package com.film.service.serviceImpl;
+
+import com.film.dao.FilmMapper;
+import com.film.dao.FilmTypeMapper;
+import com.film.dao.TypesMapper;
+import com.film.model.Film;
+import com.film.model.FilmType;
+import com.film.model.Types;
+import com.film.service.FilmService;
+import com.film.util.PageUtil;
+import com.github.pagehelper.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
+
+/**
+ * Created by 曹金洲.
+ * 创建的时间：2017/7/13.
+ * 作用：
+ */
+@Repository
+public class FilmServiceImpl implements FilmService{
+
+    @Autowired
+    private FilmMapper filmMapper;
+    @Autowired
+    private FilmTypeMapper filmTypeMapper;
+    @Autowired
+    private TypesMapper typesMapper;
+
+    // 新增电影
+    @Override
+    public void insert(Film film, String[] types) {
+        FilmType filmType = null;
+        filmMapper.insert(film);
+        // 获取类型
+        for (String typ: types) {
+            // 如果是直接新增的电影，类型就会是数字
+            if (typ.matches("^[1-9]\\d*$")) {
+                filmType = new FilmType(film.getFilmid(), Integer.parseInt(typ));
+                filmTypeMapper.insert(filmType);
+            }
+            // 如果是导入的电影，类型就会是中文
+            else {
+                Types types1 = typesMapper.selectOne(new Types(typ));
+                filmType = new FilmType(film.getFilmid(), types1.getTypeid());
+                filmTypeMapper.insert(filmType);
+            }
+        }
+    }
+
+    // 检测重复电影名
+    @Override
+    public int testFilmName(String name) {
+        int i = filmMapper.testFileName(name);
+        return i;
+    }
+
+    // 电影列表--异步分页
+    @Override
+    public PageUtil<Film> getListByAjax(Integer page, Integer size) {
+        Film film = new Film();
+        film.setPage((page-1)*size);
+        film.setSize(size);
+
+        List<Film> films = filmMapper.selectFilmAndTypesInfo2(film);
+        PageUtil<Film> filmPageUtil = new PageUtil<>();
+        filmPageUtil.setData(films);
+        filmPageUtil.setCurrentPage(page);
+        filmPageUtil.setPageSize(size);
+        // 总记录
+        int totalCount = filmMapper.selectCount(null);
+        filmPageUtil.setTotalCount(totalCount);
+        return filmPageUtil;
+    }
+
+    @Override
+    public void insert(Film film) {
+
+    }
+
+    // 删除电影
+    @Override
+    public void deleteByPrimaryKey(Integer id) {
+        filmMapper.deleteByPrimaryKey(id);
+    }
+
+    // 电影详情
+    @Override
+    public Film selectByPrimaryKey(Integer id) {
+        Film film = new Film();
+        film.setFilmid(id);
+        return filmMapper.selectFilmAndTypesInfo1(film).get(0);
+    }
+
+    // 修改电影
+    @Override
+    public void updateByPrimaryKey(Film film) {
+        filmMapper.updateByPrimaryKey(film);
+    }
+
+    @Override
+    public Film login(Film film) {
+        return null;
+    }
+
+    @Override
+    public List<Film> list() {
+        return null;
+    }
+}

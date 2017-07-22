@@ -9,7 +9,19 @@ public class Types {
     @Column(name = "typeId")
     private Integer typeid;
 
-    private String name;
+    @Column(name = "typeName")
+    private String typeName;
+
+    public Types() {
+    }
+
+    public Types(Integer typeid) {
+        this.typeid = typeid;
+    }
+
+    public Types(String typeName) {
+        this.typeName = typeName;
+    }
 
     // 类型与电影的关系
     @Transient
@@ -23,12 +35,12 @@ public class Types {
         this.typeid = typeid;
     }
 
-    public String getName() {
-        return name;
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
     }
 
     public List<Film> getFilms() {

@@ -14,7 +14,7 @@ public class Film {
 
     private String contry;
 
-    private Date createtime;
+    private String createtime;
 
     private String director;
 
@@ -27,6 +27,16 @@ public class Film {
     private String time;
 
     private String introduction;
+
+    private Double price;
+
+    // 当前页
+    @Transient
+    private Integer page;
+
+    // 记录数
+    @Transient
+    private Integer size;
 
     // 电影与类型的关系
     @Transient
@@ -59,11 +69,11 @@ public class Film {
         this.contry = contry;
     }
 
-    public Date getCreatetime() {
+    public String getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(Date createtime) {
+    public void setCreatetime(String createtime) {
         this.createtime = createtime;
     }
 
@@ -129,5 +139,29 @@ public class Film {
 
     public void setUserFilms(List<UserFilm> userFilms) {
         this.userFilms = userFilms;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getSize() {
+        return size;
+    }
+
+    public void setSize(Integer size) {
+        this.size = size;
     }
 }

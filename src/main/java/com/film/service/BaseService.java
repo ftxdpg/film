@@ -1,5 +1,7 @@
 package com.film.service;
 
+import java.util.List;
+
 /**
  * Created by 曹金洲.
  * 创建的时间：2017/7/11.
@@ -13,11 +15,14 @@ public interface BaseService<T> {
     void deleteByPrimaryKey(Integer id);
 
     // 主键查询
-    void selectByPrimaryKey(Integer id);
+    T selectByPrimaryKey(Integer id);
 
     // 主键修改
     void updateByPrimaryKey(T t);
 
     // 登录
     T login(T t);
+
+    // 列表
+    List<T> list();
 }

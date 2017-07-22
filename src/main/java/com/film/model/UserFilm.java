@@ -5,40 +5,43 @@ import javax.persistence.*;
 @Table(name = "user_film")
 public class UserFilm {
 
-    private Integer id;
+    private Integer filmId;
 
-    @Transient
-    private User user;
-
-    @Transient
-    private Film film;
+    private Integer userId;
 
     private String collect;
 
     private Double score;
 
-    public Integer getId() {
-        return id;
+    public UserFilm() {
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public UserFilm(Integer filmId, Integer userId, String collect) {
+        this.filmId = filmId;
+        this.userId = userId;
+        this.collect = collect;
     }
 
-    public User getUser() {
-        return user;
+    public UserFilm(Integer filmId, Integer userId, Double score) {
+        this.filmId = filmId;
+        this.userId = userId;
+        this.score = score;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public Integer getFilmId() {
+        return filmId;
     }
 
-    public Film getFilm() {
-        return film;
+    public void setFilmId(Integer filmId) {
+        this.filmId = filmId;
     }
 
-    public void setFilm(Film film) {
-        this.film = film;
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getCollect() {

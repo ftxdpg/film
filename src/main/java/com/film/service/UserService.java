@@ -2,6 +2,9 @@ package com.film.service;
 
 import com.film.model.User;
 
+import javax.servlet.ServletOutputStream;
+import java.util.List;
+
 /**
  * Created by 曹金洲.
  * 创建的时间：2017/7/11.
@@ -15,4 +18,10 @@ public interface UserService extends BaseService<User>{
 
     // 是否有相同的手机号
     int selectByPhone(String phone);
+
+    // 导出用户列表
+    void export(List<User> personList, ServletOutputStream outputStream);
+
+    // 分页插件分页
+    List<User> getUserListByTool(Integer page, Integer size);
 }

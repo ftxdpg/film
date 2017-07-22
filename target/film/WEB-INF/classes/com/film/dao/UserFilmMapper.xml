@@ -2,9 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.film.dao.UserFilmMapper" >
   <resultMap id="BaseResultMap" type="com.film.model.UserFilm" >
-    <!--
-      WARNING - @mbggenerated
-    -->
     <id column="film_id" property="filmId" jdbcType="INTEGER" />
     <id column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="collect" property="collect" jdbcType="VARCHAR" />

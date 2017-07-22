@@ -88,11 +88,8 @@
                                     <ul class="mega-menu__list">
                                         <%-- 第一格 --%>
                                         <li class="mega-menu__nav-item"><a href="#">喜剧</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">悲剧</a></li>
                                         <li class="mega-menu__nav-item"><a href="#">爱情</a></li>
                                         <li class="mega-menu__nav-item"><a href="#">动作</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">枪战</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">犯罪</a></li>
                                     </ul>
                                 </li>
 
@@ -100,23 +97,17 @@
                                 <li class="col-md-3 mega-menu__coloum">
                                     <ul class="mega-menu__list">
                                         <li class="mega-menu__nav-item"><a href="#">惊悚</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">恐怖</a></li>
                                         <li class="mega-menu__nav-item"><a href="#">悬疑</a></li>
                                         <li class="mega-menu__nav-item"><a href="#">动画</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">家庭</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">奇幻</a></li>
                                     </ul>
                                 </li>
 
                                 <%-- 第三格 --%>
                                 <li class="col-md-3 mega-menu__coloum">
                                     <ul class="mega-menu__list">
-                                        <li class="mega-menu__nav-item"><a href="#">魔幻</a></li>
                                         <li class="mega-menu__nav-item"><a href="#">科幻</a></li>
                                         <li class="mega-menu__nav-item"><a href="#">战争</a></li>
                                         <li class="mega-menu__nav-item"><a href="#">青春</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">记录</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">经典</a></li>
                                     </ul>
                                 </li>
 
@@ -125,9 +116,6 @@
                                     <ul class="mega-menu__list">
                                         <li class="mega-menu__nav-item"><a href="#">华语</a></li>
                                         <li class="mega-menu__nav-item"><a href="#">美国</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">欧洲</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">日本</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">泰国</a></li>
                                         <li class="mega-menu__nav-item"><a href="#">其他</a></li>
                                     </ul>
                                 </li>
@@ -183,35 +171,12 @@
 
                 <!-- Additional header buttons / Auth and direct link to booking-->
                 <div class="control-panel">
-                    <c:choose>
-                        <c:when test="${!empty sessionScope.user}">
-                            <div class="auth auth--home">
-                                <div class="auth__show">
-                            <span class="auth__image">
-                              <img alt="" src="${pageContext.request.contextPath}/resources/images/31-31.png">
-                            </span>
-                                </div>
-                                <a href="#" class="btn btn--sign btn--singin">
-                                    me
-                                </a>
-                                <ul class="auth__function">
-                                    <li><a href="#" class="auth__function-item">收藏列表</a></li>
-                                    <li><a href="#" class="auth__function-item">已购影票</a></li>
-                                    <li><a href="#" class="auth__function-item">讨论过的</a></li>
-                                    <li><a href="#" class="auth__function-item">用户设置</a></li>
-                                    <li><a href="#" class="auth__function-item">注销</a></li>
-                                </ul>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="auth auth--home" style="margin-top: 6px; left: -150px; top: -8px;">
-                                <a href="${pageContext.request.contextPath}/common/loginUI" class="btn btn--sign">登录</a>
-                            </div>
-                            <div class="auth auth--home" style="top: -8px; margin-top: 1px; left: -100px;">
-                                <a href="${pageContext.request.contextPath}/common/emailRegUI" class="btn btn--sign" style="top: 5px;">注册</a>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
+                        <div class="auth auth--home" style="margin-top: 6px; left: -150px; top: -8px;">
+                            <a href="${pageContext.request.contextPath}/common/loginUI" class="btn btn--sign">登录</a>
+                        </div>
+                        <div class="auth auth--home" style="top: -8px; margin-top: 1px; left: -100px;">
+                            <a href="${pageContext.request.contextPath}/common/emailRegUI" class="btn btn--sign" style="top: 5px;">注册</a>
+                        </div>
                     <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">预定电影票</a>
                 </div>
             </div>
@@ -368,17 +333,17 @@
                 }
             }
         </script>
-        <style type="text/css">
-            input.error { border: 1px solid red; }
-            label.error {
-                background:no-repeat 0px 0px;
-                padding-left: 16px;
-                font-weight: bold;
-                color: #EA5200;
-            }
-            label.checked {
-                background:no-repeat 0px 0px;
-            }
-        </style>
 </body>
+<style type="text/css">
+    input.error { border: 1px solid red; }
+    label.error {
+        background:no-repeat 0px 0px;
+        padding-left: 16px;
+        font-weight: bold;
+        color: #EA5200;
+    }
+    label.checked {
+        background:no-repeat 0px 0px;
+    }
+</style>
 </html>

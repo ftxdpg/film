@@ -13,4 +13,6 @@ public interface UserMapper extends Mapper<User> {
 
     // 是否有相同的手机号
     int selectByPhone(String phone);
+
+    void updatePhoneOrEmailToNull(User user);
 }

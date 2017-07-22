@@ -92,11 +92,8 @@
                                 <ul class="mega-menu__list">
                                     <%-- 第一格 --%>
                                     <li class="mega-menu__nav-item"><a href="#">喜剧</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">悲剧</a></li>
                                     <li class="mega-menu__nav-item"><a href="#">爱情</a></li>
                                     <li class="mega-menu__nav-item"><a href="#">动作</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">枪战</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">犯罪</a></li>
                                 </ul>
                             </li>
 
@@ -104,23 +101,17 @@
                             <li class="col-md-3 mega-menu__coloum">
                                 <ul class="mega-menu__list">
                                     <li class="mega-menu__nav-item"><a href="#">惊悚</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">恐怖</a></li>
                                     <li class="mega-menu__nav-item"><a href="#">悬疑</a></li>
                                     <li class="mega-menu__nav-item"><a href="#">动画</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">家庭</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">奇幻</a></li>
                                 </ul>
                             </li>
 
                             <%-- 第三格 --%>
                             <li class="col-md-3 mega-menu__coloum">
                                 <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">魔幻</a></li>
                                     <li class="mega-menu__nav-item"><a href="#">科幻</a></li>
                                     <li class="mega-menu__nav-item"><a href="#">战争</a></li>
                                     <li class="mega-menu__nav-item"><a href="#">青春</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">记录</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">经典</a></li>
                                 </ul>
                             </li>
 
@@ -129,9 +120,6 @@
                                 <ul class="mega-menu__list">
                                     <li class="mega-menu__nav-item"><a href="#">华语</a></li>
                                     <li class="mega-menu__nav-item"><a href="#">美国</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">欧洲</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">日本</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">泰国</a></li>
                                     <li class="mega-menu__nav-item"><a href="#">其他</a></li>
                                 </ul>
                             </li>

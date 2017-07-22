@@ -28,4 +28,17 @@
     FROM user
     WHERE phone = #{phone}
   </select>
+
+  <!-- 更新数据，可以插入null -->
+  <update id="updatePhoneOrEmailToNull" parameterType="com.film.model.User">
+    UPDATE USER
+    <trim prefix="set" suffixOverrides=",">
+      <if test="email == null">
+        email = #{email, jdbcType=VARCHAR}
+      </if>
+      <if test="phone == null">
+        phone = #{phone, jdbcType=VARCHAR}
+      </if>
+    </trim>
+  </update>
 </mapper>
