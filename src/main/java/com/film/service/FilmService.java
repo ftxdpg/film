@@ -1,6 +1,7 @@
 package com.film.service;
 
 import com.film.model.Film;
+import com.film.model.Types;
 import com.film.util.PageUtil;
 
 import java.util.List;
@@ -18,4 +19,7 @@ public interface FilmService extends BaseService<Film> {
 
     // 电影列表--异步分页
     PageUtil<Film> getListByAjax(Integer page, Integer size);
+
+    // 修改电影
+    void update(Film film, String[] types) throws Exception;
 }

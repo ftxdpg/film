@@ -152,7 +152,7 @@
 
 					<div class="formRow">
                         <label>电影类型:</label>
-                        <div class="formRight"><input disabled="disabled" type="text" value="<c:forEach items='${film.typesList}' var='type'>${type.typeName}</c:forEach> "/></div>
+                        <div class="formRight"><input disabled="disabled" type="text" value="<c:forEach items='${film.typesList}' var='type'>${type.typeName}&nbsp;</c:forEach> "/></div>
                         <div class="clear"></div>
                     </div>
                     

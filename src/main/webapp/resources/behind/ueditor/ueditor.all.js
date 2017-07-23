@@ -10402,7 +10402,7 @@ UE.commands['inserthtml'] = {
                 }else{
 
                     try{
-                        child.innerHTML = browser.ie ? domUtils.fillChar : '<br/>';
+                        // child.innerHTML = browser.ie ? domUtils.fillChar : '<br/>';
                     }catch(e){
                         range.setStartBefore(child);
                         domUtils.remove(child)
@@ -10478,8 +10478,6 @@ UE.plugins['autotypeset'] = function(){
             'li':1
         },
         tags = {
-            div:1,
-            p:1,
             //trace:2183 这些也认为是行
             blockquote:1,center:1,h1:1,h2:1,h3:1,h4:1,h5:1,h6:1,
             span:1
@@ -13300,7 +13298,7 @@ UE.plugins['insertcode'] = function() {
     };
 
     me.addInputRule(function(root){
-       utils.each(root.getNodesByTagName('pre'),function(pre){
+       /*utils.each(root.getNodesByTagName('pre'),function(pre){
            var brs = pre.getNodesByTagName('br');
            if(brs.length){
                browser.ie && browser.ie11below && browser.version > 8 && utils.each(brs,function(br){
@@ -13320,7 +13318,7 @@ UE.plugins['insertcode'] = function() {
                 }
                 pre.appendChild(UE.uNode.createElement('br'))
             })
-       })
+       })*/
     });
     me.addOutputRule(function(root){
         utils.each(root.getNodesByTagName('pre'),function(pre){

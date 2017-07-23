@@ -113,7 +113,7 @@
 
         <li class="forms"><a href="#" title="" class="exp"><span>新增</span><strong>2</strong></a>
             <ul class="sub">
-                <li><a href="${pageContext.request.contextPath}/film/newFilm" title="">新增电影</a></li>
+                <li><a href="${pageContext.request.contextPath}/film/newFilmUI" title="">新增电影</a></li>
             </ul>
         </li>
         <div class="sidebarSep"></div>
@@ -222,7 +222,7 @@
                                     <a class="smallButton" href="${pageContext.request.contextPath}/film/filmInfo?id=${film.filmid}" style="margin: 5px;">
                                         <img src="${pageContext.request.contextPath}/resources/behind/images/icons/dark/magnify.png" alt="查看">
                                     </a>
-                                    <a class="smallButton" href="${pageContext.request.contextPath}/film/updateFilm" style="margin: 5px;">
+                                    <a class="smallButton" href="${pageContext.request.contextPath}/film/updateFilmUI" style="margin: 5px;">
                                         <img src="${pageContext.request.contextPath}/resources/behind/images/icons/color/pencil.png" alt="修改">
                                     </a>
                                     <a class="smallButton" href="${pageContext.request.contextPath}/film/deleteFilm" title="" style="margin: 5px;">

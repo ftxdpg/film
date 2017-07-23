@@ -6,27 +6,23 @@ import com.film.service.FilmService;
 import com.film.util.FilmResult;
 import com.film.util.IDUtils;
 import com.film.util.PageUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.io.FileUtils;
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -89,9 +85,38 @@ public class FilmController {
 
     // 修改电影
     @RequestMapping("/updateFilm")
-    public String updateFilm(Film film){
-        filmService.insert(film);
-        return "behind/film/updateUI";
+    public String updateFilm(Film film, @RequestParam("imgs") CommonsMultipartFile imgs, String[] type, HttpServletRequest request, Model model){
+        try {
+            if (film == null || film.getCreatetime() == null || film.getName() == null || type == null || film.getActor() == null || film.getDirector() == null || film.getPrice() == null || film.getPoint()== null || film.getContry() == null || film.getIntroduction() == null){
+                model.addAttribute("result", "信息不完整，请重新确认");
+                return info(film.getFilmid(),model);
+            }
+
+            if (imgs != null && imgs.getSize() != 0) {
+                // 获取服务器路径
+                ServletContext context = request.getSession().getServletContext();
+                String realPath = context.getRealPath("/resources/behind/images");
+
+                String originalFilename = imgs.getOriginalFilename();
+
+                String newFileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
+                // 复制文件
+                File newFile = new File(realPath, newFileName);
+                imgs.transferTo(newFile);
+                film.setImg(newFileName);
+            }
+
+            // 修改信息
+            filmService.update(film,type);
+
+            // 跳转回信息显示
+            Film film1 = filmService.selectByPrimaryKey(film.getFilmid());
+            return info(film1.getFilmid(), model);
+        }catch (Exception e){
+            e.printStackTrace();
+            model.addAttribute("result","内部错误，请稍后再试");
+            return updateFilmUI(film.getFilmid(), model);
+        }
     }
 
     // 移除电影
@@ -233,7 +258,7 @@ public class FilmController {
                                 "                                    <a class=\"smallButton\" href=\""+request.getContextPath()+"/film/filmInfo?id="+film.getFilmid()+"\" style=\"margin: 5px;\">\n" +
                                 "                                        <img src=\""+request.getContextPath()+"/resources/behind/images/icons/dark/magnify.png\" alt=\"查看\">\n" +
                                 "                                    </a>\n" +
-                                "                                    <a class=\"smallButton\" href=\""+request.getContextPath()+"/film/updateFilm\" style=\"margin: 5px;\">\n" +
+                                "                                    <a class=\"smallButton\" href=\""+request.getContextPath()+"/film/updateFilmUI?id="+film.getFilmid()+"\" style=\"margin: 5px;\">\n" +
                                 "                                        <img src=\""+request.getContextPath()+"/resources/behind/images/icons/color/pencil.png\" alt=\"修改\">\n" +
                                 "                                    </a>\n" +
                                 "                                    <a class=\"smallButton\" href=\"${pageContext.request.contextPath}/film/deleteFilm\" title=\"\" style=\"margin: 5px;\">\n" +

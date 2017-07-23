@@ -1,8 +1,11 @@
 package com.film.model;
 
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import java.util.List;
-import javax.persistence.*;
 
 @Table(name = "film")
 public class Film {
@@ -10,24 +13,34 @@ public class Film {
     @Column(name = "filmId")
     private Integer filmid;
 
+    @NotNull
     private String actor;
 
+    @NotNull
     private String contry;
 
+    @NotNull
     private String createtime;
 
+    @NotNull
     private String director;
 
+    @NotNull
     private String img;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private Double point;
 
+    @NotNull
     private String time;
 
+    @NotNull
     private String introduction;
 
+    @NotNull
     private Double price;
 
     // 当前页

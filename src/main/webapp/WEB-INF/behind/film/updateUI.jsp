@@ -169,7 +169,8 @@
         </c:if>
 
         <!-- 正文 -->
-        <form id="validate" class="form" method="post" action="${pageContext.request.contextPath}/film/newFilm" enctype="multipart/form-data">
+        <form id="validate" class="form" method="post" action="${pageContext.request.contextPath}/film/updateFilm" enctype="multipart/form-data">
+            <input type="hidden" name="filmid" id="filmid" value="${film.filmid}"/>
             <fieldset>
                 <div class="widget">
                     <div class="title"><img src="${pageContext.request.contextPath}/resources/behind/images/icons/dark/alert.png" alt="" class="titleIcon" /><h6>修改电影</h6></div>
@@ -252,13 +253,12 @@
                         <div class="clear"></div>
                     </div>
 
-                    <div class="formRow">
+                    <div class="formRow" style="padding-right: 15px;">
                         <label>图片:<span class="req">*</span></label>
-                        <div class="formRight">
-                            <div id="uniform-file" class="uploader">
-                                <img width="50px" height="75px" src="${pageContext.request.contextPath}/resources/behind/images/${film.img}" alt="无法显示图片"/>
-                                <input value="${film.img}" id="imgs" name="imgs" class="validate[required]" size="25" type="file">
-                            </div>
+                        <div id="imgInfo" class="formRight">
+                            <img id="image" width="100px" height="150px" src="${pageContext.request.contextPath}/resources/behind/images/${film.img}" alt=""/>
+                            <input id="imgs" name="imgs" size="25" type="file">
+                            <input name="img" id="img" value="${film.img}" type="hidden"/>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -280,7 +280,7 @@
 <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/behind/ueditor/ueditor.all.min.js"> </script>
 <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/behind/ueditor/lang/zh-cn/zh-cn.js"></script>
 
-<script>
+<script type="text/javascript">
     window.UEDITOR_HOME_URL = "${pageContext.request.contextPath}/resources/behind/ueditor/";
     var ue = UE.getEditor('introduction');
 
@@ -308,7 +308,7 @@
     // 异步检测电影名
     function testName() {
         var name = $("#name")[0].value;
-        if (name == null) {
+        if (name == ${film.name}) {
         } else {
             $.ajax({
                 url: "${pageContext.request.contextPath}/film/testFilmName",

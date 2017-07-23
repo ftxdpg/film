@@ -95,10 +95,26 @@ public class FilmServiceImpl implements FilmService{
         return filmMapper.selectFilmAndTypesInfo1(film).get(0);
     }
 
-    // 修改电影
     @Override
     public void updateByPrimaryKey(Film film) {
+
+    }
+
+    // 修改电影
+    @Override
+    public void update(Film film, String[] types) throws Exception{
+        FilmType filmType = null;
+        // 修改电影
         filmMapper.updateByPrimaryKey(film);
+
+        // 删除类型
+        filmTypeMapper.delete(new FilmType(film.getFilmid(), null));
+
+        // 获取类型，修改类型
+        for (String typ: types) {
+            filmType = new FilmType(film.getFilmid(), Integer.parseInt(typ));
+            filmTypeMapper.insert(filmType);
+        }
     }
 
     @Override

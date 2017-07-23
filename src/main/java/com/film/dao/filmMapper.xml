@@ -29,7 +29,8 @@
     contry
   </sql>
   <sql id="typeSelect">
-    typeName
+    typeName,
+    typeId
   </sql>
 
   <select id="selectFilmAndTypesInfo1" parameterType="com.film.model.Film" resultMap="types">
