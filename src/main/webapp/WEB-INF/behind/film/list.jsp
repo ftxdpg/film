@@ -134,12 +134,10 @@
                 <ul>
                     <li class="dd"><a href="#" title=""><img
                             src="${pageContext.request.contextPath}/resources/behind/images/icons/topnav/profile.png"
-                            alt=""/><span>账号</span><span class="numberTop">2</span></a>
+                            alt=""/><span>账号</span><span class="numberTop">1</span></a>
                         <ul class="userDropdown">
                             <li><a href="${pageContext.request.contextPath}/film/admin/info" class="sAdd">查看账号信息</a>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/resources/behind/admin/update"
-                                   class="sInbox">更改账号信息</a></li>
                         </ul>
                     </li>
                     <li><a href="${pageContext.request.contextPath}/common/logout" title=""><img
@@ -159,6 +157,7 @@
                 <h5>电影列表</h5>
             </div>
         </div>
+        <button class="button redB" type="submit" onclick="deleteAll()"  style="margin: 21px 5px 5px 900px;">选中删除</button>
     </div>
 
     <!-- Main content wrapper -->
@@ -168,11 +167,7 @@
         <div class="widget">
             <div class="title">
                 <span class="titleIcon">
-                    <div id="uniform-titleCheck" class="checker">
-                        <span>
-                            <input id="titleCheck" name="titleCheck" style="opacity: 0;" type="checkbox">
-                        </span>
-                    </div>
+                    <input id="titleCheck" name="titleCheck" style="opacity: 0;" type="checkbox">
                 </span>
                 <h6>电影列表</h6>
                 &nbsp;&nbsp;&nbsp;
@@ -198,12 +193,10 @@
                 <tbody id = "t_body">
                     <c:if test="${!empty page.data}">
                         <c:forEach items="${page.data}" var="film">
-                            <tr id="filmTable">
+                            <tr>
                                 <td>
                                     <div id="uniform-titleCheck2" class="checker">
-                                        <span>
-                                            <input id="check_${film.filmid}" name="checkRow" style="opacity: 0;" type="checkbox" value="${film.filmid}">
-                                        </span>
+                                        <input id="check_${film.filmid}" onclick="choose(${film.filmid})" name="checkRow" style="opacity: 0;" type="checkbox" value="${film.filmid}">
                                     </div>
                                 </td>
                                 <td align="center">
@@ -225,7 +218,7 @@
                                     <a class="smallButton" href="${pageContext.request.contextPath}/film/updateFilmUI" style="margin: 5px;">
                                         <img src="${pageContext.request.contextPath}/resources/behind/images/icons/color/pencil.png" alt="修改">
                                     </a>
-                                    <a class="smallButton" href="${pageContext.request.contextPath}/film/deleteFilm" title="" style="margin: 5px;">
+                                    <a class="smallButton" onclick="deleteOne(${film.filmid})" title="" style="margin: 5px;">
                                         <img src="${pageContext.request.contextPath}/resources/behind/images/icons/dark/close.png" alt="删除">
                                     </a>
                                 </td>
@@ -302,6 +295,58 @@
             url:"${pageContext.request.contextPath}/film/ajaxList",
             type:"post",
             data:{"page":page, "size":size},
+            success: function (result) {
+                var $tbody = $("#t_body");
+                var $pagesinfo = $("#pagesInfo");
+                if (result.status == 200) {
+                    $tbody.empty();
+                    $tbody.append(result.msg);
+                    $pagesinfo.empty();
+                    $pagesinfo.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 选中删除
+    function deleteAll() {
+        // 定义数组
+        var ids = [];
+        // 遍历每一个name为check_的复选框
+        $('input[name="checkRow"]:checked').each(function (){
+            // 将选中的值加入到ids数组中
+            ids.push($.trim($(this).val()));
+        });
+        var data = {films:ids};
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/deleteAll",
+            type:"post",
+            data:data,
+            success: function (result) {
+                var $tbody = $("#t_body");
+                var $pagesinfo = $("#pagesInfo");
+                if (result.status == 200) {
+                    $tbody.empty();
+                    $tbody.append(result.msg);
+                    $pagesinfo.empty();
+                    $pagesinfo.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 单个删除
+    function deleteOne(filmId) {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/deleteOne",
+            type:"post",
+            data:{"id":filmId},
             success: function (result) {
                 var $tbody = $("#t_body");
                 var $pagesinfo = $("#pagesInfo");

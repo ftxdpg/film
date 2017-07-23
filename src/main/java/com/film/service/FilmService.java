@@ -1,10 +1,7 @@
 package com.film.service;
 
 import com.film.model.Film;
-import com.film.model.Types;
 import com.film.util.PageUtil;
-
-import java.util.List;
 
 /**
  * Created by 曹金洲.
@@ -22,4 +19,10 @@ public interface FilmService extends BaseService<Film> {
 
     // 修改电影
     void update(Film film, String[] types) throws Exception;
+
+    // 删除选中
+    void removeAll(Integer[] ids) throws Exception;
+
+    // 删除单个
+    void deleteOne(Integer id) throws Exception;
 }

@@ -58,6 +58,13 @@ public class Film {
     @Transient
     private List<UserFilm> userFilms;
 
+    public Film() {
+    }
+
+    public Film(Integer filmid) {
+        this.filmid = filmid;
+    }
+
     public Integer getFilmid() {
         return filmid;
     }

@@ -117,6 +117,22 @@ public class FilmServiceImpl implements FilmService{
         }
     }
 
+    // 删除选中
+    @Override
+    public void removeAll(Integer[] ids) throws Exception{
+        for (Integer id : ids){
+            filmTypeMapper.delete(new FilmType(id,null));
+            filmMapper.delete(new Film(id));
+        }
+    }
+
+    // 删除单个
+    @Override
+    public void deleteOne(Integer id) throws Exception{
+        filmTypeMapper.delete(new FilmType(id,null));
+        filmMapper.delete(new Film(id));
+    }
+
     @Override
     public Film login(Film film) {
         return null;

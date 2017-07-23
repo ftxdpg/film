@@ -3,6 +3,7 @@ package com.film.controller;
 import com.film.model.Film;
 import com.film.model.Types;
 import com.film.service.FilmService;
+import com.film.util.BehindAjaxResult;
 import com.film.util.FilmResult;
 import com.film.util.IDUtils;
 import com.film.util.PageUtil;
@@ -23,7 +24,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -230,73 +234,11 @@ public class FilmController {
     public FilmResult ajaxList(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "5")Integer size, HttpServletRequest request){
         try {
             PageUtil<Film> films = filmService.getListByAjax(page, size);
-            String table = "";
-            // 电影列表相关
-            for (Film film : films.getData()) {
-                String type = "";
-                for (Types t : film.getTypesList()){
-                    type += t.getTypeName()+" ";
-                }
-                table +=
-                                "                            <tr id=\"filmTable\">\n" +
-                                "                                <td>\n" +
-                                "                                    <div id=\"uniform-titleCheck2\" class=\"checker\">\n" +
-                                "                                        <span>\n" +
-                                "                                            <input id=\"check_${"+film.getFilmid()+"}\" name=\"checkRow\" style=\"opacity: 0;\" type=\"checkbox\" value=\"${"+film.getFilmid()+"}\">\n" +
-                                "                                        </span>\n" +
-                                "                                    </div>\n" +
-                                "                                </td>\n" +
-                                "                                <td align=\"center\">\n" +
-                                "                                    <img src=\""+request.getContextPath()+"/resources/behind/images/"+film.getImg()+"\" width=\"50px\" height=\"75px\" alt=\"图片无法显示\"/>\n" +
-                                "                                </td>\n" +
-                                "                                <td style=\"border-left-color: rgb(203, 203, 203);\" align=\"center\">"+film.getName()+"</td>\n" +
-                                "                                <td align=\"center\">\n" +
-                                "                                    "+type+
-                                "                                </td>\n" +
-                                "                                <td align=\"center\">"+film.getCreatetime()+"</td>\n" +
-                                "                                <td align=\"center\">\n" +
-                                "                                    <a class=\"smallButton\" href=\""+request.getContextPath()+"/film/filmInfo?id="+film.getFilmid()+"\" style=\"margin: 5px;\">\n" +
-                                "                                        <img src=\""+request.getContextPath()+"/resources/behind/images/icons/dark/magnify.png\" alt=\"查看\">\n" +
-                                "                                    </a>\n" +
-                                "                                    <a class=\"smallButton\" href=\""+request.getContextPath()+"/film/updateFilmUI?id="+film.getFilmid()+"\" style=\"margin: 5px;\">\n" +
-                                "                                        <img src=\""+request.getContextPath()+"/resources/behind/images/icons/color/pencil.png\" alt=\"修改\">\n" +
-                                "                                    </a>\n" +
-                                "                                    <a class=\"smallButton\" href=\"${pageContext.request.contextPath}/film/deleteFilm\" title=\"\" style=\"margin: 5px;\">\n" +
-                                "                                        <img src=\""+request.getContextPath()+"/resources/behind/images/icons/dark/close.png\" alt=\"删除\">\n" +
-                                "                                    </a>\n" +
-                                "                                </td>\n" +
-                                "                            </tr>\n";
-            }
+            // table相关
+            String table = BehindAjaxResult.table(films,request);
+            // 分页相关
+            String info = BehindAjaxResult.page(films);
 
-            // 底部分页信息相关
-            String info = "<ul class=\"pages\" id=\"pagesInfo\">\n" +
-                    "            <li>\n" +
-                    "                <input class=\"basic\" value=\"第一页\" style=\"margin: 5px;\" onclick=\"page("+films.getFirstPage()+","+films.getPageSize()+")\" type=\"button\">\n" +
-                    "            </li>\n" +
-                    "            <li>\n" +
-                    "                <input class=\"basic\" value=\"<\" style=\"margin: 5px;\" onclick=\"page("+films.getPrePage()+","+films.getPageSize()+")\" type=\"button\">\n" +
-                    "            </li>\n" +
-                    "            <li>\n" +
-                    "                当前第"+films.getCurrentPage()+"页\n" +
-                    "            </li>\n" +
-                    "            &nbsp;\n" +
-                    "            <li>\n" +
-                    "                总共"+films.getTotalPage()+"页\n" +
-                    "            </li>\n" +
-                    "            <li>\n" +
-                    "            <li>\n" +
-                    "                <input class=\"basic\" value=\">\" style=\"margin: 5px;\" onclick=\"page("+films.getNextPage()+","+films.getPageSize()+")\" type=\"button\">\n" +
-                    "            </li>\n" +
-                    "            <li>\n" +
-                    "                <input class=\"basic\" value=\"最后一页\" style=\"margin: 5px;\" onclick=\"page("+films.getTotalPage()+","+films.getPageSize()+")\" type=\"button\">\n" +
-                    "            </li>\n" +
-                    "            <li>\n" +
-                    "                每页显示&nbsp;<input type=\"text\" id=\"my_size\" title=\"\" value="+films.getPageSize()+" onblur=\"selfPage()\" style=\"width: 30px; height: 20px;\"/>&nbsp;条\n" +
-                    "            </li>\n" +
-                    "            <li>\n" +
-                    "                跳转到&nbsp;<input type=\"text\" id=\"my_page\" title=\"\" value="+films.getCurrentPage()+" onblur=\"selfPage()\" style=\"width: 30px; height: 20px;\"/>&nbsp;页\n" +
-                    "            </li>\n" +
-                    "        </ul>";
             return new FilmResult(200, table, info);
         } catch (Exception e){
             return new FilmResult(500, null, null);
@@ -328,5 +270,43 @@ public class FilmController {
         Film film = filmService.selectByPrimaryKey(id);
         model.addAttribute("film", film);
         return "behind/film/info";
+    }
+
+    // 删除多个电影
+    @RequestMapping("/deleteAll")
+    @ResponseBody
+    public FilmResult deleteAll(@RequestParam("films[]") Integer[] ids, HttpServletRequest request){
+        try {
+            filmService.removeAll(ids);
+            PageUtil<Film> films = filmService.getListByAjax(1, 5);
+            // table相关
+            String table = BehindAjaxResult.table(films,request);
+            // 分页相关
+            String info = BehindAjaxResult.page(films);
+
+            return new FilmResult(200, table, info);
+        } catch (Exception e){
+            e.printStackTrace();
+            return new FilmResult(500, null, null);
+        }
+    }
+
+    // 删除单个电影
+    @RequestMapping("/deleteOne")
+    @ResponseBody
+    public FilmResult deleteAll(Integer id, HttpServletRequest request){
+        try {
+            filmService.deleteOne(id);
+            PageUtil<Film> films = filmService.getListByAjax(1, 5);
+            // table相关
+            String table = BehindAjaxResult.table(films,request);
+            // 分页相关
+            String info = BehindAjaxResult.page(films);
+
+            return new FilmResult(200, table, info);
+        } catch (Exception e){
+            e.printStackTrace();
+            return new FilmResult(500, null, null);
+        }
     }
 }
