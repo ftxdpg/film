@@ -1,15 +1,14 @@
 package com.film.controller;
 
-import com.film.model.Mail;
-import com.film.model.User;
+import com.film.model.*;
+import com.film.service.FilmService;
+import com.film.service.TypeService;
 import com.film.service.UserService;
-import com.film.util.FilmResult;
-import com.film.util.MailUtil;
-import com.film.util.ValidatedEmail;
-import com.film.util.ValidatedPhone;
+import com.film.util.*;
 import com.film.util.msg.IndustrySMS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by 曹金洲.
@@ -33,9 +33,20 @@ public class CommonController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private TypeService typeService;
+
+    @Autowired
+    private FilmService filmService;
+
     // 首页
     @RequestMapping("/index")
-    public String index(){
+    public String index(Model model){
+        // 置顶的5条电影
+        List<Film> fiveTopFilms = filmService.selectTopFilms(new PageUtil(0,6));
+        // 正在上映的前8条电影
+        List<Film> onNowFilms = filmService.selectTopFilms(new PageUtil(0, 8));
+        model.addAttribute("indexInfo", new IndexInfo(fiveTopFilms,onNowFilms,null));
         return "index";
     }
 

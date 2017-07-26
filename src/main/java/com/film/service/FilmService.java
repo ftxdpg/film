@@ -3,6 +3,8 @@ package com.film.service;
 import com.film.model.Film;
 import com.film.util.PageUtil;
 
+import java.util.List;
+
 /**
  * Created by 曹金洲.
  * 创建的时间：2017/7/13.
@@ -25,4 +27,7 @@ public interface FilmService extends BaseService<Film> {
 
     // 删除单个
     void deleteOne(Integer id) throws Exception;
+
+    // 5条置顶电影
+    List<Film> selectTopFilms(PageUtil pageUtil);
 }

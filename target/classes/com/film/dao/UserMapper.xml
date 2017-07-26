@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.film.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.film.model.User" >
-    <id column="uid" property="uid" jdbcType="INTEGER" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="VARCHAR" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.film.model.User" >
+        <id column="uid" property="uid" jdbcType="INTEGER" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+    </resultMap>
 
-  <!-- 是否有相同的昵称 -->
-  <select id="selectByName" parameterType="java.lang.String" resultType="int">
-    SELECT COUNT(NAME)
-    FROM user
-    WHERE NAME = #{name}
-  </select>
+    <!-- 是否有相同的昵称 -->
+    <select id="selectByName" parameterType="java.lang.String" resultType="int">
+        SELECT COUNT(NAME)
+        FROM user
+        WHERE NAME = #{name}
+    </select>
 
   <!-- 是否有相同的邮箱 -->
   <select id="selectByEmail" parameterType="java.lang.String" resultType="int">
@@ -22,23 +22,48 @@
     WHERE email = #{email}
   </select>
 
-  <!-- 是否有相同的手机号 -->
-  <select id="selectByPhone" parameterType="java.lang.String" resultType="int">
-    SELECT COUNT(phone)
-    FROM user
-    WHERE phone = #{phone}
-  </select>
+    <!-- 是否有相同的手机号 -->
+    <select id="selectByPhone" parameterType="java.lang.String" resultType="int">
+        SELECT COUNT(phone)
+        FROM user
+        WHERE phone = #{phone}
+    </select>
 
-  <!-- 更新数据，可以插入null -->
-  <update id="updatePhoneOrEmailToNull" parameterType="com.film.model.User">
-    UPDATE USER
-    <trim prefix="set" suffixOverrides=",">
-      <if test="email == null">
-        email = #{email, jdbcType=VARCHAR}
-      </if>
-      <if test="phone == null">
-        phone = #{phone, jdbcType=VARCHAR}
-      </if>
-    </trim>
-  </update>
+    <!-- 更新数据，可以插入null -->
+    <update id="updatePhoneOrEmailToNull" parameterType="com.film.model.User">
+        UPDATE USER
+        <trim prefix="set" suffixOverrides=",">
+          <if test="email == null">
+            email = #{email, jdbcType=VARCHAR}
+          </if>
+          <if test="phone == null">
+            phone = #{phone, jdbcType=VARCHAR}
+          </if>
+        </trim>
+    </update>
+
+    <!-- 用户与电影的收藏关系+分页 -->
+    <select id="selectUserFilm" parameterType="com.film.model.UserFilm" resultMap="collections">
+        SELECT f.filmId, f.name, f.img, f.point, f.price
+        FROM user_film uf
+        INNER JOIN film f
+        ON uf.film_id = f.filmId
+        WHERE uf.user_id = #{userId}
+        limit #{page},#{size}
+    </select>
+
+    <!-- 用户与电影的收藏关系——返回结果 -->
+    <resultMap id="collections" type="com.film.model.User" extends="BaseResultMap">
+        <collection property="films" ofType="com.film.model.Film">
+            <id column="filmId" jdbcType="INTEGER" property="filmid"/>
+            <result column="actor" jdbcType="VARCHAR" property="actor"/>
+            <result column="contry" jdbcType="VARCHAR" property="contry"/>
+            <result column="createtime" jdbcType="VARCHAR" property="createtime"/>
+            <result column="director" jdbcType="VARCHAR" property="director"/>
+            <result column="img" jdbcType="VARCHAR" property="img"/>
+            <result column="name" jdbcType="VARCHAR" property="name"/>
+            <result column="point" jdbcType="DOUBLE" property="point"/>
+            <result column="price" jdbcType="DOUBLE" property="price"/>
+        </collection>
+    </resultMap>
 </mapper>

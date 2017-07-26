@@ -30,21 +30,17 @@
     <!-- Custom -->
     <link href="${pageContext.request.contextPath}/resources/css/style.css?v=1" rel="stylesheet" />
 
-
     <!-- Modernizr -->
     <script src="${pageContext.request.contextPath}/resources/js/external/modernizr.custom.js"></script>
 </head>
 
 <body>
 <div class="wrapper">
-    <!-- Banner -->
-
-
     <!-- Header section -->
     <header class="header-wrapper header-wrapper--home">
         <div class="container">
             <!-- Logo link-->
-            <a href='index.html' class="logo">
+            <a href='${pageContext.request.contextPath}/common/index' class="logo">
                 <img alt='logo' src="${pageContext.request.contextPath}/resources/images/logo.png">
             </a>
 
@@ -61,32 +57,10 @@
 
                 <!-- Link navigation -->
                 <ul id="navigation">
-                    <li>
-                        <span class="sub-nav-toggle plus"></span>
-                        <a href="">观看历史</a>
-                        <ul>
-                            <li class="menu__nav-item"><a href="gallery-four.html">4 col gallery</a></li>
-                            <li class="menu__nav-item"><a href="gallery-three.html">3 col gallery</a></li>
-                            <li class="menu__nav-item"><a href="gallery-two.html">2 col gallery</a></li>
-                        </ul>
-                    </li>
 
                     <li>
                         <span class="sub-nav-toggle plus"></span>
-                        <a href="">消息</a>
-                        <ul>
-                            <li class="menu__nav-item"><a href="news-left.html">News (rigth sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="news-right.html">News (left sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="news-full.html">News (full widht)</a></li>
-                            <li class="menu__nav-item"><a href="single-page-left.html">Single post (rigth sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="single-page-right.html">Single post (left sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="single-page-full.html">Single post (full widht)</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <span class="sub-nav-toggle plus"></span>
-                        <a href="">电影分类</a>
+                        <a href="" style="margin-left: 290px;">电影分类</a>
                         <ul class="mega-menu container">
                             <li class="col-md-3 mega-menu__coloum">
                                 <ul class="mega-menu__list">
@@ -125,51 +99,6 @@
                             </li>
                         </ul>
                     </li>
-
-                    <li>
-                        <span class="sub-nav-toggle plus"></span>
-                        <a href="">电影院信息</a>
-                        <ul class="mega-menu container">
-                            <li class="col-md-3 mega-menu__coloum">
-                                <h4 class="mega-menu__heading">电影院准备上映</h4>
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">The Counselor</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Bad Grandpa</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Blue Is the Warmest Color</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Capital</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Spinning Plates</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Bastards</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="col-md-3 mega-menu__coloum mega-menu__coloum--outheading">
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">Gravity</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Captain Phillips</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Carrie</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Cloudy with a Chance of Meatballs 2</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="col-md-3 mega-menu__coloum">
-                                <h4 class="mega-menu__heading">电影院准备结束</h4>
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">Escape Plan</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Rush</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Prisoners</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Enough Said</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">The Fifth Estate</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Runner Runner</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="col-md-3 mega-menu__coloum mega-menu__coloum--outheading">
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">Insidious: Chapter 2</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </nav>
 
@@ -187,10 +116,8 @@
                                     ${sessionScope.user.name}
                             </a>
                             <ul class="auth__function">
-                                <li><a href="#" class="auth__function-item">收藏列表</a></li>
-                                <li><a href="#" class="auth__function-item">已购影票</a></li>
-                                <li><a href="#" class="auth__function-item">讨论过的</a></li>
-                                <li><a href="${pageContext.request.contextPath}/film/user/userInfo" class="auth__function-item">用户信息</a></li>
+                                <li><a href="#" class="auth__function-item">我的动态</a></li>
+                                <li><a href="#" class="auth__function-item">用户设置</a></li>
                                 <li><a href="#" class="auth__function-item">注销</a></li>
                             </ul>
                         </div>
@@ -487,104 +414,29 @@ Start doing.'>
     <!-- Main content -->
     <section class="container">
         <div class="movie-best">
-            <div class="col-sm-10 col-sm-offset-1 movie-best__rating">今天最佳选择</div>
+            <div class="col-sm-10 col-sm-offset-1 movie-best__rating">最佳选择</div>
             <div class="col-sm-12 change--col">
-                <div class="movie-beta__item ">
-                    <img alt='' src="${pageContext.request.contextPath}/resources/images/m1.jpg">
-                    <span class="best-rate">5.0</span>
+                <c:forEach items="${indexInfo.up}" var="topFive">
+                    <div class="movie-beta__item ">
+                        <img alt='' src="${pageContext.request.contextPath}/resources/behind/images/${topFive.img}" width="190" height="300">
+                        <span class="best-rate">${topFive.point}</span>
 
-                    <ul class="movie-beta__info">
-                        <li><span class="best-voted">71人投票</span></li>
-                        <li>
-                            <p class="movie__time">169 分钟</p>
-                            <p>冒险 | 喜剧 | 幻想 </p>
-                            <p>38 评论</p>
-                        </li>
-                        <li class="last-block">
-                            <a href="movie-page-left.html" class="slide__link">更多详情</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="movie-beta__item second--item">
-                    <img alt='' src="${pageContext.request.contextPath}/resources/images/m2.jpg">
-                    <span class="best-rate">5.0</span>
-
-                    <ul class="movie-beta__info">
-                        <li><span class="best-voted">71 people voted today</span></li>
-                        <li>
-                            <p class="movie__time">169 min</p>
-                            <p>Adventure | Drama | Fantasy </p>
-                            <p>38 comments</p>
-                        </li>
-                        <li class="last-block">
-                            <a href="movie-page-left.html" class="slide__link">more</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="movie-beta__item third--item">
-                    <img alt='' src="${pageContext.request.contextPath}/resources/images/m3.jpg">
-                    <span class="best-rate">5.0</span>
-
-                    <ul class="movie-beta__info">
-                        <li><span class="best-voted">71 people voted today</span></li>
-                        <li>
-                            <p class="movie__time">169 min</p>
-                            <p>Adventure | Drama | Fantasy </p>
-                            <p>38 comments</p>
-                        </li>
-                        <li class="last-block">
-                            <a href="movie-page-left.html" class="slide__link">more</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="movie-beta__item hidden-xs">
-                    <img alt='' src="${pageContext.request.contextPath}/resources/images/m4.jpg">
-                    <span class="best-rate">5.0</span>
-
-                    <ul class="movie-beta__info">
-                        <li><span class="best-voted">71 people voted today</span></li>
-                        <li>
-                            <p class="movie__time">169 min</p>
-                            <p>Adventure | Drama | Fantasy </p>
-                            <p>38 comments</p>
-                        </li>
-                        <li class="last-block">
-                            <a href="movie-page-left.html" class="slide__link">more</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="movie-beta__item hidden-xs hidden-sm">
-                    <img alt='' src="${pageContext.request.contextPath}/resources/images/380-60.png">
-                    <span class="best-rate">5.0</span>
-
-                    <ul class="movie-beta__info">
-                        <li><span class="best-voted">71 people voted today</span></li>
-                        <li>
-                            <p class="movie__time">169 min</p>
-                            <p>Adventure | Drama | Fantasy </p>
-                            <p>38 comments</p>
-                        </li>
-                        <li class="last-block">
-                            <a href="movie-page-left.html" class="slide__link">more</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="movie-beta__item hidden-xs hidden-sm">
-                    <img alt='' src="${pageContext.request.contextPath}/resources/images/380-60.png">
-                    <span class="best-rate">5.0</span>
-
-                    <ul class="movie-beta__info">
-                        <li><span class="best-voted">71 people voted today</span></li>
-                        <li>
-                            <p class="movie__time">169 min</p>
-                            <p>Adventure | Drama | Fantasy </p>
-                            <p>38 comments</p>
-                        </li>
-                        <li class="last-block">
-                            <a href="movie-page-left.html" class="slide__link">more</a>
-                        </li>
-                    </ul>
-                </div>
+                        <ul class="movie-beta__info">
+                            <li>
+                                <p class="movie__time">${topFive.time}</p>
+                                <p>
+                                    <c:forEach items="${topFive.typesList}" var="type">
+                                        ${type.typeName} |
+                                    </c:forEach>
+                                </p>
+                                <p>38 评论</p>
+                            </li>
+                            <li class="last-block">
+                                <a href="${pageContext.request.contextPath}/film/frontInfo?id=${topFive.filmid}" class="slide__link">更多详情</a>
+                            </li>
+                        </ul>
+                    </div>
+                </c:forEach>
             </div>
             <div class="col-sm-10 col-sm-offset-1 movie-best__check">查看正在热映的电影</div>
         </div>
@@ -592,9 +444,6 @@ Start doing.'>
         <div class="col-sm-12">
             <div class="mega-select-present mega-select-top mega-select--full">
                 <div class="mega-select-marker">
-                    <div class="marker-indecator location">
-                        <p class="select-marker"><span>你们</span> <br>附近的电影</p>
-                    </div>
 
                     <div class="marker-indecator cinema">
                         <p class="select-marker"><span>现有电影</span> <br>在电影院</p>
@@ -620,9 +469,7 @@ Start doing.'>
                 <div class="mega-select pull-right">
                     <span class="mega-select__point">Search by</span>
                     <ul class="mega-select__sort">
-                        <li class="filter-wrap"><a href="#" class="mega-select__filter filter--active" data-filter='location'>附近的</a></li>
-                        <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='cinema'>电影院</a></li>
-                        <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='film-category'>类型</a></li>
+                        <li class="filter-wrap"><a href="#" class="mega-select__filter filter--active" data-filter='film-category'>类型</a></li>
                         <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='actors'>明星</a></li>
                         <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='director'>导演</a></li>
                         <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='country'>国家</a></li>
@@ -701,29 +548,73 @@ Start doing.'>
 
         <div class="clearfix"></div>
 
-        <h2 id='target' class="page-heading heading--outcontainer">电影院正在上映的</h2>
+        <h2 id='target' class="page-heading heading--outcontainer">In the Cinema Now</h2>
 
         <div class="col-sm-12">
             <div class="row">
-                <div class="col-sm-8 col-md-9">
+                <div class="col-sm-8 col-md-12">
                     <!-- Movie variant with time -->
                     <div class="movie movie--test movie--test--dark movie--test--left">
                         <div class="movie__images">
-                            <a href="movie-page-left.html" class="movie-beta__link">
-                                <img alt='' src="${pageContext.request.contextPath}/resources/images/424-424.png">
+                            <a href="${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(0).filmid}" class="movie-beta__link">
+                                <img alt='${pageContext.request.contextPath}/resources/images/424-424.png' src="${pageContext.request.contextPath}/resources/behind/images/${indexInfo.onNow.get(0).img}" width="200" height="200">
                             </a>
                         </div>
 
                         <div class="movie__info">
-                            <a href='movie-page-left.html' class="movie__title">Gravity (2013)  </a>
+                            <a href='${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(0).filmid}' class="movie__title">${indexInfo.onNow.get(0).name}  </a>
 
-                            <p class="movie__time">91 min</p>
+                            <p class="movie__time">${indexInfo.onNow.get(0).time}</p>
 
-                            <p class="movie__option"><a href="#">Sci-Fi</a> | <a href="#">Thriller</a> | <a href="#">Drama</a></p>
+                            <p class="movie__option"><c:forEach items="${indexInfo.onNow.get(0).typesList}" var="type">${type.typeName} | </c:forEach> </p>
 
                             <div class="movie__rate">
-                                <div class="score"></div>
-                                <span class="movie__rating">4.1</span>
+                                <c:if test="${indexInfo.onNow.get(0).point <= 2}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${2 < indexInfo.onNow.get(0).point && indexInfo.onNow.get(0).point <= 4}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${4 < indexInfo.onNow.get(0).point && indexInfo.onNow.get(0).point <= 6}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${6 < indexInfo.onNow.get(0).point && indexInfo.onNow.get(0).point <= 8}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${8 < indexInfo.onNow.get(0).point && indexInfo.onNow.get(0).point <= 10}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </c:if>
+                                <span class="movie__rating">${indexInfo.onNow.get(0).point}</span>
                             </div>
                         </div>
                     </div>
@@ -732,21 +623,65 @@ Start doing.'>
                     <!-- Movie variant with time -->
                     <div class="movie movie--test movie--test--light movie--test--left">
                         <div class="movie__images">
-                            <a href="movie-page-left.html" class="movie-beta__link">
-                                <img alt='' src="${pageContext.request.contextPath}/resources/images/424-424.png">
+                            <a href="${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(1).filmid}" class="movie-beta__link">
+                                <img src='${pageContext.request.contextPath}/resources/behind/images/${indexInfo.onNow.get(1).img}' alt="${pageContext.request.contextPath}/resources/images/424-424.png" width="200" height="200">
                             </a>
                         </div>
 
                         <div class="movie__info">
-                            <a href='movie-page-left.html' class="movie__title">The Hobbit: The Desolation of Smaug (2013)  </a>
+                            <a href='${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(1).filmid}' class="movie__title">${indexInfo.onNow.get(1).name}  </a>
 
-                            <p class="movie__time">169 min</p>
+                            <p class="movie__time">${indexInfo.onNow.get(1).time}</p>
 
-                            <p class="movie__option"><a href="#">Adventure</a> | <a href="#">Fantasy</a> | <a href="#">Drama</a></p>
+                            <p class="movie__option"><c:forEach items="${indexInfo.onNow.get(1).typesList}" var="type">${type.typeName} | </c:forEach> </p>
 
                             <div class="movie__rate">
-                                <div class="score"></div>
-                                <span class="movie__rating">5.0</span>
+                                <c:if test="${indexInfo.onNow.get(1).point <= 2}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${2 < indexInfo.onNow.get(1).point && indexInfo.onNow.get(1).point <= 4}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${4 < indexInfo.onNow.get(1).point && indexInfo.onNow.get(1).point <= 6}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${6 < indexInfo.onNow.get(1).point && indexInfo.onNow.get(1).point <= 8}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${8 < indexInfo.onNow.get(1).point && indexInfo.onNow.get(1).point <= 10}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </c:if>
+                                <span class="movie__rating">${indexInfo.onNow.get(1).point}</span>
                             </div>
                         </div>
                     </div>
@@ -755,21 +690,65 @@ Start doing.'>
                     <!-- Movie variant with time -->
                     <div class="movie movie--test movie--test--light movie--test--right">
                         <div class="movie__images">
-                            <a href="movie-page-left.html" class="movie-beta__link">
-                                <img alt='' src="${pageContext.request.contextPath}/resources/images/424-424.png">
+                            <a href="${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(2).filmid}" class="movie-beta__link">
+                                <img src='${pageContext.request.contextPath}/resources/behind/images/${indexInfo.onNow.get(2).img}' alt="${pageContext.request.contextPath}/resources/images/424-424.png" width="200" height="200">
                             </a>
                         </div>
 
                         <div class="movie__info">
-                            <a href='movie-page-left.html' class="movie__title">The Hunger Games: Catching Fire (2013)   </a>
+                            <a href='${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(2).filmid}' class="movie__title">${indexInfo.onNow.get(2).name}   </a>
 
-                            <p class="movie__time">146 min</p>
+                            <p class="movie__time">${indexInfo.onNow.get(2).time}</p>
 
-                            <p class="movie__option"><a href="#">Action</a> | <a href="#">Adventure</a> | <a href="#">Sci-Fi</a></p>
+                            <p class="movie__option"><c:forEach items="${indexInfo.onNow.get(2).typesList}" var="type">${type.typeName} | </c:forEach></p>
 
                             <div class="movie__rate">
-                                <div class="score"></div>
-                                <span class="movie__rating">4.9</span>
+                                <c:if test="${indexInfo.onNow.get(2).point <= 2}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${2 < indexInfo.onNow.get(2).point && indexInfo.onNow.get(2).point <= 4}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${4 < indexInfo.onNow.get(2).point && indexInfo.onNow.get(2).point <= 6}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${6 < indexInfo.onNow.get(2).point && indexInfo.onNow.get(2).point <= 8}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${8 < indexInfo.onNow.get(2).point && indexInfo.onNow.get(2).point <= 10}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </c:if>
+                                <span class="movie__rating">${indexInfo.onNow.get(2).point}</span>
                             </div>
                         </div>
                     </div>
@@ -778,21 +757,65 @@ Start doing.'>
                     <!-- Movie variant with time -->
                     <div class="movie movie--test movie--test--dark movie--test--right">
                         <div class="movie__images">
-                            <a href="movie-page-left.html" class="movie-beta__link">
-                                <img alt='' src="${pageContext.request.contextPath}/resources/images/424-424.png">
+                            <a href="${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(3).filmid}" class="movie-beta__link">
+                                <img src='${pageContext.request.contextPath}/resources/behind/images/${indexInfo.onNow.get(3).img}' alt="${pageContext.request.contextPath}/resources/images/424-424.png" width="200" height="200">
                             </a>
                         </div>
 
                         <div class="movie__info">
-                            <a href='movie-page-left.html' class="movie__title">Thor: The Dark World (2013) </a>
+                            <a href='${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(3).filmid}' class="movie__title">${indexInfo.onNow.get(3).name} </a>
 
-                            <p class="movie__time">112 min</p>
+                            <p class="movie__time">${indexInfo.onNow.get(3).time}</p>
 
-                            <p class="movie__option"><a href="#">Action</a> | <a href="#">Adventure</a> | <a href="#">Fantasy</a></p>
+                            <p class="movie__option"><c:forEach items="${indexInfo.onNow.get(3).typesList}" var="type">${type.typeName} | </c:forEach></p>
 
                             <div class="movie__rate">
-                                <div class="score"></div>
-                                <span class="movie__rating">5.0</span>
+                                <c:if test="${indexInfo.onNow.get(3).point <= 2}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${2 < indexInfo.onNow.get(3).point && indexInfo.onNow.get(3).point <= 4}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${4 < indexInfo.onNow.get(3).point && indexInfo.onNow.get(3).point <= 6}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${6 < indexInfo.onNow.get(3).point && indexInfo.onNow.get(3).point <= 8}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${8 < indexInfo.onNow.get(3).point && indexInfo.onNow.get(3).point <= 10}">
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </c:if>
+                                <span class="movie__rating">${indexInfo.onNow.get(3).point}</span>
                             </div>
                         </div>
                     </div>
@@ -801,21 +824,65 @@ Start doing.'>
                     <!-- Movie variant with time -->
                     <div class="movie movie--test movie--test--dark movie--test--left">
                         <div class="movie__images">
-                            <a href="movie-page-left.html" class="movie-beta__link">
-                                <img alt='' src="${pageContext.request.contextPath}/resources/images/424-424.png">
+                            <a href="${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(4).filmid}" class="movie-beta__link">
+                                <img src='${pageContext.request.contextPath}/resources/behind/images/${indexInfo.onNow.get(4).img}' alt="${pageContext.request.contextPath}/resources/images/424-424.png" width="200" height="200">
                             </a>
                         </div>
 
                         <div class="movie__info">
-                            <a href='movie-page-left.html' class="movie__title">World War Z (2013)  </a>
+                            <a href='${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(4).filmid}' class="movie__title">${indexInfo.onNow.get(4).name}  </a>
 
-                            <p class="movie__time">116 min</p>
+                            <p class="movie__time">${indexInfo.onNow.get(4).time}</p>
 
-                            <p class="movie__option"><a href="#">Action</a> | <a href="#">Adventure</a> | <a href="#">Horror</a></p>
+                            <p class="movie__option"><c:forEach items="${indexInfo.onNow.get(4).typesList}" var="type">${type.typeName} | </c:forEach></p>
 
                             <div class="movie__rate">
-                                <div class="score"></div>
-                                <span class="movie__rating">4.1</span>
+                                <c:if test="${indexInfo.onNow.get(4).point <= 2}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${2 < indexInfo.onNow.get(4).point && indexInfo.onNow.get(4).point <= 4}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${4 < indexInfo.onNow.get(4).point && indexInfo.onNow.get(4).point <= 6}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${6 < indexInfo.onNow.get(4).point && indexInfo.onNow.get(4).point <= 8}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${8 < indexInfo.onNow.get(4).point && indexInfo.onNow.get(4).point <= 10}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </c:if>
+                                <span class="movie__rating">${indexInfo.onNow.get(4).point}</span>
                             </div>
                         </div>
                     </div>
@@ -824,21 +891,65 @@ Start doing.'>
                     <!-- Movie variant with time -->
                     <div class="movie movie--test movie--test--light movie--test--left">
                         <div class="movie__images">
-                            <a href="movie-page-left.html" class="movie-beta__link">
-                                <img alt='' src="${pageContext.request.contextPath}/resources/images/424-424.png">
+                            <a href="${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(5).filmid}" class="movie-beta__link">
+                                <img src='${pageContext.request.contextPath}/resources/behind/images/${indexInfo.onNow.get(5).img}' alt="${pageContext.request.contextPath}/resources/images/424-424.png" width="200" height="200">
                             </a>
                         </div>
 
                         <div class="movie__info">
-                            <a href='movie-page-left.html' class="movie__title">Prisoners (2013) </a>
+                            <a href='${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(5).filmid}' class="movie__title">${indexInfo.onNow.get(5).name} </a>
 
-                            <p class="movie__time">153 min</p>
+                            <p class="movie__time">${indexInfo.onNow.get(5).time}</p>
 
-                            <p class="movie__option"><a href="#">Crime</a> | <a href="#">Thriller</a> | <a href="#">Drama</a></p>
+                            <p class="movie__option"><c:forEach items="${indexInfo.onNow.get(5).typesList}" var="type">${type.typeName} | </c:forEach></p>
 
                             <div class="movie__rate">
-                                <div class="score"></div>
-                                <span class="movie__rating">5.0</span>
+                                <c:if test="${indexInfo.onNow.get(5).point <= 2}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${2 < indexInfo.onNow.get(5).point && indexInfo.onNow.get(5).point <= 4}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${4 < indexInfo.onNow.get(5).point && indexInfo.onNow.get(5).point <= 6}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${6 < indexInfo.onNow.get(5).point && indexInfo.onNow.get(5).point <= 8}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${8 < indexInfo.onNow.get(5).point && indexInfo.onNow.get(5).point <= 10}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </c:if>
+                                <span class="movie__rating">${indexInfo.onNow.get(5).point}</span>
                             </div>
                         </div>
                     </div>
@@ -847,21 +958,65 @@ Start doing.'>
                     <!-- Movie variant with time -->
                     <div class="movie movie--test movie--test--light movie--test--right">
                         <div class="movie__images">
-                            <a href="movie-page-left.html" class="movie-beta__link">
-                                <img alt='' src="${pageContext.request.contextPath}/resources/images/424-424.png">
+                            <a href="${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(6).filmid}" class="movie-beta__link">
+                                <img src='${pageContext.request.contextPath}/resources/behind/images/${indexInfo.onNow.get(6).img}' alt="${pageContext.request.contextPath}/resources/images/424-424.png" width="200" height="200">
                             </a>
                         </div>
 
                         <div class="movie__info">
-                            <a href='movie-page-left.html' class="movie__title">This Is the End (2013)   </a>
+                            <a href='${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(6).filmid}' class="movie__title">${indexInfo.onNow.get(6).name}   </a>
 
-                            <p class="movie__time">107 min</p>
+                            <p class="movie__time">${indexInfo.onNow.get(6).time}</p>
 
-                            <p class="movie__option"><a href="#">Comedy</a> | <a href="#">Fantasy</a></p>
+                            <p class="movie__option"><c:forEach items="${indexInfo.onNow.get(6).typesList}" var="type">${type.typeName} | </c:forEach></p>
 
                             <div class="movie__rate">
-                                <div class="score"></div>
-                                <span class="movie__rating">4.9</span>
+                                <c:if test="${indexInfo.onNow.get(6).point <= 2}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${2 < indexInfo.onNow.get(6).point && indexInfo.onNow.get(6).point <= 4}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${4 < indexInfo.onNow.get(6).point && indexInfo.onNow.get(6).point <= 6}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${6 < indexInfo.onNow.get(6).point && indexInfo.onNow.get(6).point <= 8}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:if>
+                                <c:if test="${8 < indexInfo.onNow.get(6).point && indexInfo.onNow.get(6).point <= 10}">
+                                    <div style="cursor: pointer; width: 130px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </c:if>
+                                <span class="movie__rating">${indexInfo.onNow.get(6).point}</span>
                             </div>
                         </div>
                     </div>
@@ -870,47 +1025,77 @@ Start doing.'>
                     <!-- Movie variant with time -->
                     <div class="movie movie--test movie--test--dark movie--test--right">
                         <div class="movie__images">
-                            <a href="movie-page-left.html" class="movie-beta__link">
-                                <img alt='' src="${pageContext.request.contextPath}/resources/images/424-424.png">
+                            <a href="${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(7).filmid}" class="movie-beta__link">
+                                <img src="${pageContext.request.contextPath}/resources/behind/images/${indexInfo.onNow.get(7).img}" alt="${pageContext.request.contextPath}/resources/images/424-424.png" width="200" height="200">
                             </a>
                         </div>
 
                         <div class="movie__info">
-                            <a href='movie-page-left.html' class="movie__title">The Internship (2013)  </a>
+                            <a href='${pageContext.request.contextPath}/film/frontInfo?id=${indexInfo.onNow.get(7).filmid}' class="movie__title">${indexInfo.onNow.get(7).name}  </a>
 
-                            <p class="movie__time">112 min</p>
+                            <p class="movie__time">${indexInfo.onNow.get(7).time}</p>
 
-                            <p class="movie__option"><a href="#">Comedy</a></p>
+                            <p class="movie__option"><c:forEach items="${indexInfo.onNow.get(7).typesList}" var="type">${type.typeName} | </c:forEach></p>
 
                             <div class="movie__rate">
-                                <div class="score"></div>
-                                <span class="movie__rating">5.0</span>
+                                <c:choose>
+                                    <c:when test="${indexInfo.onNow.get(7).point <= 2}">
+                                        <div style="cursor: pointer; width: 130px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${2 < indexInfo.onNow.get(7).point && indexInfo.onNow.get(7).point <= 4}">
+                                        <div style="cursor: pointer; width: 130px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${4 < indexInfo.onNow.get(7).point && indexInfo.onNow.get(7).point <= 6}">
+                                        <div style="cursor: pointer; width: 130px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${6 < indexInfo.onNow.get(7).point && indexInfo.onNow.get(7).point <= 8}">
+                                        <div style="cursor: pointer; width: 130px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div style="cursor: pointer; width: 130px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                                <span class="movie__rating">${indexInfo.onNow.get(7).point}</span>
                             </div>
                         </div>
                     </div>
-                    <!-- Movie variant with time -->
                 </div>
 
-                <aside class="col-sm-4 col-md-3">
-                    <div class="sitebar first-banner--left">
-                        <div class="banner-wrap first-banner--left">
-                            <img alt='banner' src="${pageContext.request.contextPath}/resources/images/500-500.png">
-                        </div>
-
-                        <div class="banner-wrap">
-                            <img alt='banner' src="${pageContext.request.contextPath}/resources/images/500-500.png">
-                        </div>
-
-                        <div class="banner-wrap banner-wrap--last">
-                            <img alt='banner' src="${pageContext.request.contextPath}/resources/images/500-500.png">
-                        </div>
-                    </div>
-                </aside>
             </div>
         </div>
 
         <div class="col-sm-12">
-            <h2 class="page-heading">最近的新闻</h2>
+            <h2 class="page-heading">看过的电影</h2>
 
             <div class="col-sm-4 similar-wrap col--remove">
                 <div class="post post--preview post--preview--wide">
@@ -1027,5 +1212,3 @@ Start doing.'>
 
 </body>
 </html>
-
-

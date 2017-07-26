@@ -27,9 +27,9 @@ public class User {
     @Pattern(regexp = "^1[3,5,8]\\d{9}$", groups = ValidatedPhone.class)
     private String phone;
 
-    // 用户与电影的关系
+    // 用户与电影收藏的关系
     @Transient
-    private List<UserFilm> films;
+    private List<Film> films;
 
     // 用户与地址的关系
     @Transient
@@ -67,11 +67,11 @@ public class User {
         this.phone = phone;
     }
 
-    public List<UserFilm> getFilms() {
+    public List<Film> getFilms() {
         return films;
     }
 
-    public void setFilms(List<UserFilm> films) {
+    public void setFilms(List<Film> films) {
         this.films = films;
     }
 

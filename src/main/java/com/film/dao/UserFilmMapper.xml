@@ -4,7 +4,5 @@
   <resultMap id="BaseResultMap" type="com.film.model.UserFilm" >
     <id column="film_id" property="filmId" jdbcType="INTEGER" />
     <id column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="collect" property="collect" jdbcType="VARCHAR" />
-    <result column="score" property="score" jdbcType="DOUBLE" />
   </resultMap>
 </mapper>

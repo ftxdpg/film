@@ -49,7 +49,7 @@
     <header class="header-wrapper header-wrapper--home">
         <div class="container">
             <!-- Logo link-->
-            <a href='index.html' class="logo">
+            <a href='${pageContext.request.contextPath}/common/index' class="logo">
                 <img alt='logo' src="${pageContext.request.contextPath}/resources/images/logo.png">
             </a>
 
@@ -66,32 +66,10 @@
 
                 <!-- Link navigation -->
                 <ul id="navigation">
-                    <li>
-                        <span class="sub-nav-toggle plus"></span>
-                        <a href="">观看历史</a>
-                        <ul>
-                            <li class="menu__nav-item"><a href="gallery-four.html">4 col gallery</a></li>
-                            <li class="menu__nav-item"><a href="gallery-three.html">3 col gallery</a></li>
-                            <li class="menu__nav-item"><a href="gallery-two.html">2 col gallery</a></li>
-                        </ul>
-                    </li>
 
                     <li>
                         <span class="sub-nav-toggle plus"></span>
-                        <a href="">消息</a>
-                        <ul>
-                            <li class="menu__nav-item"><a href="news-left.html">News (rigth sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="news-right.html">News (left sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="news-full.html">News (full widht)</a></li>
-                            <li class="menu__nav-item"><a href="single-page-left.html">Single post (rigth sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="single-page-right.html">Single post (left sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="single-page-full.html">Single post (full widht)</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <span class="sub-nav-toggle plus"></span>
-                        <a href="">电影分类</a>
+                        <a href="" style="margin-left: 290px;">电影分类</a>
                         <ul class="mega-menu container">
                             <li class="col-md-3 mega-menu__coloum">
                                 <ul class="mega-menu__list">
@@ -130,86 +108,51 @@
                             </li>
                         </ul>
                     </li>
-
-                    <li>
-                        <span class="sub-nav-toggle plus"></span>
-                        <a href="">电影院信息</a>
-                        <ul class="mega-menu container">
-                            <li class="col-md-3 mega-menu__coloum">
-                                <h4 class="mega-menu__heading">电影院准备上映</h4>
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">The Counselor</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Bad Grandpa</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Blue Is the Warmest Color</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Capital</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Spinning Plates</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Bastards</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="col-md-3 mega-menu__coloum mega-menu__coloum--outheading">
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">Gravity</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Captain Phillips</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Carrie</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Cloudy with a Chance of Meatballs 2</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="col-md-3 mega-menu__coloum">
-                                <h4 class="mega-menu__heading">电影院准备结束</h4>
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">Escape Plan</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Rush</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Prisoners</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Enough Said</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">The Fifth Estate</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Runner Runner</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="col-md-3 mega-menu__coloum mega-menu__coloum--outheading">
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">Insidious: Chapter 2</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </nav>
 
             <!-- Additional header buttons / Auth and direct link to booking-->
             <div class="control-panel">
-                <div class="auth auth--home">
-                    <div class="auth__show">
-                        <span class="auth__image">
-                          <img alt="" src="${pageContext.request.contextPath}/resources/images/31-31.png">
-                        </span>
-                    </div>
-                    <a href="#" class="btn btn--sign btn--singin">
-                        ${user.name}
-                    </a>
-                    <ul class="auth__function">
-                        <li><a href="#" class="auth__function-item">收藏列表</a></li>
-                        <li><a href="#" class="auth__function-item">已购影票</a></li>
-                        <li><a href="#" class="auth__function-item">讨论过的</a></li>
-                        <li><a href="#" class="auth__function-item">用户设置</a></li>
-                        <li><a href="${pageContext.request.contextPath}/common/logout" class="auth__function-item">注销</a></li>
-                    </ul>
-                </div>
+                <c:choose>
+                    <c:when test="${!empty sessionScope.user}">
+                        <div class="auth auth--home">
+                            <div class="auth__show">
+                            <span class="auth__image">
+                              <img alt="" src="${pageContext.request.contextPath}/resources/images/31-31.png">
+                            </span>
+                            </div>
+                            <a href="#" class="btn btn--sign btn--singin">
+                                    ${sessionScope.user.name}
+                            </a>
+                            <ul class="auth__function">
+                                <li><a href="#" class="auth__function-item">我的动态</a></li>
+                                <li><a href="#" class="auth__function-item">用户设置</a></li>
+                                <li><a href="#" class="auth__function-item">注销</a></li>
+                            </ul>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="auth auth--home" style="margin-top: 6px; left: -150px; top: -8px;">
+                            <a href="${pageContext.request.contextPath}/common/loginUI" class="btn btn--sign">登录</a>
+                        </div>
+                        <div class="auth auth--home" style="top: -8px; margin-top: 1px; left: -100px;">
+                            <a href="${pageContext.request.contextPath}/common/emailRegUI" class="btn btn--sign" style="top: 5px;">注册</a>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
                 <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">预定电影票</a>
             </div>
         </div>
     </header>
 
     <section class="container">
-        <div class="content-wrapper accordion-wrap" style="padding-left: 450px;">
+        <div class="content-wrapper accordion-wrap">
             <!-- Tabs -->
             <div class="content-wrapper">
                 <h2 class="heading heading--outcontainer">个人信息</h2>
 
                 <!-- Horisontal tabs -->
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     <div class="tabs tabs--horisontal">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" id="hTab">
@@ -248,6 +191,76 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-10">
+                    <div class="tabs tabs--horisontal">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" id="bigPlace">
+                            <li class="active"><a href="#collection" data-toggle="tab">我的收藏</a></li>
+                            <li><a href="#comment" data-toggle="tab">我的评论</a></li>
+                            <li><a href="#preview" data-toggle="tab">他人对我的评论</a></li>
+                            <li><a href="#address" data-toggle="tab">我的地址</a></li>
+                            <li><a href="#order" data-toggle="tab">我的订单</a></li>
+                            <li><a href="#bought" data-toggle="tab">我的购物车</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="order">
+
+                            </div>
+                            <div class="tab-pane" id="comment">
+
+                            </div>
+                            <div class="tab-pane" id="preview">
+
+                            </div>
+                            <div class="tab-pane" id="collection">
+                                <table class="sTable" width="50%" cellspacing="0" cellpadding="0">
+                                    <thead>
+                                        <tr>
+                                            <td align="center">电影海报</td>
+                                            <td align="center">电影名</td>
+                                            <td align="center">价格</td>
+                                            <td align="center">热度</td>
+                                            <td align="center">操作</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="collect">
+                                        <c:forEach items="${collection.data}" var="users">
+                                            <c:forEach items="${users.films}" var="film">
+                                                <tr>
+                                                    <td align="center"><img src="${pageContext.request.contextPath}/resources/behind/images/${film.img}" width="150" height="150" /></td>
+                                                    <td align="center">${film.name}</td>
+                                                    <td align="center">${film.price}</td>
+                                                    <td align="center">${film.point}</td>
+                                                    <td align="center">
+                                                        <a onclick="removeCollection(${film.filmid}, ${sessionScope.user.uid})">取消收藏</a> &nbsp;
+                                                        <a>加入购物车</a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                                <!-- 分页相关 -->
+                                <div id="collect_page">
+                                    <input value="第一页" style="margin: 5px;" onclick="collectPage(${collection.firstPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                    <input value="<" style="margin: 5px;" onclick="collectPage(${collection.prePage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                    当前第${collection.currentPage}页&nbsp;
+                                    总共${collection.totalPage}页&nbsp;
+                                    <input class="basic" value=">" style="margin: 5px;" onclick="collectPage(${collection.nextPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                    <input class="basic" value="最后一页" style="margin: 5px;" onclick="collectPage(${collection.totalPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                    每页显示&nbsp;<input type="text" id="my_CollectSize" value="${collection.pageSize}" title="" onblur="collectSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;条&nbsp;
+                                    跳转到&nbsp;<input type="text" id="my_CollectPage" value="${collection.currentPage}" title="" onblur="collectSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;页
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="bought">
+                            </div>
+                            <div class="tab-pane" id="address">
                             </div>
                         </div>
                     </div>
@@ -306,6 +319,74 @@
         }else{
             return true;
         }
+    }
+
+    // 收藏分页
+    function collectPage(page, size, uid) {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/collectPage",
+            type:"post",
+            data:{"page":page, "size":size, "uid":uid},
+            success: function (result) {
+                var $collect = $("#collect");
+                var $collect_page = $("#collect_page");
+                if (result.status == 200) {
+                    $collect.empty();
+                    $collect.append(result.msg);
+                    $collect_page.empty();
+                    $collect_page.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 收藏自定义分页
+    function collectSelfPage(uid) {
+        var size = $("#my_CollectSize")[0].value;
+        var page = $("#my_CollectPage")[0].value;
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/collectPage",
+            type:"post",
+            data:{"page":page, "size":size, "uid":uid},
+            success: function (result) {
+                var $collect = $("#collect");
+                var $collect_page = $("#collect_page");
+                if (result.status == 200) {
+                    $collect.empty();
+                    $collect.append(result.msg);
+                    $collect_page.empty();
+                    $collect_page.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 取消收藏
+    function removeCollection(filmId, userId) {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/inCollect",
+            data:{"filmId":filmId, "userId":userId},
+            type:"post",
+            success:function (result) {
+                var $collect = $("#collect");
+                var $collect_page = $("#collect_page");
+                if (result.status == 200){
+                    $collect.empty();
+                    $collect.append(result.msg);
+                    $collect_page.empty();
+                    $collect_page.append(result.data);
+                } else {
+                    alert(result.msg);
+                }
+            },
+            error:function () {alert("内部错误");}
+        });
     }
 </script>
 </body>

@@ -1,6 +1,9 @@
 package com.film.service;
 
+import com.film.model.Film;
 import com.film.model.User;
+import com.film.model.UserFilm;
+import com.film.util.PageUtil;
 
 import javax.servlet.ServletOutputStream;
 import java.util.List;
@@ -24,4 +27,7 @@ public interface UserService extends BaseService<User>{
 
     // 分页插件分页
     List<User> getUserListByTool(Integer page, Integer size);
+
+    // 查询用户与电影的收藏关系+分页
+    PageUtil<User> selectCollection(UserFilm userFilm);
 }

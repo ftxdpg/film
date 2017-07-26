@@ -15,6 +15,20 @@ public class PageUtil<T> {
     private Integer currentPage;// 当前页
     private Integer pageSize;// 每页显示记录数
 
+    public PageUtil() {
+    }
+
+    public PageUtil(Integer currentPage, Integer pageSize) {
+        this.currentPage = currentPage;
+        this.pageSize = pageSize;
+    }
+
+    public PageUtil(List<T> data, Integer currentPage, Integer pageSize) {
+        this.data = data;
+        this.currentPage = currentPage;
+        this.pageSize = pageSize;
+    }
+
     public List<T> getData() {
         return data;
     }

@@ -51,10 +51,10 @@
 
 
     <!-- Header section -->
-    <header class="header-wrapper">
+    <header class="header-wrapper header-wrapper--home">
         <div class="container">
             <!-- Logo link-->
-            <a href='index.html' class="logo">
+            <a href='${pageContext.request.contextPath}/common/index' class="logo">
                 <img alt='logo' src="${pageContext.request.contextPath}/resources/images/logo.png">
             </a>
 
@@ -71,32 +71,10 @@
 
                 <!-- Link navigation -->
                 <ul id="navigation">
-                    <li>
-                        <span class="sub-nav-toggle plus"></span>
-                        <a href="">观看历史</a>
-                        <ul>
-                            <li class="menu__nav-item"><a href="gallery-four.html">4 col gallery</a></li>
-                            <li class="menu__nav-item"><a href="gallery-three.html">3 col gallery</a></li>
-                            <li class="menu__nav-item"><a href="gallery-two.html">2 col gallery</a></li>
-                        </ul>
-                    </li>
 
                     <li>
                         <span class="sub-nav-toggle plus"></span>
-                        <a href="">消息</a>
-                        <ul>
-                            <li class="menu__nav-item"><a href="news-left.html">News (rigth sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="news-right.html">News (left sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="news-full.html">News (full widht)</a></li>
-                            <li class="menu__nav-item"><a href="single-page-left.html">Single post (rigth sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="single-page-right.html">Single post (left sidebar)</a></li>
-                            <li class="menu__nav-item"><a href="single-page-full.html">Single post (full widht)</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <span class="sub-nav-toggle plus"></span>
-                        <a href="">电影分类</a>
+                        <a href="" style="margin-left: 290px;">电影分类</a>
                         <ul class="mega-menu container">
                             <li class="col-md-3 mega-menu__coloum">
                                 <ul class="mega-menu__list">
@@ -135,51 +113,6 @@
                             </li>
                         </ul>
                     </li>
-
-                    <li>
-                        <span class="sub-nav-toggle plus"></span>
-                        <a href="">电影院信息</a>
-                        <ul class="mega-menu container">
-                            <li class="col-md-3 mega-menu__coloum">
-                                <h4 class="mega-menu__heading">电影院准备上映</h4>
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">The Counselor</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Bad Grandpa</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Blue Is the Warmest Color</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Capital</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Spinning Plates</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Bastards</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="col-md-3 mega-menu__coloum mega-menu__coloum--outheading">
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">Gravity</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Captain Phillips</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Carrie</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Cloudy with a Chance of Meatballs 2</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="col-md-3 mega-menu__coloum">
-                                <h4 class="mega-menu__heading">电影院准备结束</h4>
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">Escape Plan</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Rush</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Prisoners</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Enough Said</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">The Fifth Estate</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">Runner Runner</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="col-md-3 mega-menu__coloum mega-menu__coloum--outheading">
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">Insidious: Chapter 2</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </nav>
 
@@ -194,12 +127,10 @@
                             </span>
                             </div>
                             <a href="#" class="btn btn--sign btn--singin">
-                                ${user.name}
+                                    ${sessionScope.user.name}
                             </a>
                             <ul class="auth__function">
-                                <li><a href="#" class="auth__function-item">收藏列表</a></li>
-                                <li><a href="#" class="auth__function-item">已购影票</a></li>
-                                <li><a href="#" class="auth__function-item">讨论过的</a></li>
+                                <li><a href="#" class="auth__function-item">我的动态</a></li>
                                 <li><a href="#" class="auth__function-item">用户设置</a></li>
                                 <li><a href="#" class="auth__function-item">注销</a></li>
                             </ul>
@@ -216,12 +147,11 @@
                 </c:choose>
                 <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">预定电影票</a>
             </div>
-
         </div>
     </header>
 
-    <!-- Search bar -->
-    <div class="search-wrapper">
+    <!-- 搜索框 -->
+    <div class="search-wrapper" style="margin-top: 55px;">
         <div class="container container--add">
             <form id='search-form' method='get' class="search">
                 <input type="text" class="search__field" placeholder="Search">
@@ -241,32 +171,97 @@
     <section class="container">
         <div class="col-sm-12">
             <div class="movie">
-                <h2 class="page-heading">${film1.name}</h2>
+                <h2 class="page-heading">${film.name}</h2>
 
                 <div class="movie__info">
                     <div class="col-sm-4 col-md-3 movie-mobile">
                         <div class="movie__images">
-                            <span class="movie__rating">${film1.point}</span>
-                            <img alt='' src="${pageContext.request.contextPath}/resources/behind/images/${film1.img}" height="773" width="256">
+                            <span class="movie__rating">${film.point}</span>
+                            <img alt='' src="${pageContext.request.contextPath}/resources/behind/images/${film.img}" height="384" width="256">
                         </div>
-                        <div class="movie__rate">Your vote: <div id='score' class="score"></div></div>
+                        <div class="movie__rate">
+                            热度:
+                            <c:choose>
+                                <c:when test="${film.point <= 2}">
+                                    <div class="score" style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:when>
+                                <c:when test="${2 < film.point && film.point <= 4}">
+                                    <div class="score" style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:when>
+                                <c:when test="${4 < film.point && film.point <= 6}">
+                                    <div class="score" style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:when>
+                                <c:when test="${6 < film.point && film.point <= 8}">
+                                    <div class="score" style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div style="cursor: pointer; width: 90px;">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
                     </div>
 
                     <div class="col-sm-8 col-md-9">
-                        <p class="movie__time">${film1.time}</p>
+                        <p class="movie__time">${film.time}</p>
 
-                        <p class="movie__option"><strong>国家: </strong>${film1.contry}</p>
-                        <p class="movie__option"><strong>年份: </strong>${film1.createtime}</p>
-                        <p class="movie__option"><strong>类型: </strong><a href="#">Adventure</a>, <a href="#">Fantazy</a></p>
-                        <p class="movie__option"><strong>导演: </strong>${film1.director}</p>
-                        <p class="movie__option"><strong>演员: </strong>${film1.actor}</p>
-                        <p class="movie__option"><strong>价格: </strong>${film1.price}</p>
+                        <p class="movie__option"><strong>国家: </strong>${film.contry}</p>
+                        <p class="movie__option"><strong>年份: </strong>${film.createtime}</p>
+                        <p class="movie__option"><strong>类型: </strong><c:forEach items="${film.typesList}" var="type">${type.typeName}&nbsp;</c:forEach></p>
+                        <p class="movie__option"><strong>导演: </strong>${film.director}</p>
+                        <p class="movie__option"><strong>演员: </strong>${film.actor}</p>
+                        <p class="movie__option"><strong>价格: </strong>${film.price}</p>
 
                         <a href="#" class="comment-link">Comments:  15</a>
 
                         <div class="movie__btns movie__btns--full">
                             <a href="#" class="btn btn-md btn--warning">预定该电影票</a>
-                            <a href="#" class="watchlist">添加至观看列表</a>
+                            <div id="collected" style="margin-top: 20px;">
+                                <c:choose>
+                                    <c:when test="${!empty sessionScope.user}">
+                                        <c:choose>
+                                            <c:when test="${empty userFilm}">
+                                                <a href="${pageContext.request.contextPath}/film/user/collect?filmId=${film.filmid}&userId=${user.uid}" class="watchlist">收藏至观看列表</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                已收藏，点击<a href="${pageContext.request.contextPath}/film/user/userInfo?uid=${user.uid}">查看收藏</a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:when>
+                                    <c:otherwise>
+                                        没有<a href="${pageContext.request.contextPath}/common/loginUI">登录</a>，无法查看收藏记录
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -275,7 +270,7 @@
 
                 <h2 class="page-heading">The plot</h2>
 
-                <p class="movie__describe">${film1.introduction}</p>
+                <p class="movie__describe">${film.introduction}</p>
 
             </div>
 
@@ -451,20 +446,17 @@
                         <div class="comment-more">
                             <a href="#" class="watchlist">Show more comments</a>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
-
     <div class="clearfix"></div>
 </div>
 
 <!-- JavaScript-->
 <!-- jQuery 1.9.1-->
-<script src="jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/behind/js/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/external/jquery-1.10.1.min.js"><\/script>')</script>
 <!-- Migrate -->
 <script src="${pageContext.request.contextPath}/resources/js/external/jquery-migrate-1.2.1.min.js"></script>

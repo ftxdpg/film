@@ -76,10 +76,6 @@ public class FilmServiceImpl implements FilmService{
         return filmPageUtil;
     }
 
-    @Override
-    public void insert(Film film) {
-
-    }
 
     // 删除电影
     @Override
@@ -95,10 +91,6 @@ public class FilmServiceImpl implements FilmService{
         return filmMapper.selectFilmAndTypesInfo1(film).get(0);
     }
 
-    @Override
-    public void updateByPrimaryKey(Film film) {
-
-    }
 
     // 修改电影
     @Override
@@ -133,6 +125,18 @@ public class FilmServiceImpl implements FilmService{
         filmMapper.delete(new Film(id));
     }
 
+
+    // 5条置顶电影
+    @Override
+    public List<Film> selectTopFilms(PageUtil pageUtil){
+        return filmMapper.selectTopFilms(pageUtil);
+    }
+
+    @Override
+    public void insert(Film film) {
+
+    }
+
     @Override
     public Film login(Film film) {
         return null;
@@ -141,5 +145,10 @@ public class FilmServiceImpl implements FilmService{
     @Override
     public List<Film> list() {
         return null;
+    }
+
+    @Override
+    public void updateByPrimaryKey(Film film) {
+
     }
 }

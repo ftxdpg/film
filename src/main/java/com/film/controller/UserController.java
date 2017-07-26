@@ -1,8 +1,13 @@
 package com.film.controller;
 
+import com.film.model.Film;
 import com.film.model.User;
+import com.film.model.UserFilm;
+import com.film.service.UserFilmService;
 import com.film.service.UserService;
+import com.film.util.BehindAjaxResult;
 import com.film.util.FilmResult;
+import com.film.util.PageUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -28,6 +35,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserFilmService userFilmService;
 
     // 用户列表
     @RequestMapping("/list")
@@ -60,8 +70,6 @@ public class UserController {
         }
     }
 
-    // 搜索用户
-
     // 后台查看用户信息
     @RequestMapping("/info")
     public String info(Integer id, Model model){
@@ -72,7 +80,9 @@ public class UserController {
 
     // 前台查看用户信息
     @RequestMapping("userInfo")
-    public String userInfo(){
+    public String userInfo(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "5")Integer size, Integer uid, Model model){
+        PageUtil<User> collection = userService.selectCollection(new UserFilm(uid, page, size));
+        model.addAttribute("collection", collection);
         return "/front/user/info";
     }
 
@@ -201,6 +211,54 @@ public class UserController {
             e.printStackTrace();
             attributes.addFlashAttribute("result", "解除失败，请稍后再试");
             return "redirect:/film/user/removeEmailUI";
+        }
+    }
+
+    // 收藏电影
+    @RequestMapping("/collect")
+    public String insertCollection(Integer filmId, Integer userId, Model model){
+        userFilmService.insert(new UserFilm(filmId, userId));
+        return userInfo(1,5,userId, model);
+    }
+
+    // 取消收藏
+    @RequestMapping("/inCollect")
+    @ResponseBody
+    public FilmResult deleteCollection(Integer filmId, Integer userId, HttpSession session, HttpServletRequest request){
+        try {
+            if (filmId == null || userId == null) {
+                return new FilmResult(500, "信息不完整", null);
+            }
+            userFilmService.delete(new UserFilm(filmId, userId));
+
+            // 获取收藏记录
+            PageUtil<User> userPageUtil = userService.selectCollection(new UserFilm(filmId, userId));
+            String collect = BehindAjaxResult.collect(userPageUtil, request, session);
+
+            // 获取收藏分页
+            String page = BehindAjaxResult.collect_page(userPageUtil, userId);
+            return new FilmResult(200,collect,page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new FilmResult(500, "内部错误", null);
+        }
+    }
+
+    // 收藏的分页
+    @RequestMapping("/collectPage")
+    @ResponseBody
+    public FilmResult collectPage(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "5")Integer size, Integer uid, HttpServletRequest request, HttpSession session){
+        try {
+            if (uid == null) {
+                return new FilmResult(500, "内部错误", null);
+            }
+            PageUtil<User> util = userService.selectCollection(new UserFilm(uid, page, size));
+            String collect = BehindAjaxResult.collect(util, request, session);
+            String collect_page = BehindAjaxResult.collect_page(util, uid);
+            return new FilmResult(200, collect, collect_page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new FilmResult(500, "内部错误", null);
         }
     }
 }

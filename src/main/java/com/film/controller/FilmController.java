@@ -2,7 +2,10 @@ package com.film.controller;
 
 import com.film.model.Film;
 import com.film.model.Types;
+import com.film.model.User;
+import com.film.model.UserFilm;
 import com.film.service.FilmService;
+import com.film.service.UserFilmService;
 import com.film.util.BehindAjaxResult;
 import com.film.util.FilmResult;
 import com.film.util.IDUtils;
@@ -22,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.PrintWriter;
@@ -41,6 +45,9 @@ public class FilmController {
 
     @Autowired
     private FilmService filmService;
+
+    @Autowired
+    private UserFilmService userFilmService;
 
     // 新增电影
     @RequestMapping("/newFilm")
@@ -264,12 +271,28 @@ public class FilmController {
         return new FilmResult(200,null,null);
     }
 
-    // 电影详情
+    // 后台电影详情
     @RequestMapping("/filmInfo")
     public String info(Integer id, Model model){
         Film film = filmService.selectByPrimaryKey(id);
         model.addAttribute("film", film);
         return "behind/film/info";
+    }
+
+    // 前台电影详情
+    @RequestMapping("/frontInfo")
+    public String frontInfo(Integer id, Model model, HttpSession session){
+        Film film = filmService.selectByPrimaryKey(id);
+        User user = (User) session.getAttribute("user");
+        if (user == null){
+            model.addAttribute("userFilm",null);
+        }
+        else {
+            UserFilm userFilm = userFilmService.select(new UserFilm(id, user.getUid()));
+            model.addAttribute("userFilm", userFilm);
+        }
+        model.addAttribute("film", film);
+        return "front/film/info";
     }
 
     // 删除多个电影

@@ -1,10 +1,9 @@
 package com.film.dao;
 
 import com.film.model.Film;
-import org.mybatis.spring.annotation.MapperScan;
+import com.film.util.PageUtil;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -19,4 +18,7 @@ public interface FilmMapper extends Mapper<Film> {
 
     // 查询电影名
     int testFileName(String name);
+
+    // 5条置顶电影
+    List<Film> selectTopFilms(PageUtil pageUtil);
 }

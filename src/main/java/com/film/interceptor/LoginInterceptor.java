@@ -36,16 +36,16 @@ public class LoginInterceptor implements HandlerInterceptor {
 		
 		// 然后再判断session是否存在这个对象
 		HttpSession session = request.getSession();
-		if(session.getAttribute("user") != null || session.getAttribute("admin")!= null){
+		if(session.getAttribute("user") != null || session.getAttribute("admin")!= null || url.indexOf("frontInfo") > 0){
 			return true;
 		}
 		
 		// 如果还执行到这里就代表条件还不满足，所以需要进行跳转，跳转到登录页面
 		if (url.indexOf("user") > 0) {
-			response.sendRedirect("localhost:8080/film/common/loginUI");
+			request.getRequestDispatcher("/WEB-INF/front/user/loginUI.jsp").forward(request, response);
 		}
 		if (url.indexOf("admin") > 0) {
-			response.sendRedirect("localhost:8080/film/adminCommon/loginUI");
+			request.getRequestDispatcher("/WEB-INF/behind/admin/loginUI.jsp").forward(request, response);
 		}
 		return false;
 	}

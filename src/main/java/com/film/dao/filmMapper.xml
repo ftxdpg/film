@@ -1,79 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.film.dao.FilmMapper">
-  <resultMap id="BaseResultMap" type="com.film.model.Film">
-    <id column="filmId" jdbcType="INTEGER" property="filmid" />
-    <result column="actor" jdbcType="VARCHAR" property="actor" />
-    <result column="contry" jdbcType="VARCHAR" property="contry" />
-    <result column="createtime" jdbcType="VARCHAR" property="createtime" />
-    <result column="director" jdbcType="VARCHAR" property="director" />
-    <result column="img" jdbcType="VARCHAR" property="img" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="point" jdbcType="DOUBLE" property="point" />
-    <result column="price" jdbcType="DOUBLE" property="price" />
-    <result column="time" jdbcType="VARCHAR" property="time" />
-    <result column="introduction" jdbcType="LONGVARCHAR" property="introduction" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.film.model.Film">
+        <id column="filmId" jdbcType="INTEGER" property="filmid"/>
+        <result column="actor" jdbcType="VARCHAR" property="actor"/>
+        <result column="contry" jdbcType="VARCHAR" property="contry"/>
+        <result column="createtime" jdbcType="VARCHAR" property="createtime"/>
+        <result column="director" jdbcType="VARCHAR" property="director"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="point" jdbcType="DOUBLE" property="point"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="time" jdbcType="VARCHAR" property="time"/>
+        <result column="introduction" jdbcType="LONGVARCHAR" property="introduction"/>
+    </resultMap>
 
-  <sql id="filmSelect">
-    name,
-    filmId,
-    createtime,
-    img,
-    time,
-    director,
-    actor,
-    point,
-    introduction,
-    price,
-    contry
+    <sql id="filmSelect">
+        name,
+        filmId,
+        createtime,
+        img,
+        time,
+        director,
+        actor,
+        point,
+        introduction,
+        price,
+        contry
   </sql>
-  <sql id="typeSelect">
+    <sql id="typeSelect">
     typeName,
     typeId
   </sql>
 
-  <select id="selectFilmAndTypesInfo1" parameterType="com.film.model.Film" resultMap="types">
-    select
-      <include refid="filmSelect"/>,
-      <include refid="typeSelect"/>
-    from film f, types t, film_type ft
-    where ft.film_id = f.filmId
-    and ft.type_id = t.typeId
-    <if test="filmid != null">
-      and f.filmId = #{filmid}
-    </if>
-  </select>
+    <select id="selectFilmAndTypesInfo1" parameterType="com.film.model.Film" resultMap="types">
+        select
+        <include refid="filmSelect"/>,
+        <include refid="typeSelect"/>
+        from film f, types t, film_type ft
+        where ft.film_id = f.filmId
+        and ft.type_id = t.typeId
+        <if test="filmid != null">
+            and f.filmId = #{filmid}
+        </if>
+    </select>
 
-  <!-- 查询复杂的电影列表 -->
-  <select id="selectFilmAndTypesInfo2" parameterType="com.film.model.Film" resultMap="types">
-    select
-      img, createtime, name, filmId, typeName
-    from
-    (
-      SELECT film.name, film.img, film.createtime, film.filmId
-      FROM film
-      limit #{page}, #{size}
-    )fil,
-    types t,
-    film_type ft
-    where fil.filmId = ft.film_id
-    and t.typeId = ft.type_id
-  </select>
+    <!-- 查询复杂的电影列表 -->
+    <select id="selectFilmAndTypesInfo2" parameterType="com.film.model.Film" resultMap="types">
+        select
+          img, createtime, name, filmId, typeName
+        from
+        (
+          SELECT film.name, film.img, film.createtime, film.filmId
+          FROM film
+          limit #{page}, #{size}
+        )fil,
+        types t,
+        film_type ft
+        where fil.filmId = ft.film_id
+        and t.typeId = ft.type_id
+    </select>
 
-  <!-- 电影列表的返回结果 -->
-  <resultMap type="com.film.model.Film" id="types" extends="BaseResultMap">
-    <!-- ofType指定集合中的对象类型 -->
-    <collection property="typesList" ofType="com.film.model.Types">
-      <id property="typeid" column="typeId"/>
-      <result property="typeName" column="typeName"/>
-    </collection>
-  </resultMap>
+    <!-- 首页5条置顶电影 -->
+    <select id="selectTopFilms" parameterType="com.film.util.PageUtil" resultMap="types">
+        select
+        img, name, filmId, typeName, point, createtime, time
+        from
+        (
+        SELECT film.name, film.img, film.filmId, film.point, film.createtime, film.time
+        FROM film
+        ORDER BY film.point DESC
+        limit #{currentPage}, #{pageSize}
+        )fil,
+        types t,
+        film_type ft
+        where fil.filmId = ft.film_id
+        and t.typeId = ft.type_id
+    </select>
 
-  <!-- 检测是否有相同名字电影 -->
-  <select id="testFileName" parameterType="java.lang.String" resultType="int">
-    SELECT COUNT(name)
-    FROM film
-    WHERE name = #{name}
+    <!-- 电影列表的返回结果 -->
+    <resultMap type="com.film.model.Film" id="types" extends="BaseResultMap">
+        <!-- ofType指定集合中的对象类型 -->
+        <collection property="typesList" ofType="com.film.model.Types">
+            <id property="typeid" column="typeId"/>
+            <result property="typeName" column="typeName"/>
+        </collection>
+    </resultMap>
+
+    <!-- 检测是否有相同名字电影 -->
+    <select id="testFileName" parameterType="java.lang.String" resultType="int">
+        SELECT COUNT(name)
+        FROM film
+        WHERE name = #{name}
   </select>
 </mapper>

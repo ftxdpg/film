@@ -1,9 +1,13 @@
 package com.film.service.serviceImpl;
 
+import com.film.dao.UserFilmMapper;
 import com.film.dao.UserMapper;
+import com.film.model.Film;
 import com.film.model.User;
+import com.film.model.UserFilm;
 import com.film.service.UserService;
 import com.film.util.ExcelUtils;
+import com.film.util.PageUtil;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,6 +25,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserFilmMapper userFilmMapper;
 
     // 插入
     @Override
@@ -77,8 +84,6 @@ public class UserServiceImpl implements UserService{
         ExcelUtils.export(personList, outputStream);
     }
 
-
-
     // 获取用户列表
     @Override
     public List<User> list() {
@@ -92,5 +97,36 @@ public class UserServiceImpl implements UserService{
         PageHelper.startPage(page, size);
         List<User> users = userMapper.selectAll();
         return users;
+    }
+
+    // 查询用户与电影的收藏关系+分页
+    @Override
+    public PageUtil<User> selectCollection(UserFilm userFilm) {
+        PageUtil<User> userPageUtil = new PageUtil<>(null, userFilm.getPage(), userFilm.getSize());
+        // 查询总数
+        int totalCount = userFilmMapper.selectCount(new UserFilm(null, userFilm.getUserId()));
+        // 设置总数
+        userPageUtil.setTotalCount(totalCount);
+        // 判断当前页
+        if (userFilm.getPage() <= 0){
+            userPageUtil.setCurrentPage(1);
+            userFilm.setPage(1);
+        }
+        // 判断分页大小
+        if (userFilm.getSize() <= 0){
+            userPageUtil.setPageSize(5);
+            userFilm.setSize(5);
+        }
+        // 判断跳转到第几页
+        if (userFilm.getPage() > userPageUtil.getTotalPage()){
+            userPageUtil.setCurrentPage(userPageUtil.getTotalPage());
+            userFilm.setPage(userPageUtil.getTotalPage());
+        }
+        // 分页查询的信息
+        userFilm.setPage((userFilm.getPage()-1)*userFilm.getSize());
+        List<User> films = userMapper.selectUserFilm(userFilm);
+        // 设置信息
+        userPageUtil.setData(films);
+        return userPageUtil;
     }
 }
