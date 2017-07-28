@@ -204,7 +204,7 @@
                             <li><a href="#preview" data-toggle="tab">他人对我的评论</a></li>
                             <li><a href="#address" data-toggle="tab">我的地址</a></li>
                             <li><a href="#order" data-toggle="tab">我的订单</a></li>
-                            <li><a href="#bought" data-toggle="tab">我的购物车</a></li>
+                            <li><a href="#car" data-toggle="tab">我的购物车</a></li>
                         </ul>
 
                         <!-- Tab panes -->
@@ -239,14 +239,14 @@
                                                     <td align="center">${film.point}</td>
                                                     <td align="center">
                                                         <a onclick="removeCollection(${film.filmid}, ${sessionScope.user.uid})">取消收藏</a> &nbsp;
-                                                        <a>加入购物车</a>
+                                                        <a onclick="setInCar(${film.filmid}, ${user.uid}, 1, 5)">加入购物车</a>
                                                     </td>
                                                 </tr>
                                             </c:forEach>
                                         </c:forEach>
                                     </tbody>
                                 </table>
-                                <!-- 分页相关 -->
+                                <!-- 收藏分页相关 -->
                                 <div id="collect_page">
                                     <input value="第一页" style="margin: 5px;" onclick="collectPage(${collection.firstPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
                                     <input value="<" style="margin: 5px;" onclick="collectPage(${collection.prePage},5, ${sessionScope.user.uid})" type="button">&nbsp;
@@ -258,7 +258,50 @@
                                     跳转到&nbsp;<input type="text" id="my_CollectPage" value="${collection.currentPage}" title="" onblur="collectSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;页
                                 </div>
                             </div>
-                            <div class="tab-pane" id="bought">
+
+                            <div class="tab-pane" id="car">
+                                <table class="sTable" width="50%" cellspacing="0" cellpadding="0">
+                                    <thead>
+                                    <tr>
+                                        <td align="center"><input type="checkbox" onclick="doSelectAll()" id="selAll"/></td>
+                                        <td align="center">电影海报</td>
+                                        <td align="center">电影名</td>
+                                        <td align="center">价格</td>
+                                        <td align="center">数量</td>
+                                        <td align="center">总价</td>
+                                        <td align="center">操作</td>
+                                    </tr>
+                                    </thead>
+                                    <!-- 购物车列表 -->
+                                    <tbody id="cars">
+                                        <c:forEach items="${car.data}" var="car1">
+                                            <tr>
+                                                <td align="center"><input type="checkbox" name="selectedRow"/></td>
+                                                <td align="center"><img src="${pageContext.request.contextPath}/resources/behind/images/${car1.film.img}" width="150" height="150" /></td>
+                                                <td align="center">${car1.film.name}</td>
+                                                <td align="center">${car1.film.price}</td>
+                                                <td align="center"><i class="fa fa-minus-square" onclick="deleteOne(${car1.carId}, ${car.currentPage}, ${car.pageSize})"></i>&nbsp;${car1.count}&nbsp;<i class="fa fa-plus-square" onclick="setInCar(${car1.film.filmid}, ${sessionScope.user.uid}, ${car.currentPage}, ${car.pageSize})"></i></td>
+                                                <td align="center">${car1.count * car1.film.price}</td>
+                                                <td align="center">
+                                                    <a onclick="removeFromCar(${car1.carId}, ${sessionScope.user.uid})">移出购物车</a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                                <!-- 购物车分页相关 -->
+                                <div id="car_page">
+                                    <input value="第一页" style="margin: 5px;" onclick="carPage(${car.firstPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                    <input value="<" style="margin: 5px;" onclick="carPage(${car.prePage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                    当前第${car.currentPage}页&nbsp;
+                                    总共${car.totalPage}页&nbsp;
+                                    <input class="basic" value=">" style="margin: 5px;" onclick="carPage(${car.nextPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                    <input class="basic" value="最后一页" style="margin: 5px;" onclick="carPage(${car.totalPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                    每页显示&nbsp;<input type="text" id="my_CarSize" value="${car.pageSize}" title="" onblur="carSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;条&nbsp;
+                                    跳转到&nbsp;<input type="text" id="my_CarPage" value="${car.currentPage}" title="" onblur="carSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;页
+                                    &nbsp;<i class="fa fa-refresh" onclick="carPage(1, 5, ${user.uid})"></i>
+                                    &nbsp;<a class="watchlist">购买选中</a>
+                                </div>
                             </div>
                             <div class="tab-pane" id="address">
                             </div>
@@ -300,6 +343,11 @@
     $(document).ready(function () {
         init_Elements();
     });
+
+    //全选、全反选
+    function doSelectAll(){
+        $("input[name=selectedRow]").prop("checked", $("#selAll").is(":checked"));
+    }
 
     // 解绑邮箱
     function removeEmail(phone) {
@@ -387,6 +435,123 @@
             },
             error:function () {alert("内部错误");}
         });
+    }
+
+    // 放进购物车（加一）
+    function setInCar(filmId, userId, page, size) {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/car/yiBuInsetCar",
+            data:{"filmId":filmId, "userId":userId, "page":page, "size":size},
+            type:"post",
+            success:function (result) {
+                var $cars = $("#cars");
+                var $car_page = $("#car_page");
+                if (result.status == 200){
+                    $cars.empty();
+                    $cars.append(result.msg);
+                    $car_page.empty();
+                    $car_page.append(result.data);
+                } else {
+                    alert(result.msg);
+                }
+            },
+            error:function () {alert("内部错误");}
+        });
+    }
+
+    // 减一
+    function deleteOne(carId, page, size) {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/car/deleteOne",
+            data:{"carId":carId, "page":page, "size":size},
+            type:"post",
+            success:function (result) {
+                var $cars = $("#cars");
+                var $car_page = $("#car_page");
+                if (result.status == 200){
+                    $cars.empty();
+                    $cars.append(result.msg);
+                    $car_page.empty();
+                    $car_page.append(result.data);
+                } else {
+                    alert(result.msg);
+                }
+            },
+            error:function () {alert("内部错误");}
+        });
+    }
+
+    // 移出购物车
+    function removeFromCar(carId, userId) {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/car/deleteCar",
+            data:{"carId":carId, "userId":userId},
+            type:"post",
+            success:function (result) {
+                var $cars = $("#cars");
+                var $car_page = $("#car_page");
+                if (result.status == 200){
+                    $cars.empty();
+                    $cars.append(result.msg);
+                    $car_page.empty();
+                    $car_page.append(result.data);
+                } else {
+                    alert(result.msg);
+                }
+            },
+            error:function () {alert("内部错误");}
+        });
+    }
+
+    // 购物车分页
+    function carPage(page, size, uid) {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/car/carPage",
+            type:"post",
+            data:{"page":page, "size":size, "uid":uid},
+            success: function (result) {
+                var $cars = $("#cars");
+                var $car_page = $("#car_page");
+                if (result.status == 200) {
+                    $cars.empty();
+                    $cars.append(result.msg);
+                    $car_page.empty();
+                    $car_page.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 购物车自定义分页
+    function carSelfPage(uid) {
+        var size = $("#my_CarSize")[0].value;
+        var page = $("#my_CarPage")[0].value;
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/car/carPage",
+            type:"post",
+            data:{"page":page, "size":size, "uid":uid},
+            success: function (result) {
+                var $cars = $("#cars");
+                var $car_page = $("#car_page");
+                if (result.status == 200) {
+                    $cars.empty();
+                    $cars.append(result.msg);
+                    $car_page.empty();
+                    $car_page.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 立即购买（跳转到订单页面）
+    function setInOrder() {
+
     }
 </script>
 </body>

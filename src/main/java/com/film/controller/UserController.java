@@ -1,8 +1,10 @@
 package com.film.controller;
 
+import com.film.model.Car;
 import com.film.model.Film;
 import com.film.model.User;
 import com.film.model.UserFilm;
+import com.film.service.CarService;
 import com.film.service.UserFilmService;
 import com.film.service.UserService;
 import com.film.util.BehindAjaxResult;
@@ -38,6 +40,9 @@ public class UserController {
 
     @Autowired
     private UserFilmService userFilmService;
+
+    @Autowired
+    private CarService carService;
 
     // 用户列表
     @RequestMapping("/list")
@@ -82,7 +87,9 @@ public class UserController {
     @RequestMapping("userInfo")
     public String userInfo(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "5")Integer size, Integer uid, Model model){
         PageUtil<User> collection = userService.selectCollection(new UserFilm(uid, page, size));
+        PageUtil<Car> cars = carService.selectCars(page, size, uid);
         model.addAttribute("collection", collection);
+        model.addAttribute("car",cars);
         return "/front/user/info";
     }
 

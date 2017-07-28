@@ -46,20 +46,16 @@
     <select id="selectUserFilm" parameterType="com.film.model.UserFilm" resultMap="collections">
         SELECT f.filmId, f.name, f.img, f.point, f.price
         FROM user_film uf
-        INNER JOIN film f
+        LEFT JOIN film f
         ON uf.film_id = f.filmId
         WHERE uf.user_id = #{userId}
         limit #{page},#{size}
     </select>
 
     <!-- 用户与电影的收藏关系——返回结果 -->
-    <resultMap id="collections" type="com.film.model.User" extends="BaseResultMap">
+    <resultMap id="collections" type="com.film.model.User">
         <collection property="films" ofType="com.film.model.Film">
             <id column="filmId" jdbcType="INTEGER" property="filmid"/>
-            <result column="actor" jdbcType="VARCHAR" property="actor"/>
-            <result column="contry" jdbcType="VARCHAR" property="contry"/>
-            <result column="createtime" jdbcType="VARCHAR" property="createtime"/>
-            <result column="director" jdbcType="VARCHAR" property="director"/>
             <result column="img" jdbcType="VARCHAR" property="img"/>
             <result column="name" jdbcType="VARCHAR" property="name"/>
             <result column="point" jdbcType="DOUBLE" property="point"/>

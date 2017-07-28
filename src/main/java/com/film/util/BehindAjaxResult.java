@@ -1,5 +1,6 @@
 package com.film.util;
 
+import com.film.model.Car;
 import com.film.model.Film;
 import com.film.model.Types;
 import com.film.model.User;
@@ -99,7 +100,7 @@ public class BehindAjaxResult {
                                 "                                                    <td align=\"center\">"+ film.getPoint() +"</td>\n" +
                                 "                                                    <td align=\"center\">\n" +
                                 "                                                        <a onclick=\"removeCollection("+ film.getFilmid() +", "+ user1.getUid() +")\">取消收藏</a> &nbsp;\n" +
-                                "                                                        <a>加入购物车</a>\n" +
+                                "                                                        <a onclick=\"setInCar("+ film.getFilmid() +", "+ user1.getUid() +", 1, 5)\">加入购物车</a>\n" +
                                 "                                                    </td>\n" +
                                 "                                                </tr>";
             }
@@ -121,5 +122,43 @@ public class BehindAjaxResult {
                         "                                    跳转到&nbsp;<input type=\"text\" id=\"my_CollectPage\" value=\""+ user.getCurrentPage() +"\" title=\"\" onblur=\"collectSelfPage("+ uid +")\" style=\"width: 30px; height: 20px;\"/>&nbsp;页\n" +
                         "                                </div>";
         return info;
+    }
+
+    // 购物车列表信息
+    public static String car(PageUtil<Car> carPageUtil, HttpServletRequest request, HttpSession session){
+        String car = "";
+        User user = (User) session.getAttribute("user");
+        for (Car car1: carPageUtil.getData()){
+            car +=  "                                           <tr>\n" +
+                    "                                                <td align=\"center\"><input type=\"checkbox\" name=\"selectedRow\"/></td>\n" +
+                    "                                                <td align=\"center\"><img src=\""+request.getContextPath()+"/resources/behind/images/"+car1.getFilm().getImg()+"\" width=\"150\" height=\"150\" /></td>\n" +
+                    "                                                <td align=\"center\">"+ car1.getFilm().getName() +"</td>\n" +
+                    "                                                <td align=\"center\">"+ car1.getFilm().getPrice() +"</td>\n" +
+                    "                                                <td align=\"center\"><i class=\"fa fa-minus-square\" onclick=\"deleteOne("+ car1.getCarId() +","+ carPageUtil.getCurrentPage() +","+ carPageUtil.getPageSize() +")\"></i>&nbsp;"+ car1.getCount() +"&nbsp;<i class=\"fa fa-plus-square\" onclick=\"setInCar("+ car1.getFilm().getFilmid() +", "+ user.getUid() +", "+ carPageUtil.getCurrentPage() +","+ carPageUtil.getPageSize() +")\"></i></td>" +
+                    "                                                <td align=\"center\">"+ car1.getCount()*car1.getFilm().getPrice() +"</td>\n" +
+                    "                                                <td align=\"center\">\n" +
+                    "                                                    <a onclick=\"removeFromCar("+ car1.getCarId() +","+user.getUid()+")\">移出购物车</a> &nbsp;\n" +
+                    "                                                </td>\n" +
+                    "                                            </tr>";
+        }
+        return car;
+    }
+
+    // 购物车底部分页
+    public static String car_page(PageUtil<Car> carPageUtil, Integer uid){
+        String car_page =
+                "                               <div id=\"car_page\">\n" +
+                "                                    <input value=\"第一页\" style=\"margin: 5px;\" onclick=\"carPage("+ carPageUtil.getFirstPage() +","+ carPageUtil.getPageSize() +", "+ uid +")\" type=\"button\">&nbsp;\n" +
+                "                                    <input value=\"<\" style=\"margin: 5px;\" onclick=\"carPage("+ carPageUtil.getPrePage() +","+ carPageUtil.getPageSize() +", "+ uid +")\" type=\"button\">&nbsp;\n" +
+                "                                    当前第"+ carPageUtil.getCurrentPage() +"页&nbsp;\n" +
+                "                                    总共"+ carPageUtil.getTotalPage() +"页&nbsp;\n" +
+                "                                    <input class=\"basic\" value=\">\" style=\"margin: 5px;\" onclick=\"carPage("+ carPageUtil.getNextPage() +","+ carPageUtil.getPageSize() +", "+ uid +")\" type=\"button\">&nbsp;\n" +
+                "                                    <input class=\"basic\" value=\"最后一页\" style=\"margin: 5px;\" onclick=\"carPage("+ carPageUtil.getTotalPage() +","+ carPageUtil.getPageSize() +", "+ uid +")\" type=\"button\">&nbsp;\n" +
+                "                                    每页显示&nbsp;<input type=\"text\" id=\"my_CarSize\" value=\""+ carPageUtil.getPageSize() +"\" title=\"\" onblur=\"carSelfPage("+ uid +")\" style=\"width: 30px; height: 20px;\"/>&nbsp;条&nbsp;\n" +
+                "                                    跳转到&nbsp;<input type=\"text\" id=\"my_CarPage\" value=\""+ carPageUtil.getCurrentPage() +"\" title=\"\" onblur=\"carSelfPage("+ uid +")\" style=\"width: 30px; height: 20px;\"/>&nbsp;页\n" +
+                "                                    &nbsp;<i class=\"fa fa-refresh\" onclick=\"carPage(1, 5, "+ uid +")\"></i>"+
+                "                                    &nbsp;<a class=\"watchlist\">购买选中</a>"+
+                "                                </div>";
+        return car_page;
     }
 }

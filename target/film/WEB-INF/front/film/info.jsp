@@ -262,6 +262,9 @@
                                     </c:otherwise>
                                 </c:choose>
                             </div>
+                            <div id="car" style="margin-top: 40px;">
+                                <a href="${pageContext.request.contextPath}/film/user/car/insetCar?filmId=${film.filmid}&userId=${user.uid}" class="watchlist">添加至购物车</a>
+                            </div>
                         </div>
                     </div>
                 </div>

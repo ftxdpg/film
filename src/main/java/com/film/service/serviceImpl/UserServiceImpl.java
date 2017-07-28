@@ -108,12 +108,12 @@ public class UserServiceImpl implements UserService{
         // 设置总数
         userPageUtil.setTotalCount(totalCount);
         // 判断当前页
-        if (userFilm.getPage() <= 0){
+        if (userFilm.getPage() == null || userFilm.getPage() <= 0){
             userPageUtil.setCurrentPage(1);
             userFilm.setPage(1);
         }
         // 判断分页大小
-        if (userFilm.getSize() <= 0){
+        if (userFilm.getSize() == null || userFilm.getSize() <= 0){
             userPageUtil.setPageSize(5);
             userFilm.setSize(5);
         }

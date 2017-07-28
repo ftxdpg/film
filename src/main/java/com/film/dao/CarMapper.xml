@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.film.dao.CarMapper">
+    <resultMap id="BaseResultMap" type="com.film.model.Car">
+        <id column="carId" jdbcType="INTEGER" property="carId"/>
+        <result column="userId" jdbcType="INTEGER" property="userId"/>
+        <result column="filmId" jdbcType="INTEGER" property="filmId"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
+    </resultMap>
+
+    <select id="selectCars" resultMap="userCars">
+        SELECT f.filmId, f.img, f.name, f.price, count, carId
+        FROM car c
+        LEFT JOIN film f ON c.filmId = f.filmId
+        WHERE c.userId = #{userId}
+        limit #{page},#{size}
+    </select>
+
+
+    <!-- 返回的结果集 -->
+    <resultMap id="userCars" type="com.film.model.UserInfo">
+        <collection property="cars" ofType="com.film.model.Car">
+            <id column="carId" jdbcType="INTEGER" property="carId"/>
+            <result column="userId" jdbcType="INTEGER" property="userId"/>
+            <result column="filmId" jdbcType="INTEGER" property="filmId"/>
+            <result column="count" jdbcType="INTEGER" property="count"/>
+            <association property="film" javaType="com.film.model.Film">
+                <id column="filmId" jdbcType="INTEGER" property="filmid"/>
+                <result column="img" jdbcType="VARCHAR" property="img"/>
+                <result column="name" jdbcType="VARCHAR" property="name"/>
+                <result column="price" jdbcType="DOUBLE" property="price"/>
+            </association>
+        </collection>
+    </resultMap>
+</mapper>

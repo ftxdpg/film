@@ -31,10 +31,6 @@ public class User {
     @Transient
     private List<Film> films;
 
-    // 用户与地址的关系
-    @Transient
-    private List<Address> addresses;
-
     public Integer getUid() {
         return uid;
     }
@@ -73,14 +69,6 @@ public class User {
 
     public void setFilms(List<Film> films) {
         this.films = films;
-    }
-
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
     }
 
     public String getPassword() {
