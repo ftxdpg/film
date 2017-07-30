@@ -1,7 +1,6 @@
 package com.film.controller;
 
 import com.film.model.Film;
-import com.film.model.Types;
 import com.film.model.User;
 import com.film.model.UserFilm;
 import com.film.service.FilmService;
@@ -28,10 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**

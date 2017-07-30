@@ -1,11 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!doctype html>
 <html>
 <head>
 	<!-- Basic Page Needs -->
         <meta charset="utf-8">
-        <title>购买成功</title>
+        <title>电影查询结果</title>
         <meta name="description" content="A Template by Gozha.net">
         <meta name="keywords" content="HTML, CSS, JavaScript">
         <meta name="author" content="Gozha.net">
@@ -40,8 +40,11 @@
     <![endif]-->
 </head>
 
-<body>
-    <div class="wrapper"> 
+<body> 
+    <div class="wrapper">
+        <!-- Banner -->
+        
+
         <!-- Header section -->
         <header class="header-wrapper header-wrapper--home">
             <div class="container">
@@ -63,7 +66,6 @@
 
                     <!-- Link navigation -->
                     <ul id="navigation">
-
                         <li>
                             <span class="sub-nav-toggle plus"></span>
                             <a href="" style="margin-left: 290px;">电影分类</a>
@@ -141,26 +143,127 @@
                 </div>
             </div>
         </header>
-
-        <section class="container">
-            <div class="content-wrapper" style="margin-top: 120px;">
-                <div class="col-sm-3">
-                    <div id="code"></div>
-                </div>
-                <div class="col-sm-9">
-				<div class="promo promo--short">
-                    <img class="promo__images" alt="" src="${pageContext.request.contextPath}/resources/images/tickets.png">
-                    <div class="promo__head">购买成功</div>
-                    <div class="promo__describe">请保管好你的二维码，欢迎下次光临!!</div>
-                    <div class="promo__content"></div>
-                </div>
-				</div>
+        
+        <!-- Search bar -->
+        <div class="search-wrapper">
+            <div class="container container--add">
+                <form id='search-form' method='post' class="search" action="${pageContext.request.contextPath}/film/filmCommon/common/selectByFilmName">
+                    <input type="text" id="name" name="name" class="search__field" placeholder="Search">
+                    <button type='submit' class="btn btn-md btn--danger search__button">搜索电影</button>
+                </form>
             </div>
-            <div class="devider-wrapper">
-                <div class="devider"></div>
+        </div>
+        
+        <!-- Main content -->
+        <c:if test="${!empty film}">
+        <section class="container">
+            <div class="col-sm-12">
+                <h2 class="page-heading">Movies</h2>
+                <!-- Movie preview item -->
+                <div class="movie movie--preview movie--full release">
+                     <div class="col-sm-3 col-md-2 col-lg-2">
+                        <div class="movie__images">
+                            <img alt='' src="${pageContext.request.contextPath}/resources/behind/images/${film.img}" style="height: 300px;">
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-md-10 col-lg-10 movie__about">
+                        <a  class="movie__title link--huge">${film.name}</a>
+                        <p class="movie__time">${film.time}</p>
+                        <p class="movie__option"><strong>国家: </strong>${film.contry}</p>
+                        <p class="movie__option"><strong>年份: </strong>${film.createtime}</p>
+                        <p class="movie__option"><strong>类型: </strong><c:forEach items="${film.typesList}" var="type">${type.typeName}&nbsp;</c:forEach></p>
+                        <p class="movie__option"><strong>导演: </strong>${film.director}</p>
+                        <p class="movie__option"><strong>演员: </strong>${film.actor}</p>
+                        <p class="movie__option"><strong>价格: </strong>${film.price}</p>
+
+                        <div class="movie__btns">
+                            <a href="${pageContext.request.contextPath}/film/user/car/insetCar?filmId=${film.filmid}&userId=${user.uid}" class="btn btn-md btn--warning">加入购物车</a>
+                            <div id="collected" style="margin-top: 20px;">
+                                <c:choose>
+                                    <c:when test="${!empty sessionScope.user}">
+                                        <c:choose>
+                                            <c:when test="${empty userFilm}">
+                                                <a href="${pageContext.request.contextPath}/film/user/collect?filmId=${film.filmid}&userId=${user.uid}" class="watchlist">收藏至观看列表</a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                已收藏，点击<a href="${pageContext.request.contextPath}/film/user/userInfo?uid=${user.uid}">查看收藏</a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:when>
+                                    <c:otherwise>
+                                        没有<a href="${pageContext.request.contextPath}/common/loginUI">登录</a>，无法查看收藏记录
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+
+                        <div class="preview-footer">
+                            <div class="movie__rate">
+                                热度:
+                                <c:choose>
+                                    <c:when test="${film.point <= 2}">
+                                        <div class="score" style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${2 < film.point && film.point <= 4}">
+                                        <div class="score" style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${4 < film.point && film.point <= 6}">
+                                        <div class="score" style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${6 < film.point && film.point <= 8}">
+                                        <div class="score" style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
             </div>
         </section>
-
+        </c:if>
+        <c:if test="${empty film}">
+        <section class="container">
+            <div class="col-sm-12">
+                <h2 class="page-heading">Movies</h2>
+                没有查询结果，你可以<a href="${pageContext.request.contextPath}/common/index">前往首页</a>
+            </div>
+        </section>
+        </c:if>
+        
         <div class="clearfix"></div>
 
         <footer class="footer-wrapper">
@@ -192,6 +295,15 @@
                 <div class="col-xs-12 col-md-6">
                     <div class="footer-info">
                         <p class="heading-special--small">A.Movie<br><span class="title-edition">in the social media</span></p>
+
+                        <div class="social">
+                            <a href='#' class="social__variant fa fa-facebook"></a>
+                            <a href='#' class="social__variant fa fa-twitter"></a>
+                            <a href='#' class="social__variant fa fa-vk"></a>
+                            <a href='#' class="social__variant fa fa-instagram"></a>
+                            <a href='#' class="social__variant fa fa-tumblr"></a>
+                            <a href='#' class="social__variant fa fa-pinterest"></a>
+                        </div>
                         
                         <div class="clearfix"></div>
                         <p class="copy">&copy; A.Movie, 2013. All rights reserved. Done by Olia Gozha</p>
@@ -204,22 +316,21 @@
 	<!-- JavaScript-->
         <!-- jQuery 1.9.1--> 
         <script src="${pageContext.request.contextPath}/resources/behind/js/jquery.min.js"></script>
-        <!-- 二维码 -->
-        <script src="${pageContext.request.contextPath}/resources/behind/js/jquery-qrcode.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/external/jquery-1.10.1.min.js"><\/script>')</script>
         <!-- Migrate --> 
         <script src="${pageContext.request.contextPath}/resources/js/external/jquery-migrate-1.2.1.min.js"></script>
         <!-- jQuery UI -->
         <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
         <!-- Bootstrap 3--> 
-        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script> 
-        <!-- Inview -->
-        <script src="${pageContext.request.contextPath}/resources/js/external/jquery.inview.js"></script>
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 
         <!-- Mobile menu -->
         <script src="${pageContext.request.contextPath}/resources/js/jquery.mobile.menu.js"></script>
-        <!-- Select -->
+         <!-- Select -->
         <script src="${pageContext.request.contextPath}/resources/js/external/jquery.selectbox-0.2.min.js"></script>
+
+        <!-- Stars rate -->
+        <script src="${pageContext.request.contextPath}/resources/js/external/jquery.raty.js"></script>
 
         <!-- Form element -->
         <script src="${pageContext.request.contextPath}/resources/js/external/form-element.js"></script>
@@ -230,17 +341,10 @@
         <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 		
 		<script type="text/javascript">
-            $(document).ready(function() { 
-                init_Elements();
-
-                // 二维码
-                $("#code").qrcode({
-                    render:"table",
-                    width:170,
-                    height:170,
-                    text:"${orderId}"
-                });
+            $(document).ready(function() {
+                init_MovieList();
             });
 		</script>
+
 </body>
 </html>

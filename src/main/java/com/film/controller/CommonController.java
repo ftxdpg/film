@@ -34,9 +34,6 @@ public class CommonController {
     private UserService userService;
 
     @Autowired
-    private TypeService typeService;
-
-    @Autowired
     private FilmService filmService;
 
     // 首页

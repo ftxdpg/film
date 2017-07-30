@@ -14,18 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/film/admin")
 public class AdminController {
 
-    @Autowired
-    private AdminService adminService;
-
-    // 管理员修改信息
-
-    // 管理员忘记密码
-
     // 管理员信息显示
     @RequestMapping("/info")
     public String info(){
         return "behind/admin/info";
     }
-
-    // 管理员注销
 }

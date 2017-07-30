@@ -2,6 +2,7 @@ package com.film.dao;
 
 import com.film.model.Film;
 import com.film.util.PageUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -21,4 +22,7 @@ public interface FilmMapper extends Mapper<Film> {
 
     // 5条置顶电影
     List<Film> selectTopFilms(PageUtil pageUtil);
+
+    // 多条件查询
+    List<Film> selectByTypes(@Param("contry")String contry, @Param("createtime")String createtime, @Param("typeId")Integer typeId);
 }

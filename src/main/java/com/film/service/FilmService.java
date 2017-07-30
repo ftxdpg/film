@@ -19,9 +19,6 @@ public interface FilmService extends BaseService<Film> {
     // 电影列表--异步分页
     PageUtil<Film> getListByAjax(Integer page, Integer size);
 
-    // 只查询电影价格
-    Double selectFilmPrice(Integer id);
-
     // 修改电影
     void update(Film film, String[] types) throws Exception;
 
@@ -33,4 +30,10 @@ public interface FilmService extends BaseService<Film> {
 
     // 5条置顶电影
     List<Film> selectTopFilms(PageUtil pageUtil);
+
+    // 电影类型查询
+    List<Film> selectType(String createTime, String contry, Integer typeId);
+
+    // 按名字查询
+    Film selectByName(String name);
 }

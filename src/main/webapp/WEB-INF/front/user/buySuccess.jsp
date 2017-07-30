@@ -42,9 +42,6 @@
 
 <body>
     <div class="wrapper"> 
-        <!-- Banner -->
-        
-
         <!-- Header section -->
         <header class="header-wrapper header-wrapper--home">
             <div class="container">

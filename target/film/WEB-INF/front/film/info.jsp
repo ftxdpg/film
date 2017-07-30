@@ -153,16 +153,9 @@
     <!-- 搜索框 -->
     <div class="search-wrapper" style="margin-top: 55px;">
         <div class="container container--add">
-            <form id='search-form' method='get' class="search">
-                <input type="text" class="search__field" placeholder="Search">
-                <select name="sorting_item" id="search-sort" class="search__sort" tabindex="0">
-                    <option value="1" selected='selected'>By title</option>
-                    <option value="2">By year</option>
-                    <option value="3">By producer</option>
-                    <option value="4">By title</option>
-                    <option value="5">By year</option>
-                </select>
-                <button type='submit' class="btn btn-md btn--danger search__button">search a movie</button>
+            <form id='search-form' method='post' class="search" action="${pageContext.request.contextPath}/film/filmCommon/common/selectByFilmName">
+                <input type="text" id="name" name="name" class="search__field" placeholder="Search">
+                <button type='submit' class="btn btn-md btn--danger search__button">搜索电影</button>
             </form>
         </div>
     </div>
@@ -244,7 +237,7 @@
                         <a href="#" class="comment-link">Comments:  15</a>
 
                         <div class="movie__btns movie__btns--full">
-                            <a href="#" class="btn btn-md btn--warning">预定该电影票</a>
+                            <a href="${pageContext.request.contextPath}/film/user/car/insetCar?filmId=${film.filmid}&userId=${user.uid}" class="btn btn-md btn--warning">添加至购物车</a>
                             <div id="collected" style="margin-top: 20px;">
                                 <c:choose>
                                     <c:when test="${!empty sessionScope.user}">
@@ -261,9 +254,6 @@
                                         没有<a href="${pageContext.request.contextPath}/common/loginUI">登录</a>，无法查看收藏记录
                                     </c:otherwise>
                                 </c:choose>
-                            </div>
-                            <div id="car" style="margin-top: 40px;">
-                                <a href="${pageContext.request.contextPath}/film/user/car/insetCar?filmId=${film.filmid}&userId=${user.uid}" class="watchlist">添加至购物车</a>
                             </div>
                         </div>
                     </div>

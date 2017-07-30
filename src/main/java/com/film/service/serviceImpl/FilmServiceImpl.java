@@ -74,7 +74,6 @@ public class FilmServiceImpl implements FilmService{
         return filmPageUtil;
     }
 
-
     // 删除电影
     @Override
     public void deleteByPrimaryKey(Integer id) {
@@ -88,13 +87,6 @@ public class FilmServiceImpl implements FilmService{
         film.setFilmid(id);
         return filmMapper.selectFilmAndTypesInfo1(film).get(0);
     }
-
-    // 只查询电影价格
-    @Override
-    public Double selectFilmPrice(Integer id){
-        return filmMapper.selectOne(new Film(id)).getPrice();
-    }
-
 
     // 修改电影
     @Override
@@ -129,11 +121,29 @@ public class FilmServiceImpl implements FilmService{
         filmMapper.delete(new Film(id));
     }
 
-
     // 5条置顶电影
     @Override
     public List<Film> selectTopFilms(PageUtil pageUtil){
         return filmMapper.selectTopFilms(pageUtil);
+    }
+
+    // 电影类型查询
+    @Override
+    public List<Film> selectType(String createTime, String contry, Integer typeId){
+        if (createTime != null){
+            createTime = "%"+createTime+"%";
+        }
+        if (contry != null){
+            contry = "%"+contry+"%";
+        }
+        List<Film> films = filmMapper.selectByTypes(contry, createTime, typeId);
+        return films;
+    }
+
+    // 按名字查询
+    @Override
+    public Film selectByName(String name){
+        return filmMapper.selectOne(new Film(name));
     }
 
     @Override

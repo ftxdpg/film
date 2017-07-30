@@ -34,9 +34,6 @@ public class AdminCommonController {
     @Autowired
     private AdminService adminService;
 
-    @Autowired
-    private FilmService filmService;
-
     // 登录页面
     @RequestMapping("/loginUI")
     public String loginUI(){

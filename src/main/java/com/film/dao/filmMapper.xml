@@ -92,5 +92,33 @@
         SELECT COUNT(name)
         FROM film
         WHERE name = #{name}
-  </select>
+    </select>
+
+    <!-- 分类多条件查询 -->
+    <select id="selectByTypes" resultMap="types">
+        select
+        img, name, filmId, typeName, point, time
+        from
+        (
+        SELECT film.name, film.img, film.filmId, film.point, film.createtime, film.time
+        FROM film
+        ORDER BY film.point DESC
+        limit #{currentPage}, #{pageSize}
+        )fil,
+        types t,
+        film_type ft
+        where fil.filmId = ft.film_id
+        and t.typeId = ft.type_id
+        <if test="contry != null" >
+            AND contry LIKE #{contry}
+        </if>
+        <if test="createtime != null">
+            AND createtime LIKE #{createtime}
+        </if>
+        <if test="typeId != null">
+            AND t.typeId = #{typeId}
+        </if>
+    </select>
+
+
 </mapper>
