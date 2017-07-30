@@ -202,61 +202,112 @@
                             <li class="active"><a href="#collection" data-toggle="tab">我的收藏</a></li>
                             <li><a href="#comment" data-toggle="tab">我的评论</a></li>
                             <li><a href="#preview" data-toggle="tab">他人对我的评论</a></li>
-                            <li><a href="#address" data-toggle="tab">我的地址</a></li>
                             <li><a href="#order" data-toggle="tab">我的订单</a></li>
                             <li><a href="#car" data-toggle="tab">我的购物车</a></li>
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div class="tab-pane active" id="order">
-
-                            </div>
-                            <div class="tab-pane" id="comment">
-
-                            </div>
-                            <div class="tab-pane" id="preview">
-
-                            </div>
-                            <div class="tab-pane" id="collection">
+                            <div class="tab-pane active" id="collection">
                                 <table class="sTable" width="50%" cellspacing="0" cellpadding="0">
                                     <thead>
-                                        <tr>
-                                            <td align="center">电影海报</td>
-                                            <td align="center">电影名</td>
-                                            <td align="center">价格</td>
-                                            <td align="center">热度</td>
-                                            <td align="center">操作</td>
-                                        </tr>
+                                    <tr>
+                                        <td align="center">电影海报</td>
+                                        <td align="center">电影名</td>
+                                        <td align="center">价格</td>
+                                        <td align="center">热度</td>
+                                        <td align="center">操作</td>
+                                    </tr>
                                     </thead>
                                     <tbody id="collect">
-                                        <c:forEach items="${collection.data}" var="users">
-                                            <c:forEach items="${users.films}" var="film">
-                                                <tr>
-                                                    <td align="center"><img src="${pageContext.request.contextPath}/resources/behind/images/${film.img}" width="150" height="150" /></td>
-                                                    <td align="center">${film.name}</td>
-                                                    <td align="center">${film.price}</td>
-                                                    <td align="center">${film.point}</td>
-                                                    <td align="center">
-                                                        <a onclick="removeCollection(${film.filmid}, ${sessionScope.user.uid})">取消收藏</a> &nbsp;
-                                                        <a onclick="setInCar(${film.filmid}, ${user.uid}, 1, 5)">加入购物车</a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
+                                    <c:forEach items="${collection.data}" var="users">
+                                        <c:forEach items="${users.films}" var="film">
+                                            <tr>
+                                                <td align="center"><img src="${pageContext.request.contextPath}/resources/behind/images/${film.img}" width="150" height="150" /></td>
+                                                <td align="center">${film.name}</td>
+                                                <td align="center">${film.price}</td>
+                                                <td align="center">${film.point}</td>
+                                                <td align="center">
+                                                    <a onclick="removeCollection(${film.filmid}, ${sessionScope.user.uid})">取消收藏</a> &nbsp;
+                                                    <a onclick="setInCar(${film.filmid}, ${user.uid}, 1, 5)">加入购物车</a>
+                                                </td>
+                                            </tr>
                                         </c:forEach>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                                 <!-- 收藏分页相关 -->
                                 <div id="collect_page">
-                                    <input value="第一页" style="margin: 5px;" onclick="collectPage(${collection.firstPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
-                                    <input value="<" style="margin: 5px;" onclick="collectPage(${collection.prePage},5, ${sessionScope.user.uid})" type="button">&nbsp;
-                                    当前第${collection.currentPage}页&nbsp;
-                                    总共${collection.totalPage}页&nbsp;
-                                    <input class="basic" value=">" style="margin: 5px;" onclick="collectPage(${collection.nextPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
-                                    <input class="basic" value="最后一页" style="margin: 5px;" onclick="collectPage(${collection.totalPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
-                                    每页显示&nbsp;<input type="text" id="my_CollectSize" value="${collection.pageSize}" title="" onblur="collectSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;条&nbsp;
-                                    跳转到&nbsp;<input type="text" id="my_CollectPage" value="${collection.currentPage}" title="" onblur="collectSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;页
+                                    <c:if test="${collection.data.size() != 0}">
+                                        <input value="第一页" style="margin: 5px;" onclick="collectPage(${collection.firstPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                        <input value="<" style="margin: 5px;" onclick="collectPage(${collection.prePage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                        当前第${collection.currentPage}页&nbsp;
+                                        总共${collection.totalPage}页&nbsp;
+                                        <input class="basic" value=">" style="margin: 5px;" onclick="collectPage(${collection.nextPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                        <input class="basic" value="最后一页" style="margin: 5px;" onclick="collectPage(${collection.totalPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                        每页显示&nbsp;<input type="text" id="my_CollectSize" value="${collection.pageSize}" title="" onblur="collectSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;条&nbsp;
+                                        跳转到&nbsp;<input type="text" id="my_CollectPage" value="${collection.currentPage}" title="" onblur="collectSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;页
+                                        &nbsp;<i class="fa fa-refresh" onclick="collectPage(1, 5, ${sessionScope.user.uid})"></i>
+                                    </c:if>
+                                    <c:if test="${collection.data.size() == 0}">
+                                        <i class="fa fa-refresh" onclick="collectPage(1, 5, ${sessionScope.user.uid})"></i>
+                                    </c:if>
                                 </div>
+                            </div>
+
+                            <!-- 订单信息 -->
+                            <div class="tab-pane" id="order">
+                                <table class="sTable" width="50%" cellspacing="0" cellpadding="0">
+                                    <thead>
+                                        <tr>
+                                            <td align="center">订单号</td>
+                                            <td align="center">创建时间</td>
+                                            <td align="center">状态</td>
+                                            <td align="center">总金额</td>
+                                            <td align="center">操作</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="orderss">
+                                        <c:forEach items="${orders.data}" var="order">
+                                            <tr>
+                                                <td align="center">${order.orderId}</td>
+                                                <td align="center">${order.createdTime}</td>
+                                                <td align="center">${order.status}</td>
+                                                <td align="center">${order.money}</td>
+                                                <td align="center">
+                                                    <a onclick="removeOrder(${orders.currentPage}, ${orders.pageSize} ,${order.orderId})">删除该订单</a> &nbsp;
+                                                    <a href="${pageContext.request.contextPath}/film/user/orderDetail/orderDetailUI?orderId=${order.orderId}">查看详情</a> &nbsp;
+                                                    <c:if test="${order.status eq '未付款'}"><a href="${pageContext.request.contextPath}/film/user/orderDetail/orderDetailUI?orderId=${order.orderId}">立即付款</a></c:if>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                                <!-- 订单分页相关 -->
+                                <div id="order_page">
+                                    <c:if test="${orders.data.size() != 0}">
+                                        <input value="第一页" style="margin: 5px;" onclick="orderPage(${orders.firstPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                        <input value="<" style="margin: 5px;" onclick="orderPage(${orders.prePage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                        当前第${orders.currentPage}页&nbsp;
+                                        总共${orders.totalPage}页&nbsp;
+                                        <input class="basic" value=">" style="margin: 5px;" onclick="orderPage(${orders.nextPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                        <input class="basic" value="最后一页" style="margin: 5px;" onclick="orderPage(${orders.totalPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                        每页显示&nbsp;<input type="text" id="my_orderSize" value="${orders.pageSize}" title="" onblur="orderSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;条&nbsp;
+                                        跳转到&nbsp;<input type="text" id="my_orderPage" value="${orders.currentPage}" title="" onblur="orderSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;页
+                                        &nbsp;<i class="fa fa-refresh" onclick="orderPage(1, 5, ${sessionScope.user.uid})"></i>
+                                    </c:if>
+                                    <c:if test="${orders.data.size() == 0}">
+                                        <i class="fa fa-refresh" onclick="orderPage(1, 5, ${sessionScope.user.uid})"></i>
+                                    </c:if>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="comment">
+
+                            </div>
+
+                            <div class="tab-pane" id="preview">
+
                             </div>
 
                             <div class="tab-pane" id="car">
@@ -276,7 +327,7 @@
                                     <tbody id="cars">
                                         <c:forEach items="${car.data}" var="car1">
                                             <tr>
-                                                <td align="center"><input type="checkbox" name="selectedRow"/></td>
+                                                <td align="center"><input type="checkbox" name="selectedRow" value="${car1.carId}"/></td>
                                                 <td align="center"><img src="${pageContext.request.contextPath}/resources/behind/images/${car1.film.img}" width="150" height="150" /></td>
                                                 <td align="center">${car1.film.name}</td>
                                                 <td align="center">${car1.film.price}</td>
@@ -291,19 +342,22 @@
                                 </table>
                                 <!-- 购物车分页相关 -->
                                 <div id="car_page">
-                                    <input value="第一页" style="margin: 5px;" onclick="carPage(${car.firstPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
-                                    <input value="<" style="margin: 5px;" onclick="carPage(${car.prePage},5, ${sessionScope.user.uid})" type="button">&nbsp;
-                                    当前第${car.currentPage}页&nbsp;
-                                    总共${car.totalPage}页&nbsp;
-                                    <input class="basic" value=">" style="margin: 5px;" onclick="carPage(${car.nextPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
-                                    <input class="basic" value="最后一页" style="margin: 5px;" onclick="carPage(${car.totalPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
-                                    每页显示&nbsp;<input type="text" id="my_CarSize" value="${car.pageSize}" title="" onblur="carSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;条&nbsp;
-                                    跳转到&nbsp;<input type="text" id="my_CarPage" value="${car.currentPage}" title="" onblur="carSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;页
-                                    &nbsp;<i class="fa fa-refresh" onclick="carPage(1, 5, ${user.uid})"></i>
-                                    &nbsp;<a class="watchlist">购买选中</a>
+                                    <c:if test="${car.data.size() != 0}">
+                                        <input value="第一页" style="margin: 5px;" onclick="carPage(${car.firstPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                        <input value="<" style="margin: 5px;" onclick="carPage(${car.prePage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                        当前第${car.currentPage}页&nbsp;
+                                        总共${car.totalPage}页&nbsp;
+                                        <input class="basic" value=">" style="margin: 5px;" onclick="carPage(${car.nextPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                        <input class="basic" value="最后一页" style="margin: 5px;" onclick="carPage(${car.totalPage},5, ${sessionScope.user.uid})" type="button">&nbsp;
+                                        每页显示&nbsp;<input type="text" id="my_carSize" value="${car.pageSize}" title="" onblur="carSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;条&nbsp;
+                                        跳转到&nbsp;<input type="text" id="my_carPage" value="${car.currentPage}" title="" onblur="carSelfPage(${sessionScope.user.uid})" style="width: 30px; height: 20px;"/>&nbsp;页
+                                        &nbsp;<i class="fa fa-refresh" onclick="carPage(1, 5, ${sessionScope.user.uid})"></i>
+                                        &nbsp;<button class="watchlist" onclick="setInOrder()">购买选中</button>
+                                    </c:if>
+                                    <c:if test="${car.data.size() == 0}">
+                                        <i class="fa fa-refresh" onclick="carPage(1, 5, ${sessionScope.user.uid})"></i>
+                                    </c:if>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="address">
                             </div>
                         </div>
                     </div>
@@ -549,9 +603,105 @@
         });
     }
 
-    // 立即购买（跳转到订单页面）
-    function setInOrder() {
+    // 订单分页
+    function orderPage(page, size, uid) {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/order/orderPage",
+            type:"post",
+            data:{"page":page, "size":size, "uid":uid},
+            success: function (result) {
+                var $order = $("#orderss");
+                var $order_page = $("#order_page");
+                if (result.status == 200) {
+                    $order.empty();
+                    $order.append(result.msg);
+                    $order_page.empty();
+                    $order_page.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
 
+    // 订单自定义分页
+    function orderSelfPage(uid) {
+        var page = $("#my_orderPage")[0].value;
+        var size = $("#my_orderSize")[0].value;
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/order/orderPage",
+            type:"post",
+            data:{"page":page, "size":size, "uid":uid},
+            success: function (result) {
+                var $order = $("#orderss");
+                var $order_page = $("#order_page");
+                if (result.status == 200) {
+                    $order.empty();
+                    $order.append(result.msg);
+                    $order_page.empty();
+                    $order_page.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 购物车立即购买（跳转到订单页面）
+    function setInOrder() {
+        // 定义数组
+        var ids = [];
+        // 遍历每一个name为check_的复选框
+        $('input[name="selectedRow"]:checked').each(function (){
+            // 将选中的值加入到ids数组中
+            ids.push($.trim($(this).val()));
+        });
+        var data = {carIds:ids};
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/order/setInOrderAndOrderDetail",
+            type:"post",
+            data:data,
+            success:function (result) {
+                var $cars = $("#cars");
+                var $car_page = $("#car_page");
+                if (result.status != 500) {
+                    $cars.empty();
+                    $cars.append(result.msg);
+                    $car_page.empty();
+                    $car_page.append(result.data);
+                    window.location.href="${pageContext.request.contextPath}/film/user/orderDetail/orderDetailUI?orderId="+result.status
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function () {
+                alert("请求超时");
+            }
+        });
+    }
+
+    // 订单移除
+    function removeOrder(page, size, orderId) {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/order/deleteOrder",
+            type:"post",
+            data:{"page":page, "size":size, "orderId":orderId, "uid":${sessionScope.user.uid}},
+            success: function (result) {
+                var $order = $("#orderss");
+                var $order_page = $("#order_page");
+                if (result.status == 200) {
+                    $order.empty();
+                    $order.append(result.msg);
+                    $order_page.empty();
+                    $order_page.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
     }
 </script>
 </body>

@@ -16,7 +16,7 @@ public class DateConverter implements Converter<String, Date> {
 	public Date convert(String source) {
 		
 		// 实现将日期串，转为日期类型
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		try {
 			// 如果转换失败，抛出异常
 			return dateFormat.parse(source);

@@ -1,27 +1,56 @@
 package com.film.model;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.util.List;
 
 /**
  * Created by 曹金洲.
  * 创建的时间：2017/7/10.
  * 作用：订单
  */
+@Table(name = "order_")
 public class Order {
 
+    @Id
+    @Column(name = "orderId")
     private Integer orderId;
 
-    private String orderName;
+    @Column(name = "createdTime")
+    private String createdTime;
 
-    private int count;
+    @Column(name = "userId")
+    private Integer userId;
 
-    // 订单与用户的关系
+    // 总金额
+    private Double money;
+
+    // 是否已经付款
+    private String status;
+
+    // 订单详情
     @Transient
-    private User user;
+    private List<OrderDetail> orderDetails;
 
-    // 订单与地址的关系
-    @Transient
-    private Address address;
+    public Order() {
+    }
+
+    public Order(Integer orderId, String status) {
+        this.orderId = orderId;
+        this.status = status;
+    }
+
+    public Order(String createdTime, Integer userId, String status) {
+        this.createdTime = createdTime;
+        this.userId = userId;
+        this.status = status;
+    }
+
+    public Order(Integer userId) {
+        this.userId = userId;
+    }
 
     public Integer getOrderId() {
         return orderId;
@@ -31,35 +60,43 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public String getOrderName() {
-        return orderName;
+    public String getCreatedTime() {
+        return createdTime;
     }
 
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
+    public void setCreatedTime(String createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public int getCount() {
-        return count;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public User getUser() {
-        return user;
+    public String getStatus() {
+        return status;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Address getAddress() {
-        return address;
+    public Double getMoney() {
+        return money;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setMoney(Double money) {
+        this.money = money;
+    }
+
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

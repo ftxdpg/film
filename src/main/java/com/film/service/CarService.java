@@ -17,4 +17,7 @@ public interface CarService extends BaseService<Car> {
 
     // 减去一件
     void deleteOne(Car car) throws Exception;
+
+    // 批量删除
+    void deleteArrays(Integer[] carIds) throws Exception;
 }

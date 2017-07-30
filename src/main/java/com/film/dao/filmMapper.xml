@@ -45,7 +45,7 @@
         </if>
     </select>
 
-    <!-- 查询复杂的电影列表 -->
+    <!-- 查询电影列表 -->
     <select id="selectFilmAndTypesInfo2" parameterType="com.film.model.Film" resultMap="types">
         select
           img, createtime, name, filmId, typeName

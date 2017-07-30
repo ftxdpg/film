@@ -119,4 +119,11 @@ public class CarController {
             return new FilmResult(500, "内部错误", null);
         }
     }
+
+    // 选中购买
+    @RequestMapping("/buySelected")
+    @ResponseBody
+    public FilmResult buySelected(Integer[] carIds){
+        return null;
+    }
 }

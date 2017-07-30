@@ -8,10 +8,8 @@ import com.film.model.FilmType;
 import com.film.model.Types;
 import com.film.service.FilmService;
 import com.film.util.PageUtil;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -89,6 +87,12 @@ public class FilmServiceImpl implements FilmService{
         Film film = new Film();
         film.setFilmid(id);
         return filmMapper.selectFilmAndTypesInfo1(film).get(0);
+    }
+
+    // 只查询电影价格
+    @Override
+    public Double selectFilmPrice(Integer id){
+        return filmMapper.selectOne(new Film(id)).getPrice();
     }
 
 

@@ -11,11 +11,21 @@ public class UserInfo {
     // 用户与购物车
     private List<Car> cars;
 
+    private List<Order> orders;
+
     public List<Car> getCars() {
         return cars;
     }
 
     public void setCars(List<Car> cars) {
         this.cars = cars;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

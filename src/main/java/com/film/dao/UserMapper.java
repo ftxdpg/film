@@ -1,6 +1,5 @@
 package com.film.dao;
 
-import com.film.model.Film;
 import com.film.model.User;
 import com.film.model.UserFilm;
 import org.springframework.stereotype.Repository;

@@ -19,6 +19,9 @@ public interface FilmService extends BaseService<Film> {
     // 电影列表--异步分页
     PageUtil<Film> getListByAjax(Integer page, Integer size);
 
+    // 只查询电影价格
+    Double selectFilmPrice(Integer id);
+
     // 修改电影
     void update(Film film, String[] types) throws Exception;
 

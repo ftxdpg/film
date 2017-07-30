@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.film.dao.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.film.model.Order" >
+        <id column="orderId" property="orderId" jdbcType="INTEGER" />
+        <result column="createdTime" property="createdTime" jdbcType="VARCHAR"/>
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="money" property="money" jdbcType="DOUBLE"/>
+    </resultMap>
+
+    <!-- 查看一条订单详情 -->
+    <select id="selectOrderPage" resultMap="orderList">
+        SELECT orderId, createdTime, status, money
+        FROM order_
+        WHERE order_.userId = #{uid}
+        limit #{page},#{size}
+    </select>
+
+    <resultMap id="orderList" type="com.film.model.UserInfo">
+        <collection property="orders" ofType="com.film.model.Order">
+            <id column="orderId" property="orderId" jdbcType="INTEGER" />
+            <result column="createdTime" property="createdTime" jdbcType="VARCHAR"/>
+            <result column="status" property="status" jdbcType="VARCHAR"/>
+            <result column="money" property="money" jdbcType="DOUBLE"/>
+        </collection>
+    </resultMap>
+</mapper>

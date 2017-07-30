@@ -2,7 +2,6 @@ package com.film.service.serviceImpl;
 
 import com.film.dao.UserFilmMapper;
 import com.film.dao.UserMapper;
-import com.film.model.Film;
 import com.film.model.User;
 import com.film.model.UserFilm;
 import com.film.service.UserService;
@@ -118,7 +117,7 @@ public class UserServiceImpl implements UserService{
             userFilm.setSize(5);
         }
         // 判断跳转到第几页
-        if (userFilm.getPage() > userPageUtil.getTotalPage()){
+        if (userFilm.getPage() > userPageUtil.getTotalPage() && userPageUtil.getTotalPage() != 0){
             userPageUtil.setCurrentPage(userPageUtil.getTotalPage());
             userFilm.setPage(userPageUtil.getTotalPage());
         }

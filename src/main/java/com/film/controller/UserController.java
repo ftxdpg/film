@@ -1,10 +1,11 @@
 package com.film.controller;
 
 import com.film.model.Car;
-import com.film.model.Film;
+import com.film.model.Order;
 import com.film.model.User;
 import com.film.model.UserFilm;
 import com.film.service.CarService;
+import com.film.service.OrderService;
 import com.film.service.UserFilmService;
 import com.film.service.UserService;
 import com.film.util.BehindAjaxResult;
@@ -14,7 +15,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,6 +43,9 @@ public class UserController {
 
     @Autowired
     private CarService carService;
+
+    @Autowired
+    private OrderService orderService;
 
     // 用户列表
     @RequestMapping("/list")
@@ -88,8 +91,10 @@ public class UserController {
     public String userInfo(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "5")Integer size, Integer uid, Model model){
         PageUtil<User> collection = userService.selectCollection(new UserFilm(uid, page, size));
         PageUtil<Car> cars = carService.selectCars(page, size, uid);
+        PageUtil<Order> orders = orderService.selectOrderPage(page, size, uid);
         model.addAttribute("collection", collection);
         model.addAttribute("car",cars);
+        model.addAttribute("orders",orders);
         return "/front/user/info";
     }
 

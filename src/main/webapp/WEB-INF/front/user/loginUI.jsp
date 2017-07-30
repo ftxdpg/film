@@ -40,7 +40,7 @@
         <header class="header-wrapper header-wrapper--home">
             <div class="container">
                 <!-- Logo link-->
-                <a href='index.html' class="logo">
+                <a href='${pageContext.request.contextPath}/common/index' class="logo">
                     <img alt='logo' src="${pageContext.request.contextPath}/resources/images/logo.png">
                 </a>
 
@@ -57,32 +57,10 @@
 
                     <!-- Link navigation -->
                     <ul id="navigation">
-                        <li>
-                            <span class="sub-nav-toggle plus"></span>
-                            <a href="">观看历史</a>
-                            <ul>
-                                <li class="menu__nav-item"><a href="gallery-four.html">4 col gallery</a></li>
-                                <li class="menu__nav-item"><a href="gallery-three.html">3 col gallery</a></li>
-                                <li class="menu__nav-item"><a href="gallery-two.html">2 col gallery</a></li>
-                            </ul>
-                        </li>
 
                         <li>
                             <span class="sub-nav-toggle plus"></span>
-                            <a href="">消息</a>
-                            <ul>
-                                <li class="menu__nav-item"><a href="news-left.html">News (rigth sidebar)</a></li>
-                                <li class="menu__nav-item"><a href="news-right.html">News (left sidebar)</a></li>
-                                <li class="menu__nav-item"><a href="news-full.html">News (full widht)</a></li>
-                                <li class="menu__nav-item"><a href="single-page-left.html">Single post (rigth sidebar)</a></li>
-                                <li class="menu__nav-item"><a href="single-page-right.html">Single post (left sidebar)</a></li>
-                                <li class="menu__nav-item"><a href="single-page-full.html">Single post (full widht)</a></li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <span class="sub-nav-toggle plus"></span>
-                            <a href="">电影分类</a>
+                            <a href="" style="margin-left: 290px;">电影分类</a>
                             <ul class="mega-menu container">
                                 <li class="col-md-3 mega-menu__coloum">
                                     <ul class="mega-menu__list">
@@ -121,62 +99,38 @@
                                 </li>
                             </ul>
                         </li>
-
-                        <li>
-                            <span class="sub-nav-toggle plus"></span>
-                            <a href="">电影院信息</a>
-                            <ul class="mega-menu container">
-                                <li class="col-md-3 mega-menu__coloum">
-                                    <h4 class="mega-menu__heading">电影院准备上映</h4>
-                                    <ul class="mega-menu__list">
-                                        <li class="mega-menu__nav-item"><a href="#">The Counselor</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">Bad Grandpa</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">Blue Is the Warmest Color</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">Capital</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">Spinning Plates</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">Bastards</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="col-md-3 mega-menu__coloum mega-menu__coloum--outheading">
-                                    <ul class="mega-menu__list">
-                                        <li class="mega-menu__nav-item"><a href="#">Gravity</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">Captain Phillips</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">Carrie</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">Cloudy with a Chance of Meatballs 2</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="col-md-3 mega-menu__coloum">
-                                    <h4 class="mega-menu__heading">电影院准备结束</h4>
-                                    <ul class="mega-menu__list">
-                                        <li class="mega-menu__nav-item"><a href="#">Escape Plan</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">Rush</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">Prisoners</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">Enough Said</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">The Fifth Estate</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">Runner Runner</a></li>
-                                    </ul>
-                                </li>
-
-                                <li class="col-md-3 mega-menu__coloum mega-menu__coloum--outheading">
-                                    <ul class="mega-menu__list">
-                                        <li class="mega-menu__nav-item"><a href="#">Insidious: Chapter 2</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
                 </nav>
 
                 <!-- Additional header buttons / Auth and direct link to booking-->
                 <div class="control-panel">
-                    <div class="auth auth--home" style="margin-top: 6px; left: -150px; top: -8px;">
-                        <a href="${pageContext.request.contextPath}/common/loginUI" class="btn btn--sign">登录</a>
-                    </div>
-                    <div class="auth auth--home" style="top: -8px; margin-top: 1px; left: -100px;">
-                        <a href="${pageContext.request.contextPath}/common/emailRegUI" class="btn btn--sign" style="top: 5px;">注册</a>
-                    </div>
+                    <c:choose>
+                        <c:when test="${!empty sessionScope.user}">
+                            <div class="auth auth--home">
+                                <div class="auth__show">
+                            <span class="auth__image">
+                              <img alt="" src="${pageContext.request.contextPath}/resources/images/31-31.png">
+                            </span>
+                                </div>
+                                <a href="#" class="btn btn--sign btn--singin">
+                                        ${sessionScope.user.name}
+                                </a>
+                                <ul class="auth__function">
+                                    <li><a href="#" class="auth__function-item">我的动态</a></li>
+                                    <li><a href="#" class="auth__function-item">用户设置</a></li>
+                                    <li><a href="#" class="auth__function-item">注销</a></li>
+                                </ul>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="auth auth--home" style="margin-top: 6px; left: -150px; top: -8px;">
+                                <a href="${pageContext.request.contextPath}/common/loginUI" class="btn btn--sign">登录</a>
+                            </div>
+                            <div class="auth auth--home" style="top: -8px; margin-top: 1px; left: -100px;">
+                                <a href="${pageContext.request.contextPath}/common/emailRegUI" class="btn btn--sign" style="top: 5px;">注册</a>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                     <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">预定电影票</a>
                 </div>
             </div>

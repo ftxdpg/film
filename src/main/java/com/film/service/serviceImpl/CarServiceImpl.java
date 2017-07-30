@@ -43,6 +43,14 @@ public class CarServiceImpl implements CarService {
         }
     }
 
+    // 批量删除
+    @Override
+    public void deleteArrays(Integer[] carIds) throws Exception {
+        for (Integer id : carIds){
+            deleteFromCar(id);
+        }
+    }
+
     // 从购物车移除
     @Override
     public void deleteFromCar(Integer carId)throws Exception{
@@ -68,15 +76,18 @@ public class CarServiceImpl implements CarService {
             size = 5;
         }
         // 判断跳转到第几页
-        if (page > carPageUtil.getTotalPage()){
+        if (page > carPageUtil.getTotalPage() && carPageUtil.getTotalPage() != 0){
             carPageUtil.setCurrentPage(carPageUtil.getTotalPage());
             page = carPageUtil.getTotalPage();
         }
         UserInfo userInfo = carMapper.selectCars((page - 1) * size, size, userId);
-        carPageUtil.setData(userInfo.getCars());
+        if (userInfo == null){
+            carPageUtil.setData(null);
+        }else {
+            carPageUtil.setData(userInfo.getCars());
+        }
         return carPageUtil;
     }
-
 
     @Override
     public void deleteByPrimaryKey(Integer id) {

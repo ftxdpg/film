@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.film.dao.OrderDetailMapper" >
+    <resultMap id="BaseResultMap" type="com.film.model.OrderDetail" >
+        <id column="orderId" property="orderId" jdbcType="INTEGER" />
+        <result column="userId" property="userId" jdbcType="INTEGER"/>
+        <result column="addressId" property="addressId" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 查询订单详情 -->
+    <select id="selectOrderAndOrderDetail" parameterType="java.lang.Integer" resultMap="ordersAndDetails">
+        SELECT
+            orderId, createdTime, status, money,
+            oD.orderDetailId, oD.number,
+            f.img, f.price, f.point, f.time, f.name, f.filmId
+        FROM
+            orderDetail oD
+        INNER JOIN film f ON oD.film_id = f.filmId
+        INNER JOIN order_ o ON oD.order_id = o.orderId
+        WHERE o.orderId = #{orderId}
+    </select>
+
+    <!-- 订单返回值 -->
+    <resultMap id="ordersAndDetails" type="com.film.model.Order">
+        <id column="orderId" property="orderId" jdbcType="INTEGER" />
+        <result column="createdTime" property="createdTime" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="money" property="money" jdbcType="DOUBLE"/>
+        <collection property="orderDetails" ofType="com.film.model.OrderDetail">
+            <id column="orderDetailId" property="orderDetailId" jdbcType="INTEGER"/>
+            <id column="film_id" property="filmId" jdbcType="INTEGER"/>
+            <id column="user_id" property="userId" jdbcType="INTEGER"/>
+            <id column="order_id" property="orderId" jdbcType="INTEGER"/>
+            <id column="number" property="number" jdbcType="INTEGER"/>
+            <association property="film" javaType="com.film.model.Film">
+                <id column="filmId" jdbcType="INTEGER" property="filmid"/>
+                <result column="img" jdbcType="VARCHAR" property="img"/>
+                <result column="name" jdbcType="VARCHAR" property="name"/>
+                <result column="point" jdbcType="DOUBLE" property="point"/>
+                <result column="price" jdbcType="DOUBLE" property="price"/>
+                <result column="time" jdbcType="VARCHAR" property="time"/>
+            </association>
+        </collection>
+    </resultMap>
+</mapper>
