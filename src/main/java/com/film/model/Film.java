@@ -55,9 +55,6 @@ public class Film {
     @Transient
     private List<Types> typesList;
 
-    @Transient
-    private List<UserFilm> userFilms;
-
     public Film() {
     }
 
@@ -155,14 +152,6 @@ public class Film {
 
     public void setTypesList(List<Types> typesList) {
         this.typesList = typesList;
-    }
-
-    public List<UserFilm> getUserFilms() {
-        return userFilms;
-    }
-
-    public void setUserFilms(List<UserFilm> userFilms) {
-        this.userFilms = userFilms;
     }
 
     public Double getPrice() {

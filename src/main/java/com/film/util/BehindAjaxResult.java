@@ -5,6 +5,7 @@ import com.github.pagehelper.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by 曹金洲.
@@ -117,12 +118,12 @@ public class BehindAjaxResult {
     public static String collect_page(PageUtil<User> user, Integer uid) {
         if (user.getData() == null || user.getData().size() == 0) {
             return "<div id=\"collect_page\">\n" +
-                   "    <i class=\"fa fa-refresh\" onclick=\"collectPage(1, 5, "+ uid +")\"></i>"+
-                   "</div>";
+                    "    <i class=\"fa fa-refresh\" onclick=\"collectPage(1, 5, " + uid + ")\"></i>" +
+                    "</div>";
         }
         // 收藏底部分页
         String info =
-                        "                                <div id=\"collect_page\">\n" +
+                "                                <div id=\"collect_page\">\n" +
                         "                                    <input value=\"第一页\" style=\"margin: 5px;\" onclick=\"collectPage(" + user.getFirstPage() + "," + user.getPageSize() + ", " + uid + ")\" type=\"button\">&nbsp;\n" +
                         "                                    <input value=\"<\" style=\"margin: 5px;\" onclick=\"collectPage(" + user.getPrePage() + "," + user.getPageSize() + ", " + uid + ")\" type=\"button\">&nbsp;\n" +
                         "                                    当前第" + user.getCurrentPage() + "页&nbsp;\n" +
@@ -131,7 +132,7 @@ public class BehindAjaxResult {
                         "                                    <input class=\"basic\" value=\"最后一页\" style=\"margin: 5px;\" onclick=\"collectPage(" + user.getTotalPage() + "," + user.getPageSize() + ", " + uid + ")\" type=\"button\">&nbsp;\n" +
                         "                                    每页显示&nbsp;<input type=\"text\" id=\"my_CollectSize\" value=\"" + user.getPageSize() + "\" title=\"\" onblur=\"collectSelfPage(" + uid + ")\" style=\"width: 30px; height: 20px;\"/>&nbsp;条&nbsp;\n" +
                         "                                    跳转到&nbsp;<input type=\"text\" id=\"my_CollectPage\" value=\"" + user.getCurrentPage() + "\" title=\"\" onblur=\"collectSelfPage(" + uid + ")\" style=\"width: 30px; height: 20px;\"/>&nbsp;页\n" +
-                        "                                    &nbsp;<i class=\"fa fa-refresh\" onclick=\"collectPage(1, 5, "+ uid +")\"></i>"+
+                        "                                    &nbsp;<i class=\"fa fa-refresh\" onclick=\"collectPage(1, 5, " + uid + ")\"></i>" +
                         "                                </div>";
         return info;
     }
@@ -163,7 +164,7 @@ public class BehindAjaxResult {
     public static String car_page(PageUtil<Car> carPageUtil, Integer uid) {
         if (carPageUtil.getData() == null || carPageUtil.getData().size() == 0) {
             return "<div id=\"car_page\">\n" +
-                    "    <i class=\"fa fa-refresh\" onclick=\"carPage(1, 5, "+ uid +")\"></i>"+
+                    "    <i class=\"fa fa-refresh\" onclick=\"carPage(1, 5, " + uid + ")\"></i>" +
                     "</div>";
         }
         String car_page =
@@ -191,13 +192,13 @@ public class BehindAjaxResult {
         for (Order order : orderPageUtil.getData()) {
             String pay = "未付款".equals(order.getStatus()) ? "<a href=\"#\">立即付款</a></c:if>\n" : "";
             orders +=
-                            "                                            <tr>\n" +
+                    "                                            <tr>\n" +
                             "                                                <td align=\"center\">" + order.getOrderId() + "</td>\n" +
                             "                                                <td align=\"center\">" + order.getCreatedTime() + "</td>\n" +
                             "                                                <td align=\"center\">" + order.getStatus() + "</td>\n" +
                             "                                                <td align=\"center\">" + order.getMoney() + "</td>\n" +
                             "                                                <td align=\"center\">\n" +
-                            "                                                    <a onclick=\"removeOrder("+ page +", "+ size + "," + order.getOrderId() + ")\">删除该订单</a> &nbsp;\n" +
+                            "                                                    <a onclick=\"removeOrder(" + page + ", " + size + "," + order.getOrderId() + ")\">删除该订单</a> &nbsp;\n" +
                             "                                                    <a href=\"#\">查看详情</a> &nbsp;\n" +
                             pay +
                             "                                                </td>\n" +
@@ -210,11 +211,11 @@ public class BehindAjaxResult {
     public static String order_page(PageUtil<Order> orderPageUtil, Integer uid) {
         if (orderPageUtil.getData() == null || orderPageUtil.getData().size() == 0) {
             return "<div id=\"order_page\">\n" +
-                    "    <i class=\"fa fa-refresh\" onclick=\"orderPage(1, 5, "+ uid +")\"></i>"+
+                    "    <i class=\"fa fa-refresh\" onclick=\"orderPage(1, 5, " + uid + ")\"></i>" +
                     "</div>";
         }
         String order_page =
-                        "                               <div id=\"order_page\">\n" +
+                "                               <div id=\"order_page\">\n" +
                         "                                    <input value=\"第一页\" style=\"margin: 5px;\" onclick=\"orderPage(" + orderPageUtil.getFirstPage() + "," + orderPageUtil.getPageSize() + ", " + uid + ")\" type=\"button\">&nbsp;\n" +
                         "                                    <input value=\"<\" style=\"margin: 5px;\" onclick=\"orderPage(" + orderPageUtil.getPrePage() + "," + orderPageUtil.getPageSize() + ", " + uid + ")\" type=\"button\">&nbsp;\n" +
                         "                                    当前第" + orderPageUtil.getCurrentPage() + "页&nbsp;\n" +
@@ -223,8 +224,132 @@ public class BehindAjaxResult {
                         "                                    <input class=\"basic\" value=\"最后一页\" style=\"margin: 5px;\" onclick=\"orderPage(" + orderPageUtil.getTotalPage() + "," + orderPageUtil.getPageSize() + ", " + uid + ")\" type=\"button\">&nbsp;\n" +
                         "                                    每页显示&nbsp;<input type=\"text\" id=\"my_orderSize\" value=\"" + orderPageUtil.getPageSize() + "\" title=\"\" onblur=\"orderSelfPage(" + uid + ")\" style=\"width: 30px; height: 20px;\"/>&nbsp;条&nbsp;\n" +
                         "                                    跳转到&nbsp;<input type=\"text\" id=\"my_orderPage\" value=\"" + orderPageUtil.getCurrentPage() + "\" title=\"\" onblur=\"orderSelfPage(" + uid + ")\" style=\"width: 30px; height: 20px;\"/>&nbsp;页\n" +
-                        "                                    <i class=\"fa fa-refresh\" onclick=\"orderPage(1, 5, "+ uid +")\"></i>"+
+                        "                                    <i class=\"fa fa-refresh\" onclick=\"orderPage(1, 5, " + uid + ")\"></i>" +
                         "                                </div>";
         return order_page;
+    }
+
+    // 类型分页
+    public static String type(PageUtil<Film> filmPageUtil, List<UserFilm> userFilm, HttpServletRequest request, User user) {
+        Integer uid = null;
+        if (user != null){
+            uid = user.getUid();
+        }
+        if (filmPageUtil.getData() == null || filmPageUtil.getData().size() == 0) {
+            return "";
+        }
+        String orders = "";
+        // 开始拼接
+        for (Film film : filmPageUtil.getData()) {
+            String type = "";
+            String point = "";
+            String collect = "没有<a href=\""+request.getContextPath()+"/common/loginUI\">登录</a>，无法查看收藏记录\n";
+            // 是否收藏判断
+            if (userFilm != null && userFilm.size() != 0) {
+                for (UserFilm userFilm1 : userFilm) {
+                    if (userFilm1.getFilmId().equals(film.getFilmid())){
+                        collect = "已收藏，点击<a href=\""+request.getContextPath()+"/film/user/userInfo?uid="+uid+"}\">查看收藏</a>\n";
+                    }else {
+                        collect = "<a href=\""+request.getContextPath()+"/film/user/collect?filmId="+film.getFilmid()+"&userId="+uid+"\" class=\"watchlist\">收藏至观看列表</a>";
+                    }
+                }
+            }
+
+            // 获取类型
+            for (Types types : film.getTypesList()){
+                type += types.getTypeName()+" ";
+            }
+
+            // 热度判断
+            if (0 <= film.getPoint() && film.getPoint() <= 2){
+                point = "<div style=\"cursor: pointer; width: 90px;\">\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star-o\"></i>\n" +
+                        "    <i class=\"fa fa-star-o\"></i>\n" +
+                        "    <i class=\"fa fa-star-o\"></i>\n" +
+                        "    <i class=\"fa fa-star-o\"></i>\n" +
+                        "</div>\n";
+            } else if (2 < film.getPoint() && film.getPoint() <= 4){
+                point = "<div style=\"cursor: pointer; width: 90px;\">\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star-o\"></i>\n" +
+                        "    <i class=\"fa fa-star-o\"></i>\n" +
+                        "    <i class=\"fa fa-star-o\"></i>\n" +
+                        "</div>\n";
+            } else if (4 < film.getPoint() && film.getPoint() <= 6){
+                point = "<div style=\"cursor: pointer; width: 90px;\">\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star-o\"></i>\n" +
+                        "    <i class=\"fa fa-star-o\"></i>\n" +
+                        "</div>\n";
+            } else if (6 < film.getPoint() && film.getPoint() <= 8){
+                point = "<div style=\"cursor: pointer; width: 90px;\">\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star-o\"></i>\n" +
+                        "</div>\n";
+            } else if (8 < film.getPoint() && film.getPoint() <= 10){
+                point = "<div style=\"cursor: pointer; width: 90px;\">\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "    <i class=\"fa fa-star\"></i>\n" +
+                        "</div>\n";
+            }
+
+            orders +=
+        "               <div class=\"movie movie--preview movie--full release\">\n" +
+        "                    <div class=\"col-sm-3 col-md-2 col-lg-2\">\n" +
+        "                        <div class=\"movie__images\">\n" +
+        "                            <img alt='' src=\""+request.getContextPath()+"/resources/behind/images/"+film.getImg()+"\" style=\"height: 300px;\">\n" +
+        "                        </div>\n" +
+        "                    </div>\n" +
+        "                    <div class=\"col-sm-9 col-md-10 col-lg-10 movie__about\">\n" +
+        "                        <a href=\""+request.getContextPath()+"/film/frontInfo?id="+film.getFilmid()+"\" class=\"movie__title link--huge\">"+film.getName()+"</a>\n" +
+        "                        <p class=\"movie__time\">"+film.getTime()+"</p>\n" +
+        "                        <p class=\"movie__option\"><strong>国家: </strong>"+film.getContry()+"</p>\n" +
+        "                        <p class=\"movie__option\"><strong>年份: </strong>"+film.getCreatetime()+"</p>\n" +
+        "                        <p class=\"movie__option\"><strong>类型: </strong>"+type+"</p>\n" +
+        "                        <p class=\"movie__option\"><strong>导演: </strong>"+film.getDirector()+"</p>\n" +
+        "                        <p class=\"movie__option\"><strong>演员: </strong>"+film.getActor()+"</p>\n" +
+        "                        <p class=\"movie__option\"><strong>价格: </strong>"+film.getPrice()+"</p>\n" +
+        "                           \n" +
+        "                        <div class=\"movie__btns\">\n" +
+        "                            <a href=\""+request.getContextPath()+"/film/user/car/insetCar?filmId="+film.getFilmid()+"&userId="+uid+"\" class=\"btn btn-md btn--warning\">加入购物车</a>\n" +
+        "                            <div id=\"collected\" style=\"margin-top: 20px;\">\n" +
+                                        collect+
+        "                            </div>\n" +
+        "                        </div>\n" +
+        "\n" +
+        "                        <div class=\"preview-footer\">\n" +
+        "                            <div class=\"movie__rate\">\n" +
+        "                                热度:\n" + point +
+        "                            </div>\n" +
+        "                        </div>\n" +
+        "                    </div>\n" +
+        "                </div>";
+        }
+        return orders;
+    }
+
+    // 类型底部分页
+    public static String type_page(PageUtil<Film> filmPageUtil) {
+        if (filmPageUtil.getData() == null || filmPageUtil.getData().size() == 0) {
+            return "";
+        }
+        return  "<input value=\"第一页\" style=\"margin: 5px;\" onclick=\"chooseAll("+filmPageUtil.getFirstPage()+", "+ filmPageUtil.getPageSize() +")\" type=\"button\">&nbsp;\n" +
+                "<input value=\"<\" style=\"margin: 5px;\" onclick=\"chooseAll("+filmPageUtil.getPrePage()+", "+ filmPageUtil.getPageSize() +")\" type=\"button\">&nbsp;\n" +
+                "当前第"+filmPageUtil.getCurrentPage()+"页&nbsp;\n" +
+                "总共"+filmPageUtil.getTotalPage()+"页&nbsp;\n" +
+                "<input class=\"basic\" value=\">\" style=\"margin: 5px;\" onclick=\"chooseAll("+ filmPageUtil.getNextPage() +", "+filmPageUtil.getPageSize()+")\" type=\"button\">&nbsp;\n" +
+                "<input class=\"basic\" value=\"最后一页\" style=\"margin: 5px;\" onclick=\"chooseAll("+filmPageUtil.getTotalPage()+", "+filmPageUtil.getPageSize()+")\" type=\"button\">&nbsp;\n" +
+                "每页显示&nbsp;<input type=\"text\" id=\"my_typePageSize\" value=\""+filmPageUtil.getPageSize()+"\" title=\"\" onblur=\"typeSelfPage()\" style=\"width: 30px; height: 20px;\"/>&nbsp;条&nbsp;\n" +
+                "跳转到&nbsp;<input type=\"text\" id=\"my_typePagePage\" value=\""+ filmPageUtil.getCurrentPage()+"\" title=\"\" onblur=\"typeSelfPage()\" style=\"width: 30px; height: 20px;\"/>&nbsp;页";
     }
 }

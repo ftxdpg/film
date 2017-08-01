@@ -143,7 +143,7 @@
         </header>
         
         <!-- Search bar -->
-        <div class="search-wrapper">
+        <div class="search-wrapper" style="margin-top: 56px;">
             <div class="container container--add">
                 <form id='search-form' method='get' class="search">
                     <input type="text" class="search__field" placeholder="Search">
@@ -154,7 +154,7 @@
         
         <!-- Main content -->
         <section class="container">
-            <div class="col-sm-12">
+            <div class="col-sm-12" style="padding-bottom: 50px;">
                 <h2 class="page-heading">电影分类</h2>
                 <div class="choose-container">
                     <div class="clearfix"></div>
@@ -164,15 +164,16 @@
                             <div class="col-sm-4">
                                 <p class="time-select__place">类型</p>
                             </div>
-                            <ul class="col-sm-8 items-wrap">
-                                <li class="time-select__item" value='喜剧'>喜剧</li>
-                                <li class="time-select__item" value='爱情'>爱情</li>
-                                <li class="time-select__item active" value='动作'>动作</li>
-                                <li class="time-select__item" value='惊悚'>惊悚</li>
-                                <li class="time-select__item" value='悬疑'>悬疑</li>
-								<li class="time-select__item" value='动画'>动画</li>
-								<li class="time-select__item" value='科幻'>科幻</li>
-								<li class="time-select__item" value='战争'>战争</li>
+                            <ul class="col-sm-8 items-wrap" id="typeChoose">
+                                <li onclick="chooseType('1')" class="time-select__item 1">喜剧</li>
+                                <li onclick="chooseType('2')" class="time-select__item 2">爱情</li>
+                                <li onclick="chooseType('3')" class="time-select__item 3">动作</li>
+                                <li onclick="chooseType('4')" class="time-select__item 4">惊悚</li>
+                                <li onclick="chooseType('5')" class="time-select__item 5">悬疑</li>
+								<li onclick="chooseType('6')" class="time-select__item 6">动画</li>
+								<li onclick="chooseType('7')" class="time-select__item 7">科幻</li>
+								<li onclick="chooseType('8')" class="time-select__item 8">战争</li>
+								<li onclick="chooseType('9')" class="time-select__item 9">青春</li>
                             </ul>
                         </div>
 
@@ -180,9 +181,14 @@
                             <div class="col-sm-4">
                                 <p class="time-select__place">国家</p>
                             </div>
-                            <ul class="col-sm-8 items-wrap">
-                                <li class="time-select__item" value='青春'>华语</li>
-								<li class="time-select__item" value='美国'>美国</li>
+                            <ul class="col-sm-8 items-wrap" id="countryChoose">
+                                <li onclick="chooseCountry('9')" class="time-select__item 9">华语</li>
+								<li onclick="chooseCountry('10')" class="time-select__item 10">美国</li>
+								<li onclick="chooseCountry('11')" class="time-select__item 11">香港</li>
+								<li onclick="chooseCountry('12')" class="time-select__item 12">韩国</li>
+								<li onclick="chooseCountry('13')" class="time-select__item 13">日本</li>
+								<li onclick="chooseCountry('14')" class="time-select__item 14">印度</li>
+								<li onclick="chooseCountry('15')" class="time-select__item 15">其他</li>
                             </ul>
                         </div>
 
@@ -190,21 +196,113 @@
                             <div class="col-sm-4">
                                 <p class="time-select__place">年份</p>
                             </div>
-                            <ul class="col-sm-8 items-wrap">
-                                <li class="time-select__item" value='2017'>2017</li>
-								<li class="time-select__item" value='2016'>2016</li>
-								<li class="time-select__item" value='2015'>2015</li>
-								<li class="time-select__item" value='2014'>2014</li>
-								<li class="time-select__item" value='2013'>2013</li>
-								<li class="time-select__item" value='2012'>更前</li>
+                            <ul class="col-sm-8 items-wrap" id="timeChoose">
+                                <li onclick="chooseTime('2017')" class="time-select__item 2017 ">2017</li>
+								<li onclick="chooseTime('2016')" class="time-select__item 2016 ">2016</li>
+								<li onclick="chooseTime('2015')" class="time-select__item 2015 ">2015</li>
+								<li onclick="chooseTime('2014')" class="time-select__item 2014 ">2014</li>
+								<li onclick="chooseTime('2013')" class="time-select__item 2013 ">2013</li>
+								<li onclick="chooseTime('2012')" class="time-select__item 2012 ">2012</li>
+								<li onclick="chooseTime('2012')" class="time-select__item 2012 ">2011</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-            </div>
+                <c:forEach items="${filmPage.data}" var="film">
+                <!-- Movie preview item -->
+                <div class="movie movie--preview movie--full release" id="type">
+                    <div class="col-sm-3 col-md-2 col-lg-2">
+                        <div class="movie__images">
+                            <img alt='' src="${pageContext.request.contextPath}/resources/behind/images/${film.img}" style="height: 300px;">
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-md-10 col-lg-10 movie__about">
+                        <a href="${pageContext.request.contextPath}/film/frontInfo?id=${film.filmid}" class="movie__title link--huge">${film.name}</a>
+                        <p class="movie__time">${film.time}</p>
+                        <p class="movie__option"><strong>国家: </strong>${film.contry}</p>
+                        <p class="movie__option"><strong>年份: </strong>${film.createtime}</p>
+                        <p class="movie__option"><strong>类型: </strong><c:forEach items="${film.typesList}" var="type">${type.typeName}&nbsp;</c:forEach></p>
+                        <p class="movie__option"><strong>导演: </strong>${film.director}</p>
+                        <p class="movie__option"><strong>演员: </strong>${film.actor}</p>
+                        <p class="movie__option"><strong>价格: </strong>${film.price}</p>
 
+                        <div class="movie__btns">
+                            <a href="${pageContext.request.contextPath}/film/user/car/insetCar?filmId=${film.filmid}&userId=${user.uid}" class="btn btn-md btn--warning">加入购物车</a>
+                            <div id="collected" style="margin-top: 20px;">
+                                <c:choose>
+                                    <c:when test="${!empty sessionScope.user}">
+                                        <c:forEach items="${filmPage.data}" var="userFilms">
+                                            <c:if test="${film.filmid eq userFilms.filmId}">
+                                                已收藏，点击<a href="${pageContext.request.contextPath}/film/user/userInfo?uid=${user.uid}">查看收藏</a>
+                                            </c:if>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        没有<a href="${pageContext.request.contextPath}/common/loginUI">登录</a>，无法查看收藏记录
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+
+                        <div class="preview-footer">
+                            <div class="movie__rate">
+                                热度:
+                                <c:choose>
+                                    <c:when test="${film.point <= 2}">
+                                        <div style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${2 < film.point && film.point <= 4}">
+                                        <div style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${4 < film.point && film.point <= 6}">
+                                        <div style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${6 < film.point && film.point <= 8}">
+                                        <div style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </c:forEach>
+            </div>
+            <div id="type_page" style="padding-bottom: 50px;">
+            </div>
         </section>
-        
         <div class="clearfix"></div>
     </div>
 
@@ -248,7 +346,68 @@
                 init_MoviePage();
                  init_MoviePageFull();
             });
-		</script>
 
+            var choose = [];
+
+            // 选择类型的时候
+            function chooseType(ch) {
+                // 清除选择
+                $("#typeChoose").children("li.active").removeClass("active");
+                // 点击选择
+                $("."+ch).addClass("active");
+                chooseAll(1,5);
+            }
+
+            // 选择国家的时候
+            function chooseCountry(ch) {
+                // 清除选择
+                $("#countryChoose").children("li.active").removeClass("active");
+                $("."+ch).addClass("active");
+                chooseAll(1,5);
+            }
+
+            // 选择时间的时候
+            function chooseTime(ch) {
+                // 清除选择
+                $("#timeChoose").children("li.active").removeClass("active");
+                $("."+ch).addClass("active");
+                chooseAll(1,5);
+            }
+
+            // 把选择的都添加进数组里
+            function chooseAll(page, size) {
+                choose = [];
+                $("li").filter(".active").each(function () {
+                    choose.push($(this).text());
+                });
+
+                $.ajax({
+                    url:"${pageContext.request.contextPath}/film/filmCommon/common/multiplyConditions",
+                    type:"post",
+                    data:{"types[]":choose, "page":page, "size":size },
+                    success:function (result) {
+                        if (result.status == 200) {
+                            var $type = $("#type");
+                            var $type_page = $("#type_page");
+                            $type.empty();
+                            $type.append(result.msg);
+                            $type_page.empty();
+                            $type_page.append(result.data);
+                        }else{
+                            alert(result.msg);
+                        }
+                    },
+                    error:function () {
+                        alert("请求超时");
+                    }
+                });
+            }
+
+            function typeSelfPage() {
+                var size = $("#my_typePageSize")[0].value;
+                var page = $("#my_typePagePage")[0].value;
+                chooseAll(page, size);
+            }
+		</script>
 </body>
 </html>

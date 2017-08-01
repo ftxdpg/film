@@ -145,7 +145,7 @@
         </header>
         
         <!-- Search bar -->
-        <div class="search-wrapper">
+        <div class="search-wrapper" style="margin-top: 56px;">
             <div class="container container--add">
                 <form id='search-form' method='post' class="search" action="${pageContext.request.contextPath}/film/filmCommon/common/selectByFilmName">
                     <input type="text" id="name" name="name" class="search__field" placeholder="Search">
@@ -157,17 +157,18 @@
         <!-- Main content -->
         <c:if test="${!empty film}">
         <section class="container">
-            <div class="col-sm-12">
+            <div class="col-sm-12" id="types">
                 <h2 class="page-heading">Movies</h2>
                 <!-- Movie preview item -->
+                <c:forEach items="${film}" var="film">
                 <div class="movie movie--preview movie--full release">
                      <div class="col-sm-3 col-md-2 col-lg-2">
                         <div class="movie__images">
-                            <img alt='' src="${pageContext.request.contextPath}/resources/behind/images/${film.img}">
+                            <img alt='' src="${pageContext.request.contextPath}/resources/behind/images/${film.img}" style="height: 300px;">
                         </div>
                     </div>
                     <div class="col-sm-9 col-md-10 col-lg-10 movie__about">
-                        <a  class="movie__title link--huge">${film.name}</a>
+                        <a href="${pageContext.request.contextPath}/film/frontInfo?id=${film.filmid}" class="movie__title link--huge">${film.name}</a>
                         <p class="movie__time">${film.time}</p>
                         <p class="movie__option"><strong>国家: </strong>${film.contry}</p>
                         <p class="movie__option"><strong>年份: </strong>${film.createtime}</p>
@@ -181,14 +182,11 @@
                             <div id="collected" style="margin-top: 20px;">
                                 <c:choose>
                                     <c:when test="${!empty sessionScope.user}">
-                                        <c:choose>
-                                            <c:when test="${empty userFilm}">
-                                                <a href="${pageContext.request.contextPath}/film/user/collect?filmId=${film.filmid}&userId=${user.uid}" class="watchlist">收藏至观看列表</a>
-                                            </c:when>
-                                            <c:otherwise>
+                                        <c:forEach items="${userFilm}" var="userFilms">
+                                            <c:if test="${film.filmid eq userFilms.filmId}">
                                                 已收藏，点击<a href="${pageContext.request.contextPath}/film/user/userInfo?uid=${user.uid}">查看收藏</a>
-                                            </c:otherwise>
-                                        </c:choose>
+                                            </c:if>
+                                        </c:forEach>
                                     </c:when>
                                     <c:otherwise>
                                         没有<a href="${pageContext.request.contextPath}/common/loginUI">登录</a>，无法查看收藏记录
@@ -198,11 +196,61 @@
                         </div>
 
                         <div class="preview-footer">
-                            <div class="movie__rate"><div class="score"></div><span class="movie__rate-number">170 votes</span> <span class="movie__rating">5.0</span></div>
+                            <div class="movie__rate">
+                                热度:
+                                <c:choose>
+                                    <c:when test="${film.point <= 2}">
+                                        <div style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${2 < film.point && film.point <= 4}">
+                                        <div style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${4 < film.point && film.point <= 6}">
+                                        <div style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="${6 < film.point && film.point <= 8}">
+                                        <div style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div style="cursor: pointer; width: 90px;">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                </c:forEach>
             </div>
         </section>
         </c:if>

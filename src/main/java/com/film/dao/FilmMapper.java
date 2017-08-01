@@ -22,7 +22,4 @@ public interface FilmMapper extends Mapper<Film> {
 
     // 5条置顶电影
     List<Film> selectTopFilms(PageUtil pageUtil);
-
-    // 多条件查询
-    List<Film> selectByTypes(@Param("contry")String contry, @Param("createtime")String createtime, @Param("typeId")Integer typeId);
 }

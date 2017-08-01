@@ -57,44 +57,34 @@
 
                 <!-- Link navigation -->
                 <ul id="navigation">
-
                     <li>
                         <span class="sub-nav-toggle plus"></span>
                         <a href="" style="margin-left: 290px;">电影分类</a>
-                        <ul class="mega-menu container">
-                            <li class="col-md-3 mega-menu__coloum">
+                        <ul class="mega-menu container" style="margin-left: 290px;">
+                            <li class="col-md-4 mega-menu__coloum">
                                 <ul class="mega-menu__list">
                                     <%-- 第一格 --%>
-                                    <li class="mega-menu__nav-item"><a href="#">喜剧</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">爱情</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">动作</a></li>
+                                    <li class="mega-menu__nav-item"><a href="${pageContext.request.contextPath}/film/filmCommon/common/multiplyConditionsUI?type=1">喜剧</a></li>
+                                    <li class="mega-menu__nav-item"><a href="${pageContext.request.contextPath}/film/filmCommon/common/multiplyConditionsUI?type=2">爱情</a></li>
+                                    <li class="mega-menu__nav-item"><a href="${pageContext.request.contextPath}/film/filmCommon/common/multiplyConditionsUI?type=3">动作</a></li>
                                 </ul>
                             </li>
 
                             <%-- 第二格 --%>
-                            <li class="col-md-3 mega-menu__coloum">
+                            <li class="col-md-4 mega-menu__coloum">
                                 <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">惊悚</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">悬疑</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">动画</a></li>
+                                    <li class="mega-menu__nav-item"><a href="${pageContext.request.contextPath}/film/filmCommon/common/multiplyConditionsUI?type=5">惊悚</a></li>
+                                    <li class="mega-menu__nav-item"><a href="${pageContext.request.contextPath}/film/filmCommon/common/multiplyConditionsUI?type=4">悬疑</a></li>
+                                    <li class="mega-menu__nav-item"><a href="${pageContext.request.contextPath}/film/filmCommon/common/multiplyConditionsUI?type=6">动画</a></li>
                                 </ul>
                             </li>
 
                             <%-- 第三格 --%>
-                            <li class="col-md-3 mega-menu__coloum">
+                            <li class="col-md-4 mega-menu__coloum">
                                 <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">科幻</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">战争</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">青春</a></li>
-                                </ul>
-                            </li>
-
-                            <%-- 第四格 --%>
-                            <li class="col-md-3 mega-menu__coloum">
-                                <ul class="mega-menu__list">
-                                    <li class="mega-menu__nav-item"><a href="#">华语</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">美国</a></li>
-                                    <li class="mega-menu__nav-item"><a href="#">其他</a></li>
+                                    <li class="mega-menu__nav-item"><a href="${pageContext.request.contextPath}/film/filmCommon/common/multiplyConditionsUI?type=7">科幻</a></li>
+                                    <li class="mega-menu__nav-item"><a href="${pageContext.request.contextPath}/film/filmCommon/common/multiplyConditionsUI?type=8">战争</a></li>
+                                    <li class="mega-menu__nav-item"><a href="${pageContext.request.contextPath}/film/filmCommon/common/multiplyConditionsUI?type=9">青春</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -446,102 +436,22 @@ Start doing.'>
                 <div class="mega-select-marker">
 
                     <div class="marker-indecator cinema">
-                        <p class="select-marker"><span>现有电影</span> <br>在电影院</p>
-                    </div>
-
-                    <div class="marker-indecator film-category">
-                        <p class="select-marker"><span>你喜欢的 </span> <br> 电影类型</p>
-                    </div>
-
-                    <div class="marker-indecator actors">
-                        <p class="select-marker"><span>电影明星</span> <br>find them</p>
-                    </div>
-
-                    <div class="marker-indecator director">
-                        <p class="select-marker"><span>找电影</span> <br>by 导演</p>
-                    </div>
-
-                    <div class="marker-indecator country">
-                        <p class="select-marker"><span>search for movie from </span> <br>国家</p>
+                        <p class="select-marker"><span>查询</span> <br>电影</p>
                     </div>
                 </div>
 
                 <div class="mega-select pull-right">
                     <span class="mega-select__point">Search by</span>
                     <ul class="mega-select__sort">
-                        <li class="filter-wrap"><a href="#" class="mega-select__filter filter--active" data-filter='film-category'>类型</a></li>
-                        <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='actors'>明星</a></li>
-                        <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='director'>导演</a></li>
-                        <li class="filter-wrap"><a href="#" class="mega-select__filter" data-filter='country'>国家</a></li>
+                        <li class="filter-wrap"><a href="#" class="mega-select__filter filter--active" data-filter='film-category'>电影名</a></li>
                     </ul>
+                    <form method="post" action="${pageContext.request.contextPath}/film/filmCommon/common/selectByFilmName">
+                        <input name="name" id="name" type='text' class="select__field">
 
-                    <input name="search-input" type='text' class="select__field">
-
-                    <div class="select__btn">
-                        <a href="#" class="btn btn-md btn--danger location">find <span class="hidden-exrtasm">你的城市</span></a>
-                        <a href="#" class="btn btn-md btn--danger cinema">find <span class="hidden-exrtasm">合适的电影院</span></a>
-                        <a href="#" class="btn btn-md btn--danger film-category">find <span class="hidden-exrtasm">类型</span></a>
-                        <a href="#" class="btn btn-md btn--danger actors">find <span class="hidden-exrtasm">明星</span></a>
-                        <a href="#" class="btn btn-md btn--danger director">find <span class="hidden-exrtasm">喜欢的导演</span></a>
-                        <a href="#" class="btn btn-md btn--danger country">find by<span class="hidden-exrtasm">产出国家</span></a>
-                    </div>
-
-                    <div class="select__dropdowns">
-                        <ul class="select__group location">
-                            <li class="select__variant" data-value='London'>London</li>
-                            <li class="select__variant" data-value='New York'>New York</li>
-                            <li class="select__variant" data-value='Paris'>Paris</li>
-                            <li class="select__variant" data-value='Berlin'>Berlin</li>
-                            <li class="select__variant" data-value='Moscow'>Moscow</li>
-                            <li class="select__variant" data-value='Minsk'>Minsk</li>
-                            <li class="select__variant" data-value='Warsawa'>Warsawa</li>
-                        </ul>
-
-                        <ul class="select__group cinema">
-                            <li class="select__variant" data-value='Cineworld'>Cineworld</li>
-                            <li class="select__variant" data-value='Empire'>Empire</li>
-                            <li class="select__variant" data-value='Everyman'>Everyman</li>
-                            <li class="select__variant" data-value='Odeon'>Odeon</li>
-                            <li class="select__variant" data-value='Picturehouse'>Picturehouse</li>
-                        </ul>
-
-                        <ul class="select__group film-category">
-                            <li class="select__variant" data-value="Children's">Children's</li>
-                            <li class="select__variant" data-value='Comedy'>Comedy</li>
-                            <li class="select__variant" data-value='Drama'>Drama</li>
-                            <li class="select__variant" data-value='Fantasy'>Fantasy</li>
-                            <li class="select__variant" data-value='Horror'>Horror</li>
-                            <li class="select__variant" data-value='Thriller'>Thriller</li>
-                        </ul>
-
-                        <ul class="select__group actors">
-                            <li class="select__variant" data-value='Leonardo DiCaprio'>Leonardo DiCaprio</li>
-                            <li class="select__variant" data-value='Johnny Depp'>Johnny Depp</li>
-                            <li class="select__variant" data-value='Jack Nicholson'>Jack Nicholson</li>
-                            <li class="select__variant" data-value='Robert De Niro'>Robert De Niro</li>
-                            <li class="select__variant" data-value='Morgan Freeman'>Morgan Freeman</li>
-                            <li class="select__variant" data-value='Jim Carrey'>Jim Carrey</li>
-                            <li class="select__variant" data-value='Adam Sandler'>Adam Sandler</li>
-                            <li class="select__variant" data-value='Ben Stiller'>Ben Stiller</li>
-                        </ul>
-
-                        <ul class="select__group director">
-                            <li class="select__variant" data-value='Steven Spielberg'>Steven Spielberg</li>
-                            <li class="select__variant" data-value='Martin Scorsese'>Martin Scorsese</li>
-                            <li class="select__variant" data-value='Guy Ritchie'>Guy Ritchie</li>
-                            <li class="select__variant" data-value='Christopher Nolan'>Christopher Nolan</li>
-                            <li class="select__variant" data-value='Tim Burton'>Tim Burton</li>
-                        </ul>
-
-                        <ul class="select__group country">
-                            <li class="select__variant" data-value='USA'>USA</li>
-                            <li class="select__variant" data-value='Germany'>Germany</li>
-                            <li class="select__variant" data-value='Australia'>Australia</li>
-                            <li class="select__variant" data-value='UK'>UK</li>
-                            <li class="select__variant" data-value='Japan'>Japan</li>
-                            <li class="select__variant" data-value='Serbia'>Serbia</li>
-                        </ul>
-                    </div>
+                        <div class="select__btn">
+                            <button type="submit" class="btn btn-md btn--danger location">find <span class="hidden-exrtasm">电影名</span></button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

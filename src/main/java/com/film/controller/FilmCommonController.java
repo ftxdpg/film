@@ -1,17 +1,25 @@
 package com.film.controller;
 
 import com.film.model.Film;
+import com.film.model.Types;
 import com.film.model.User;
 import com.film.model.UserFilm;
 import com.film.service.FilmService;
+import com.film.service.TypeService;
 import com.film.service.UserFilmService;
+import com.film.util.BehindAjaxResult;
+import com.film.util.FilmResult;
+import com.film.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,31 +37,61 @@ public class FilmCommonController {
     @Autowired
     private UserFilmService userFilmService;
 
-    // 多条件查询
+    @Autowired
+    private TypeService typeService;
+
+    // 异步多条件查询
     @RequestMapping("/multiplyConditions")
-    public String multiplyConditions(Integer type, String time, String contry, Model model){
-        List<Film> films = filmService.selectType(time, contry, type);
-        model.addAttribute("films", films);
+    @ResponseBody
+    public FilmResult multiplyConditions(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "5") Integer size, @RequestParam("types[]") String[] types, HttpSession session, HttpServletRequest request){
+        try {
+            PageUtil<Film> filmPageUtil = filmService.selectType(page, size, types);
+            User user = (User) session.getAttribute("user");
+            List<UserFilm> userFilms = new ArrayList<>();
+            if (user != null) {
+                for (Film film : filmPageUtil.getData()) {
+                    userFilms.add(userFilmService.select(new UserFilm(film.getFilmid(), user.getUid())));
+                }
+            }
+            String type = BehindAjaxResult.type(filmPageUtil, userFilms, request, user);
+            String type_page = BehindAjaxResult.type_page(filmPageUtil);
+            return new FilmResult(200, type, type_page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new FilmResult(500, "内部错误", null);
+        }
+    }
+
+    // 多条件查询页面
+    @RequestMapping("/multiplyConditionsUI")
+    public String multiplyConditionsUI(Integer type, Model model){
+        Types types = typeService.selectByPrimaryKey(type);
+        String[] ty = new String[]{types.getTypeName()};
+        PageUtil<Film> filmPageUtil = filmService.selectType(1, 5, ty);
+        model.addAttribute("filmPage",filmPageUtil);
         return "front/film/filmType";
     }
 
     // 名字查询
     @RequestMapping("/selectByFilmName")
     public String selectByName(String name, Model model, HttpSession session){
-        Film film = filmService.selectByName(name);
-        if (film == null){
+        List<Film> films = filmService.selectByName(name);
+        if (films == null || films.size() == 0){
             return "front/film/search";
         }
-        film = filmService.selectByPrimaryKey(film.getFilmid());
+        // 查询用户是否收藏了电影
         User user = (User) session.getAttribute("user");
         if (user == null){
             model.addAttribute("userFilm",null);
         }
         else {
-            UserFilm userFilm = userFilmService.select(new UserFilm(film.getFilmid(), user.getUid()));
+            List<UserFilm> userFilm = new ArrayList<>();
+            for (Film film : films){
+                userFilm.add(userFilmService.select(new UserFilm(film.getFilmid(), user.getUid())));
+            }
             model.addAttribute("userFilm", userFilm);
         }
-        model.addAttribute("film", film);
+        model.addAttribute("film", films);
         return "front/film/search";
     }
 }

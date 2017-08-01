@@ -31,7 +31,7 @@ public class TypeServiceImpl implements TypeService {
 
     @Override
     public Types selectByPrimaryKey(Integer id) {
-        return null;
+        return typesMapper.selectByPrimaryKey(id);
     }
 
     @Override

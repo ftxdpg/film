@@ -278,6 +278,9 @@ public class FilmController {
     @RequestMapping("/frontInfo")
     public String frontInfo(Integer id, Model model, HttpSession session){
         Film film = filmService.selectByPrimaryKey(id);
+        if (film == null){
+            return "front/film/info";
+        }
         User user = (User) session.getAttribute("user");
         if (user == null){
             model.addAttribute("userFilm",null);

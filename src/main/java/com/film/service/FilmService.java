@@ -32,8 +32,8 @@ public interface FilmService extends BaseService<Film> {
     List<Film> selectTopFilms(PageUtil pageUtil);
 
     // 电影类型查询
-    List<Film> selectType(String createTime, String contry, Integer typeId);
+    PageUtil<Film> selectType(Integer page, Integer size, String[] types);
 
     // 按名字查询
-    Film selectByName(String name);
+    List<Film> selectByName(String name);
 }

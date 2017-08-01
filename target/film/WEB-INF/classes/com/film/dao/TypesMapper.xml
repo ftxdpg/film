@@ -1,8 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.film.dao.TypesMapper" >
-  <resultMap id="BaseResultMap" type="com.film.model.Types" >
+    <resultMap id="BaseResultMap" type="com.film.model.Types" >
     <id column="typeId" property="typeid" jdbcType="INTEGER" />
     <result column="typeName" property="typeName" jdbcType="VARCHAR"/>
-  </resultMap>
+    </resultMap>
+
+    <select id="selectTypes" resultMap="typeFilms">
+        SELECT t.typeName, fi.name, fi.createtime, fi.actor, fi.director, fi.filmId, fi.img, fi.point, fi.price, fi.contry, fi.time
+        FROM film_type ft
+        INNER JOIN types t ON ft.type_id = t.typeId
+        INNER JOIN
+        (
+            SELECT f.img, f.createtime, f.name, f.filmId, f.director, f.actor, f.price, f.contry, f.point, f.time
+            FROM film_type ft,
+            types t,
+            film f
+            where ft.film_id = f.filmId
+            and ft.type_id = t.typeId
+            <if test="contry != null">
+                AND f.contry = #{contry}
+            </if>
+            <if test="createtime != null">
+                AND f.createtime LIKE #{createtime}
+            </if>
+            <if test="typeName != null">
+                AND t.typeName = #{typeName}
+            </if>
+            <if test="page != null and size != null">
+                limit #{page},#{size}
+            </if>
+        )fi
+        ON fi.filmId = ft.film_id
+    </select>
+
+    <select id="selectTypeCounts" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM
+        types t,
+        film_type ft,
+        film f
+        where ft.film_id = f.filmId
+        and ft.type_id = t.typeId
+        <if test="contry != null">
+            AND f.contry = #{contry}
+        </if>
+        <if test="createtime != null">
+            AND f.createtime LIKE #{createtime}
+        </if>
+        <if test="typeName != null">
+            AND t.typeName = #{typeName}
+        </if>
+    </select>
+
+    <resultMap id="typeFilms" type="com.film.model.Film">
+        <id column="filmId" jdbcType="INTEGER" property="filmid"/>
+        <result column="actor" jdbcType="VARCHAR" property="actor"/>
+        <result column="contry" jdbcType="VARCHAR" property="contry"/>
+        <result column="createtime" jdbcType="VARCHAR" property="createtime"/>
+        <result column="director" jdbcType="VARCHAR" property="director"/>
+        <result column="img" jdbcType="VARCHAR" property="img"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="point" jdbcType="DOUBLE" property="point"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="time" jdbcType="VARCHAR" property="time"/>
+        <collection property="typesList" ofType="com.film.model.Types">
+            <result column="typeName" property="typeName" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
 </mapper>

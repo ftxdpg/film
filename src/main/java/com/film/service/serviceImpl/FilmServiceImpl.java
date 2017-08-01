@@ -129,21 +129,54 @@ public class FilmServiceImpl implements FilmService{
 
     // 电影类型查询
     @Override
-    public List<Film> selectType(String createTime, String contry, Integer typeId){
-        if (createTime != null){
-            createTime = "%"+createTime+"%";
+    public PageUtil<Film> selectType(Integer page, Integer size, String[] types){
+        Film film = new Film();
+        String typeName = null;
+        for (String type : types){
+            if ("喜剧".equals(type) || "爱情".equals(type) || "动作".equals(type) || "惊悚".equals(type) || "悬疑".equals(type) || "动画".equals(type) || "科幻".equals(type) || "战争".equals(type) || "青春".equals(type)){
+                typeName  = type;
+            } else if ("华语".equals(type) || "美国".equals(type) || "香港".equals(type) || "韩国".equals(type) || "日本".equals(type) || "印度".equals(type) || "其他".equals(type)){
+                film.setContry(type);
+            }else {
+                film.setCreatetime("%"+type+"%");
+            }
         }
-        if (contry != null){
-            contry = "%"+contry+"%";
+        // 新建分页对象
+        PageUtil<Film> filmPageUtil = new PageUtil<>(page, size);
+        // 查询总数
+        int totalCount = typesMapper.selectTypeCounts(film.getContry(), film.getCreatetime(), typeName);
+        // 设置总数
+        filmPageUtil.setTotalCount(totalCount);
+        // 判断当前页
+        if (page == null || page <= 0){
+            filmPageUtil.setCurrentPage(1);
+            page = 1;
         }
-        List<Film> films = filmMapper.selectByTypes(contry, createTime, typeId);
-        return films;
+        // 判断分页大小
+        if (size == null || size <= 0){
+            filmPageUtil.setPageSize(5);
+            size = 5;
+        }
+        // 判断跳转到第几页
+        if (page > filmPageUtil.getTotalPage() && filmPageUtil.getTotalPage() != 0){
+            filmPageUtil.setCurrentPage(filmPageUtil.getTotalPage());
+            page = filmPageUtil.getTotalPage();
+        }
+        film.setPage((page-1)*size);
+        film.setSize(size);
+        List<Film> films = typesMapper.selectTypes(film.getPage(), film.getSize(), film.getContry(), film.getCreatetime(), typeName);
+        filmPageUtil.setData(films);
+        return filmPageUtil;
     }
 
-    // 按名字查询
+    // 按名字模糊查询
     @Override
-    public Film selectByName(String name){
-        return filmMapper.selectOne(new Film(name));
+    public List<Film> selectByName(String name){
+        List<Film> film = filmMapper.selectFilmAndTypesInfo1(new Film("%" + name + "%"));
+        if (film == null){
+            return null;
+        }
+        return film;
     }
 
     @Override

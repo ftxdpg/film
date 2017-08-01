@@ -176,7 +176,7 @@
                             热度:
                             <c:choose>
                                 <c:when test="${film.point <= 2}">
-                                    <div class="score" style="cursor: pointer; width: 90px;">
+                                    <div style="cursor: pointer; width: 90px;">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
@@ -185,7 +185,7 @@
                                     </div>
                                 </c:when>
                                 <c:when test="${2 < film.point && film.point <= 4}">
-                                    <div class="score" style="cursor: pointer; width: 90px;">
+                                    <div style="cursor: pointer; width: 90px;">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star-o"></i>
@@ -194,7 +194,7 @@
                                     </div>
                                 </c:when>
                                 <c:when test="${4 < film.point && film.point <= 6}">
-                                    <div class="score" style="cursor: pointer; width: 90px;">
+                                    <div style="cursor: pointer; width: 90px;">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -203,7 +203,7 @@
                                     </div>
                                 </c:when>
                                 <c:when test="${6 < film.point && film.point <= 8}">
-                                    <div class="score" style="cursor: pointer; width: 90px;">
+                                    <div style="cursor: pointer; width: 90px;">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
