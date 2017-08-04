@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.film.dao.DiscussMapper">
+
+    <select id="discussAndReply" resultMap="discussList">
+        SELECT discussId, discussName, discussTime, content, discussFloat, replyId, replyTo, replyContent, replyTime, replyUser, replyFloat
+        FROM (
+            SELECT discussId, film_id, discussName, discussTime, content, discussFloat
+            FROM discuss
+            WHERE film_id = #{filmId}
+            limit #{page},#{size}
+        )d LEFT JOIN
+        (
+          SELECT replyId, film_id, replyTo, replyContent, replyTime, replyUser, replyFloat
+          FROM reply
+          WHERE film_id = #{filmId}
+          ORDER BY replyTime ASC
+        )r
+        ON d.film_id = r.film_id
+		WHERE d.film_id = #{filmId}
+		ORDER BY discussTime ASC
+    </select>
+
+    <resultMap id="discussList" type="com.film.model.Discuss">
+        <id column="discussId" jdbcType="INTEGER" property="discussId"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="discussTime" jdbcType="VARCHAR" property="discussTime"/>
+        <result column="discussName" jdbcType="VARCHAR" property="discussName"/>
+        <result column="discussFloat" jdbcType="INTEGER" property="discussFloat"/>
+        <result column="film_id" jdbcType="INTEGER" property="filmId"/>
+        <collection property="replyList" ofType="com.film.model.Reply">
+            <id column="replyId" jdbcType="INTEGER" property="replyId"/>
+            <result column="replyTo" jdbcType="VARCHAR" property="replyTo"/>
+            <result column="replyContent" jdbcType="VARCHAR" property="replyContent"/>
+            <result column="replyTime" jdbcType="VARCHAR" property="replyTime"/>
+            <result column="replyUser" jdbcType="VARCHAR" property="replyUser"/>
+            <result column="replyFloat" jdbcType="INTEGER" property="replyFloat"/>
+        </collection>
+    </resultMap>
+
+</mapper>

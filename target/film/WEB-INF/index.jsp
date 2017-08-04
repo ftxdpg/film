@@ -248,8 +248,7 @@
                     </div>
                 </li>
 
-                <li data-transition="fade" data-slotamount="7" class="slide fading-slide" data-slide='Travel worldwide.
-Create trip film.'>
+                <li data-transition="fade" data-slotamount="7" class="slide fading-slide" data-slide='Travel worldwide.Create trip film.'>
                     <img alt='' src="${pageContext.request.contextPath}/resources/images/b2.jpg">
 
 
@@ -429,31 +428,6 @@ Start doing.'>
                 </c:forEach>
             </div>
             <div class="col-sm-10 col-sm-offset-1 movie-best__check">查看正在热映的电影</div>
-        </div>
-
-        <div class="col-sm-12">
-            <div class="mega-select-present mega-select-top mega-select--full">
-                <div class="mega-select-marker">
-
-                    <div class="marker-indecator cinema">
-                        <p class="select-marker"><span>查询</span> <br>电影</p>
-                    </div>
-                </div>
-
-                <div class="mega-select pull-right">
-                    <span class="mega-select__point">Search by</span>
-                    <ul class="mega-select__sort">
-                        <li class="filter-wrap"><a href="#" class="mega-select__filter filter--active" data-filter='film-category'>电影名</a></li>
-                    </ul>
-                    <form method="post" action="${pageContext.request.contextPath}/film/filmCommon/common/selectByFilmName">
-                        <input name="name" id="name" type='text' class="select__field">
-
-                        <div class="select__btn">
-                            <button type="submit" class="btn btn-md btn--danger location">find <span class="hidden-exrtasm">电影名</span></button>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
 
         <div class="clearfix"></div>

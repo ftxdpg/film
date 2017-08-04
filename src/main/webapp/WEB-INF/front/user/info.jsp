@@ -200,8 +200,6 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" id="bigPlace">
                             <li class="active"><a href="#collection" data-toggle="tab">我的收藏</a></li>
-                            <li><a href="#comment" data-toggle="tab">我的评论</a></li>
-                            <li><a href="#preview" data-toggle="tab">他人对我的评论</a></li>
                             <li><a href="#order" data-toggle="tab">我的订单</a></li>
                             <li><a href="#car" data-toggle="tab">我的购物车</a></li>
                         </ul>
@@ -300,14 +298,6 @@
                                         <i class="fa fa-refresh" onclick="orderPage(1, 5, ${sessionScope.user.uid})"></i>
                                     </c:if>
                                 </div>
-                            </div>
-
-                            <div class="tab-pane" id="comment">
-
-                            </div>
-
-                            <div class="tab-pane" id="preview">
-
                             </div>
 
                             <div class="tab-pane" id="car">

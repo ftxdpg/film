@@ -3,6 +3,7 @@ package com.film.util;
 import com.film.model.*;
 import com.github.pagehelper.Page;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -351,5 +352,88 @@ public class BehindAjaxResult {
                 "<input class=\"basic\" value=\"最后一页\" style=\"margin: 5px;\" onclick=\"chooseAll("+filmPageUtil.getTotalPage()+", "+filmPageUtil.getPageSize()+")\" type=\"button\">&nbsp;\n" +
                 "每页显示&nbsp;<input type=\"text\" id=\"my_typePageSize\" value=\""+filmPageUtil.getPageSize()+"\" title=\"\" onblur=\"typeSelfPage()\" style=\"width: 30px; height: 20px;\"/>&nbsp;条&nbsp;\n" +
                 "跳转到&nbsp;<input type=\"text\" id=\"my_typePagePage\" value=\""+ filmPageUtil.getCurrentPage()+"\" title=\"\" onblur=\"typeSelfPage()\" style=\"width: 30px; height: 20px;\"/>&nbsp;页";
+    }
+
+
+
+    // 评论回复分页
+    public static String discuss(PageUtil<Discuss> discussPageUtil, HttpServletRequest request, User user){
+        if (discussPageUtil.getData() == null || discussPageUtil.getData().size() == 0) {
+            return "";
+        }
+
+        String discuss = "";
+        for (Discuss discuss1 : discussPageUtil.getData()){
+            // 判断评论是否可删除
+            String disDele = "";
+            if (user != null && user.getName().equals(discuss1.getDiscussName())){
+                disDele = "<a onclick=\"deleteDiscuss("+discussPageUtil.getCurrentPage()+", "+discussPageUtil.getPageSize()+")\" class=\"removeBlock\">删除</a>";
+            }
+
+            // 回复列表
+            String reply = "";
+            if (discuss1.getReplyList() != null){
+                for (Reply reply1 : discuss1.getReplyList()){
+                    // 判断回复是否可删除
+                    String repDele = "";
+                    if (user != null && user.getName().equals(reply1.getReplyUser())){
+                        repDele = "<a onclick=\"deleteReply("+discussPageUtil.getCurrentPage()+","+discussPageUtil.getPageSize()+", "+reply1.getReplyId()+")\" class=\"removeBlock\">删除</a>";
+                    }
+                    if (reply1.getReplyFloat().equals(discuss1.getDiscussFloat())) {
+                        reply +=
+                                "                                   <div class=\"hf-list-con\">\n" +
+                                        "                                        <div class=\"all-pl-con\">\n" +
+                                        "                                            <div class=\"pl-text hfpl-text clearfix\">\n" +
+                                        "                                                <a class=\"comment-size-name\">" + reply1.getReplyUser() + "  </a>\n" +
+                                        "                                                <span class=\"my-pl-con\">回复<a class=\"comment-size-name\">" + reply1.getReplyTo() + "</a>：" + reply1.getReplyContent() + "</span>\n" +
+                                        "                                            </div>\n" +
+                                        "                                            <div class=\"date-dz\">\n" +
+                                        "                                                <span class=\"date-dz-left pull-left comment-time\">" + reply1.getReplyTime() + "</span>\n" +
+                                        "                                                <div class=\"date-dz-right pull-right comment-pl-block\">\n" +
+                                                                                             repDele+
+                                        "                                                    <a onclick=\"addReplyFloat("+discuss1.getDiscussFloat()+")\" class=\"date-dz-pl pl-hf hf-con-block pull-left\">回复</a>\n" +
+                                        "                                                </div>\n" +
+                                        "                                            </div>\n" +
+                                        "                                        </div>\n" +
+                                        "                                    </div>";
+                    }
+                }
+            }
+
+            discuss +=
+                    "               <div class=\"comment-show-con clearfix\">\n" +
+                    "                    <div class=\"comment-show-con-img pull-left\"><img src=\""+request.getContextPath()+"/resources/images/31-31.png\" alt=\"\"></div>\n" +
+                    "                    <div class=\"comment-show-con-list pull-left clearfix\">\n" +
+                    "                        <div class=\"pl-text clearfix\">\n" +
+                    "                            <p class=\"comment-size-name\" style=\"height: 0px;\">"+discuss1.getDiscussName()+"  </p>\n" +
+                    "                            <span class=\"my-pl-con\">&nbsp;"+discuss1.getContent()+"</span>\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"date-dz\">\n" +
+                    "                            <span class=\"date-dz-left pull-left comment-time\">"+discuss1.getDiscussTime()+"</span>\n" +
+                    "                            <div class=\"date-dz-right pull-right comment-pl-block\">\n" +
+                                                     disDele +
+                    "                                <a onclick=\"addReplyFloat("+discuss1.getDiscussFloat()+")\" class=\"date-dz-pl pl-hf hf-con-block pull-left\">回复</a>\n" +
+                    "                            </div>\n" +
+                    "                        </div>\n" +
+                                              reply +
+                    "                    </div>\n" +
+                    "                </div>";
+        }
+        return discuss;
+    }
+
+    // 评论回复底部分页
+    public static String discuss_page(PageUtil<Discuss> discussPageUtil){
+        if (discussPageUtil.getData() == null || discussPageUtil.getData().size() == 0) {
+            return "";
+        }
+        return  "<input value=\"第一页\" style=\"margin: 5px;\" onclick=\"discussPage("+discussPageUtil.getFirstPage()+","+discussPageUtil.getPageSize()+")\" type=\"button\">&nbsp;\n" +
+                "<input value=\"<\" style=\"margin: 5px;\" onclick=\"discussPage("+discussPageUtil.getPrePage()+","+discussPageUtil.getPageSize()+")\" type=\"button\">&nbsp;\n" +
+                "当前第"+discussPageUtil.getCurrentPage()+"页&nbsp;\n" +
+                "总共"+discussPageUtil.getTotalPage()+"页&nbsp;\n" +
+                "<input class=\"basic\" value=\">\" style=\"margin: 5px;\" onclick=\"discussPage("+discussPageUtil.getNextPage()+","+discussPageUtil.getPageSize()+")\" type=\"button\">&nbsp;\n" +
+                "<input class=\"basic\" value=\"最后一页\" style=\"margin: 5px;\" onclick=\"discussPage("+discussPageUtil.getTotalPage()+","+discussPageUtil.getPageSize()+")\" type=\"button\">&nbsp;\n" +
+                "每页显示&nbsp;<input type=\"text\" id=\"my_discussSize\" value=\""+discussPageUtil.getPageSize()+"\" title=\"\" onblur=\"discussSelfPage()\" style=\"width: 30px; height: 20px;\"/>&nbsp;条&nbsp;\n" +
+                "跳转到&nbsp;<input type=\"text\" id=\"my_discussPage\" value=\""+discussPageUtil.getCurrentPage()+"\" title=\"\" onblur=\"discussSelfPage()\" style=\"width: 30px; height: 20px;\"/>&nbsp;页";
     }
 }

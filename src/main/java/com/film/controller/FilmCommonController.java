@@ -1,9 +1,7 @@
 package com.film.controller;
 
-import com.film.model.Film;
-import com.film.model.Types;
-import com.film.model.User;
-import com.film.model.UserFilm;
+import com.film.model.*;
+import com.film.service.DiscussService;
 import com.film.service.FilmService;
 import com.film.service.TypeService;
 import com.film.service.UserFilmService;
@@ -39,6 +37,9 @@ public class FilmCommonController {
 
     @Autowired
     private TypeService typeService;
+
+    @Autowired
+    private DiscussService discussService;
 
     // 异步多条件查询
     @RequestMapping("/multiplyConditions")
@@ -93,5 +94,20 @@ public class FilmCommonController {
         }
         model.addAttribute("film", films);
         return "front/film/search";
+    }
+
+    // 评论回复异步分页
+    @RequestMapping("/discuss")
+    @ResponseBody
+    public FilmResult discuss(Integer filmId, @RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "5")Integer size, HttpServletRequest request, HttpSession session){
+        try {
+            PageUtil<Discuss> discussPageUtil = discussService.selectDiscuss(filmId, page, size);
+            String discuss = BehindAjaxResult.discuss(discussPageUtil, request, (User) session.getAttribute("user"));
+            String discussPage = BehindAjaxResult.discuss_page(discussPageUtil);
+            return new FilmResult(200, discuss, discussPage);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new FilmResult(500, "内部错误", null);
+        }
     }
 }

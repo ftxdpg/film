@@ -1,8 +1,10 @@
 package com.film.controller;
 
+import com.film.model.Discuss;
 import com.film.model.Film;
 import com.film.model.User;
 import com.film.model.UserFilm;
+import com.film.service.DiscussService;
 import com.film.service.FilmService;
 import com.film.service.UserFilmService;
 import com.film.util.BehindAjaxResult;
@@ -43,6 +45,9 @@ public class FilmController {
 
     @Autowired
     private UserFilmService userFilmService;
+
+    @Autowired
+    private DiscussService discussService;
 
     // 新增电影
     @RequestMapping("/newFilm")
@@ -276,7 +281,7 @@ public class FilmController {
 
     // 前台电影详情
     @RequestMapping("/frontInfo")
-    public String frontInfo(Integer id, Model model, HttpSession session){
+    public String frontInfo(Integer id, Model model, HttpSession session)throws Exception{
         Film film = filmService.selectByPrimaryKey(id);
         if (film == null){
             return "front/film/info";
@@ -289,7 +294,13 @@ public class FilmController {
             UserFilm userFilm = userFilmService.select(new UserFilm(id, user.getUid()));
             model.addAttribute("userFilm", userFilm);
         }
+
+        // 评论回复
+        PageUtil<Discuss> discussPageUtil = discussService.selectDiscuss(id, 1, 5);
+        model.addAttribute("discussPageUtil", discussPageUtil);
+
         model.addAttribute("film", film);
+        model.addAttribute("discussPageUtil",discussPageUtil);
         return "front/film/info";
     }
 

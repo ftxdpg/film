@@ -10,6 +10,9 @@
     <meta name="keywords" content="HTML, CSS, JavaScript">
     <meta name="author" content="Gozha.net">
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/behind/discuss/css/CommentStyle.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/behind/discuss/css/comment.css">
+
     <!-- Mobile Specific Metas-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="telephone=no" name="format-detection">
@@ -34,15 +37,6 @@
 
     <!-- Custom -->
     <link href="${pageContext.request.contextPath}/resources/css/style.css?v=1" rel="stylesheet" />
-
-    <!-- Modernizr -->
-    <script src="${pageContext.request.contextPath}/resources/js/external/modernizr.custom.js"></script>
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
-    <![endif]-->
 </head>
 
 <body>
@@ -234,7 +228,7 @@
                         <p class="movie__option"><strong>演员: </strong>${film.actor}</p>
                         <p class="movie__option"><strong>价格: </strong>${film.price}</p>
 
-                        <a href="#" class="comment-link">Comments:  15</a>
+                        <a class="comment-link">Comments:  ${discussPageUtil.totalCount}</a>
 
                         <div class="movie__btns movie__btns--full">
                             <a href="${pageContext.request.contextPath}/film/user/car/insetCar?filmId=${film.filmid}&userId=${user.uid}" class="btn btn-md btn--warning">添加至购物车</a>
@@ -258,187 +252,93 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="clearfix"></div>
-
-                <h2 class="page-heading">The plot</h2>
-
+                <h2 class="page-heading">电影简介</h2>
                 <p class="movie__describe">${film.introduction}</p>
-
             </div>
 
-            <h2 class="page-heading">showtime &amp; tickets</h2>
             <div class="choose-container">
-                <form id='select' class="select" method='get'>
-                    <select name="select_item" id="select-sort" class="select__sort" tabindex="0">
-                        <option value="1" selected='selected'>London</option>
-                        <option value="2">New York</option>
-                        <option value="3">Paris</option>
-                        <option value="4">Berlin</option>
-                        <option value="5">Moscow</option>
-                        <option value="3">Minsk</option>
-                        <option value="4">Warsawa</option>
-                        <option value="5">Kiev</option>
-                    </select>
-                </form>
-
-                <div class="datepicker">
-                    <span class="datepicker__marker"><i class="fa fa-calendar"></i>Date</span>
-                    <input type="text" id="datepicker" value='03/10/2014' class="datepicker__input">
-                </div>
-
+                <input type="hidden" id="repFloat" value="">
+                <input type="hidden" id="repName" value="">
                 <div class="clearfix"></div>
-
-                <div class="time-select">
-                    <div class="time-select__group group--first">
-                        <div class="col-sm-4">
-                            <p class="time-select__place">Cineworld</p>
-                        </div>
-                        <ul class="col-sm-8 items-wrap">
-                            <li class="time-select__item" data-time='09:40'>09:40</li>
-                            <li class="time-select__item" data-time='13:45'>13:45</li>
-                            <li class="time-select__item active" data-time='15:45'>15:45</li>
-                            <li class="time-select__item" data-time='19:50'>19:50</li>
-                            <li class="time-select__item" data-time='21:50'>21:50</li>
-                        </ul>
-                    </div>
-
-                    <div class="time-select__group">
-                        <div class="col-sm-4">
-                            <p class="time-select__place">Empire</p>
-                        </div>
-                        <ul class="col-sm-8 items-wrap">
-                            <li class="time-select__item" data-time='10:45'>10:45</li>
-                            <li class="time-select__item" data-time='16:00'>16:00</li>
-                            <li class="time-select__item" data-time='19:00'>19:00</li>
-                            <li class="time-select__item" data-time='21:15'>21:15</li>
-                            <li class="time-select__item" data-time='23:00'>23:00</li>
-                        </ul>
-                    </div>
-
-                    <div class="time-select__group">
-                        <div class="col-sm-4">
-                            <p class="time-select__place">Curzon</p>
-                        </div>
-                        <ul class="col-sm-8 items-wrap">
-                            <li class="time-select__item" data-time='09:00'>09:00</li>
-                            <li class="time-select__item" data-time='11:00'>11:00</li>
-                            <li class="time-select__item" data-time='13:00'>13:00</li>
-                            <li class="time-select__item" data-time='15:00'>15:00</li>
-                            <li class="time-select__item" data-time='17:00'>17:00</li>
-                            <li class="time-select__item" data-time='19:0'>19:00</li>
-                            <li class="time-select__item" data-time='21:0'>21:00</li>
-                            <li class="time-select__item" data-time='23:0'>23:00</li>
-                            <li class="time-select__item" data-time='01:0'>01:00</li>
-                        </ul>
-                    </div>
-
-                    <div class="time-select__group">
-                        <div class="col-sm-4">
-                            <p class="time-select__place">Odeon</p>
-                        </div>
-                        <ul class="col-sm-8 items-wrap">
-                            <li class="time-select__item" data-time='10:45'>10:45</li>
-                            <li class="time-select__item" data-time='16:00'>16:00</li>
-                            <li class="time-select__item" data-time='19:00'>19:00</li>
-                            <li class="time-select__item" data-time='21:15'>21:15</li>
-                            <li class="time-select__item" data-time='23:00'>23:00</li>
-                        </ul>
-                    </div>
-
-                    <div class="time-select__group group--last">
-                        <div class="col-sm-4">
-                            <p class="time-select__place">Picturehouse</p>
-                        </div>
-                        <ul class="col-sm-8 items-wrap">
-                            <li class="time-select__item" data-time='17:45'>17:45</li>
-                            <li class="time-select__item" data-time='21:30'>21:30</li>
-                            <li class="time-select__item" data-time='02:20'>02:20</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <h2 class="page-heading">comments (15)</h2>
+                <h2 class="page-heading">评论数 (${discussPageUtil.totalCount})</h2>
 
                 <div class="comment-wrapper">
-                    <form id="comment-form" class="comment-form" method='post'>
-                        <textarea class="comment-form__text" placeholder='Add you comment here'></textarea>
-                        <button type='submit' class="btn btn-md btn--danger comment-form__btn">add comment</button>
-                    </form>
-
-                    <div class="comment-sets">
-
-                        <div class="comment">
-                            <div class="comment__images">
-                                <img alt='' src="http://placehold.it/50x50">
-                            </div>
-
-                            <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>Roberta Inetti</a>
-                            <p class="comment__date">today | 03:04</p>
-                            <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                            <a href='#' class="comment__reply">Reply</a>
+                    <div class="commentAll" style="width: 1000px;">
+                        <!--评论区域 begin-->
+                        <div class="reviewArea clearfix">
+                            <textarea class="content comment-input" placeholder="字数上限为140&hellip;" onkeyup="keyUP(this)" id="content"></textarea>
+                            <a class="plBtn" onclick="addDiscuss()">评论</a>
                         </div>
+                        <!--评论区域 end-->
 
-                        <div class="comment">
-                            <div class="comment__images">
-                                <img alt='' src="http://placehold.it/50x50">
-                            </div>
-
-                            <a href='#' class="comment__author"><span class="social-used fa fa-vk"></span>Olia Gozha</a>
-                            <p class="comment__date">22.10.2013 | 14:40</p>
-                            <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                            <a href='#' class="comment__reply">Reply</a>
+                        <!--回复区域 begin-->
+                        <div class="comment-show col-sm-12" id="discuss">
+                            <!-- 要删除就从这里开始 begin -->
+                            <c:if test="${!empty discussPageUtil.data}">
+                                <c:forEach items="${discussPageUtil.data}" var="discuss">
+                                    <div class="comment-show-con clearfix">
+                                        <div class="comment-show-con-img pull-left"><img src="${pageContext.request.contextPath}/resources/images/31-31.png" alt=""></div>
+                                        <div class="comment-show-con-list pull-left clearfix">
+                                            <div class="pl-text clearfix">
+                                                <p class="comment-size-name" style="height: 0px;">${discuss.discussName} </p>
+                                                <span class="my-pl-con">&nbsp;${discuss.content}</span>
+                                            </div>
+                                            <div class="date-dz">
+                                                <span class="date-dz-left pull-left comment-time">${discuss.discussTime}</span>
+                                                <div class="date-dz-right pull-right comment-pl-block">
+                                                    <c:if test="${!empty user and discuss.discussName eq user.name}">
+                                                        <a onclick="deleteDiscuss(${discussPageUtil.currentPage}, ${discussPageUtil.pageSize}, ${discuss.discussFloat})" class="removeBlock">删除</a>
+                                                    </c:if>
+                                                    <a onclick="addReplyFloat(${discuss.discussFloat})" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a>
+                                                </div>
+                                            </div>
+                                            <c:if test="${!empty discuss.replyList}">
+                                                <c:forEach items="${discuss.replyList}" var="reply">
+                                                    <c:if test="${reply.replyFloat eq discuss.discussFloat}">
+                                                        <!-- 一条回复的开始 begin -->
+                                                        <div class="hf-list-con">
+                                                            <div class="all-pl-con">
+                                                                <div class="pl-text hfpl-text clearfix">
+                                                                    <a class="comment-size-name">${reply.replyUser}  </a>
+                                                                    <span class="my-pl-con">回复<a class="comment-size-name">${reply.replyTo}</a>：${reply.replyContent}</span>
+                                                                </div>
+                                                                <div class="date-dz">
+                                                                    <span class="date-dz-left pull-left comment-time">${reply.replyTime}</span>
+                                                                    <div class="date-dz-right pull-right comment-pl-block">
+                                                                        <c:if test="${!empty user and reply.replyUser eq user.name}">
+                                                                            <a onclick="deleteReply(${discussPageUtil.currentPage},${discussPageUtil.pageSize}, ${reply.replyId})" class="removeBlock">删除</a>
+                                                                        </c:if>
+                                                                        <a onclick="addReplyFloat(${discuss.discussFloat})" class="date-dz-pl pl-hf hf-con-block pull-left">回复</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- 一条回复的结束 end -->
+                                                    </c:if>
+                                                </c:forEach>
+                                            </c:if>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </c:if>
+                            <!-- 要删除就从这里结束 end -->
                         </div>
+                        <!--回复区域 end-->
+                    </div>
 
-                        <div class="comment comment--answer">
-                            <div class="comment__images">
-                                <img alt='' src="http://placehold.it/50x50">
-                            </div>
-
-                            <a href='#' class="comment__author"><span class="social-used fa fa-vk"></span>Dmitriy Pustovalov</a>
-                            <p class="comment__date">today | 10:19</p>
-                            <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                            <a href='#' class="comment__reply">Reply</a>
-                        </div>
-
-                        <div class="comment comment--last">
-                            <div class="comment__images">
-                                <img alt='' src="http://placehold.it/50x50">
-                            </div>
-
-                            <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>Sia Andrews</a>
-                            <p class="comment__date"> 22.10.2013 | 12:31 </p>
-                            <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                            <a href='#' class="comment__reply">Reply</a>
-                        </div>
-
-                        <div id='hide-comments' class="hide-comments">
-                            <div class="comment">
-                                <div class="comment__images">
-                                    <img alt='' src="http://placehold.it/50x50">
-                                </div>
-
-                                <a href='#' class="comment__author"><span class="social-used fa fa-facebook"></span>Roberta Inetti</a>
-                                <p class="comment__date">today | 03:04</p>
-                                <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                                <a href='#' class="comment__reply">Reply</a>
-                            </div>
-
-                            <div class="comment">
-                                <div class="comment__images">
-                                    <img alt='' src="http://placehold.it/50x50">
-                                </div>
-
-                                <a href='#' class="comment__author"><span class="social-used fa fa-vk"></span>Olia Gozha</a>
-                                <p class="comment__date">22.10.2013 | 14:40</p>
-                                <p class="comment__message">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vitae enim sollicitudin, euismod erat id, fringilla lacus. Cras ut rutrum lectus. Etiam ante justo, volutpat at viverra a, mattis in velit. Morbi molestie rhoncus enim, vitae sagittis dolor tristique et.</p>
-                                <a href='#' class="comment__reply">Reply</a>
-                            </div>
-                        </div>
-
-                        <div class="comment-more">
-                            <a href="#" class="watchlist">Show more comments</a>
-                        </div>
+                    <!-- 分页区域 -->
+                    <div class="col-sm-12" id="discuss_page" style="margin-left: 200px;padding-bottom: 50px;">
+                        <c:if test="${discussPageUtil.data.size() != 0}">
+                            <input value="第一页" style="margin: 5px;" onclick="discussPage(${discussPageUtil.firstPage},5)" type="button">&nbsp;
+                            <input value="<" style="margin: 5px;" onclick="discussPage(${discussPageUtil.prePage},5)" type="button">&nbsp;
+                            当前第${discussPageUtil.currentPage}页&nbsp;
+                            总共${discussPageUtil.totalPage}页&nbsp;
+                            <input class="basic" value=">" style="margin: 5px;" onclick="discussPage(${discussPageUtil.nextPage},5)" type="button">&nbsp;
+                            <input class="basic" value="最后一页" style="margin: 5px;" onclick="discussPage(${discussPageUtil.totalPage},5)" type="button">&nbsp;
+                            每页显示&nbsp;<input type="text" id="my_discussSize" value="${discussPageUtil.pageSize}" title="" onblur="discussSelfPage()" style="width: 30px; height: 20px;"/>&nbsp;条&nbsp;
+                            跳转到&nbsp;<input type="text" id="my_discussPage" value="${discussPageUtil.currentPage}" title="" onblur="discussSelfPage()" style="width: 30px; height: 20px;"/>&nbsp;页
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -450,8 +350,8 @@
 <!-- JavaScript-->
 <!-- jQuery 1.9.1-->
 <script src="${pageContext.request.contextPath}/resources/behind/js/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/external/jquery-1.10.1.min.js"><\/script>')</script>
 <!-- Migrate -->
+
 <script src="${pageContext.request.contextPath}/resources/js/external/jquery-migrate-1.2.1.min.js"></script>
 <!-- jQuery UI -->
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -469,9 +369,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/external/idangerous.swiper.min.js"></script>
 <!-- Magnific-popup -->
 <script src="${pageContext.request.contextPath}/resources/js/external/jquery.magnific-popup.min.js"></script>
-<!--*** Google map infobox  ***-->
-<script src="${pageContext.request.contextPath}/resources/js/external/infobox.js"></script>
-
 <!-- Share buttons -->
 <script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-525fd5e9061e7ef0"></script>
@@ -480,9 +377,218 @@
 <script src="${pageContext.request.contextPath}/resources/js/external/form-element.js"></script>
 <!-- Form validation -->
 <script src="${pageContext.request.contextPath}/resources/behind/js/form.js"></script>
-
+<!-- Modernizr -->
+<script src="${pageContext.request.contextPath}/resources/js/external/modernizr.custom.js"></script>
 <!-- Custom -->
 <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/behind/discuss/js/jquery.flexText.js"></script>
+<script type="text/javascript">
+    // 评论回复分页
+    function discussPage(page, size) {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/filmCommon/common/discuss",
+            type:"post",
+            data:{"page":page, "size":size, "filmId":${film.filmid}},
+            success: function (result) {
+                var $discuss = $("#discuss");
+                var $discuss_page = $("#discuss_page");
+                if (result.status == 200) {
+                    $discuss.empty();
+                    $discuss.append(result.msg);
+                    $discuss_page.empty();
+                    $discuss_page.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 评论回复自定义分页
+    function discussSelfPage() {
+        var size = $("#my_discussSize")[0].value;
+        var page = $("#my_discussPage")[0].value;
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/filmCommon/common/discuss",
+            type:"post",
+            data:{"page":page, "size":size, "filmId":${film.filmid}},
+            success: function (result) {
+                var $discuss = $("#discuss");
+                var $discuss_page = $("#discuss_page");
+                if (result.status == 200) {
+                    $discuss.empty();
+                    $discuss.append(result.msg);
+                    $discuss_page.empty();
+                    $discuss_page.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 添加评论
+    function addDiscuss() {
+        var size;
+        if ($("#my_discussSize")[0] == undefined){
+            size = 5;
+        }else{
+            size = $("#my_discussSize")[0].value;
+        }
+
+        var page;
+        if ($("#my_discussPage")[0] == undefined){
+            page = 1;
+        }else{
+            page = $("#my_discussPage")[0].value;
+        }
+        var content = $("#content")[0].value;
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/discuss/addDiscuss",
+            type:"post",
+            data:{"page":page, "size":size, "filmId":${film.filmid}, "content":content},
+            success: function (result) {
+                var $discuss = $("#discuss");
+                var $discuss_page = $("#discuss_page");
+                if (result.status == 200) {
+                    $("#content").val('');
+                    $discuss.empty();
+                    $discuss.append(result.msg);
+                    $discuss_page.empty();
+                    $discuss_page.append(result.data);
+                } else {
+                    alert("未登录或评论内容为空");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 添加回复
+    function addReply(page, size) {
+        var content = $("#replyContent")[0].value;
+        var replyFloat = $("#repFloat")[0].value;
+        var replyTo = $("#repName")[0].value;
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/discuss/addReply",
+            type:"post",
+            data:{"page":page, "size":size, "replyTo":replyTo, "replyFloat":replyFloat, "replyContent":content, "filmId":${film.filmid}},
+            success: function (result) {
+                var $discuss = $("#discuss");
+                var $discuss_page = $("#discuss_page");
+                if (result.status == 200) {
+                    $discuss.empty();
+                    $discuss.append(result.msg);
+                    $discuss_page.empty();
+                    $discuss_page.append(result.data);
+                } else {
+                    alert("没有登录或内容为空");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 删除评论
+    function deleteDiscuss(page, size, discussFloat) {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/discuss/deleteDiscuss",
+            type:"post",
+            data:{"page":page, "size":size, "discussFloat":discussFloat},
+            success: function (result) {
+                var $discuss = $("#discuss");
+                var $discuss_page = $("#discuss_page");
+                if (result.status == 200) {
+                    $discuss.empty();
+                    $discuss.append(result.msg);
+                    $discuss_page.empty();
+                    $discuss_page.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 删除回复
+    function deleteReply(page, size, replyId) {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/film/user/discuss/deleteReply",
+            type:"post",
+            data:{"page":page, "size":size, "replyId":replyId, "filmId":${film.filmid}},
+            success: function (result) {
+                var $discuss = $("#discuss");
+                var $discuss_page = $("#discuss_page");
+                if (result.status == 200) {
+                    $discuss.empty();
+                    $discuss.append(result.msg);
+                    $discuss_page.empty();
+                    $discuss_page.append(result.data);
+                } else {
+                    alert("内部错误，请刷新页面");
+                }
+            },
+            error: function(){alert("内部错误");}
+        });
+    }
+
+    // 改变楼层
+    function addReplyFloat(float) {
+        $("#repFloat").val(float);
+    }
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('.content').flexText();
+    });
+</script>
+
+<!--textarea限制字数-->
+<script type="text/javascript">
+    function keyUP(t){
+        var len = $(t).val().length;
+        if(len > 139){
+            $(t).val($(t).val().substring(0,140));
+        }
+    }
+</script>
+
+<!--点击回复动态创建回复块-->
+<script type="text/javascript">
+    $('.comment-show').on('click','.pl-hf',function(){
+        //获取回复人的名字
+        var fhName = $(this).parents('.date-dz-right').parents('.date-dz').siblings('.pl-text').find('.comment-size-name').html();
+        //回复@
+        var fhN = '回复@'+fhName;
+        // 获取分页
+        var size = $("#my_discussSize")[0].value;
+        var page = $("#my_discussPage")[0].value;
+        // 设置被回复人
+        $("#repName").val($.trim(fhName));
+        //var oInput = $(this).parents('.date-dz-right').parents('.date-dz').siblings('.hf-con');
+        var fhHtml= '<div class="hf-con pull-left">'+
+                '<textarea id="replyContent" class="content comment-input hf-input" placeholder="'+fhN+'" onkeyup="keyUP(this)"></textarea> '+
+                '<a onclick="addReply('+page+', '+size+')" class="hf-pl">评论</a>'+
+                '</div>';
+        //显示回复
+        if($(this).is('.hf-con-block')){
+            $(this).parents('.date-dz-right').parents('.date-dz').append(fhHtml);
+            $(this).removeClass('hf-con-block');
+            $('.content').flexText();
+            $(this).parents('.date-dz-right').siblings('.hf-con').find('.pre').css('padding','6px 15px');
+            //input框自动聚焦
+            $(this).parents('.date-dz-right').siblings('.hf-con').find('.hf-input').val('').focus();
+        }else {
+            $(this).addClass('hf-con-block');
+            $(this).parents('.date-dz-right').siblings('.hf-con').remove();
+        }
+    });
+</script>
 
 <script type="text/javascript">
     $(document).ready(function() {
