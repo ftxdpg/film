@@ -6,6 +6,10 @@ import com.film.service.TypeService;
 import com.film.service.UserService;
 import com.film.util.*;
 import com.film.util.msg.IndustrySMS;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -73,6 +77,12 @@ public class CommonController {
             attributes.addFlashAttribute("result",new FilmResult(404,"格式填写错误",null));
             return "redirect:/common/emailRegUI";
         }
+
+        if (user == null || user.getName() == null || user.getEmail() == null || userService.selectByName(user.getName()) > 0 || userService.selectByEmail(user.getEmail()) > 0){
+            attributes.addFlashAttribute("result",new FilmResult(404,"用户已存在或者邮箱已存在",null));
+            return "redirect:/common/emailRegUI";
+        }
+
         if (StringUtils.isEmpty(session.getAttribute("emailCode")) || !session.getAttribute("emailCode").equals(code)){
             attributes.addFlashAttribute("result", new FilmResult(404, "验证码错误", null));
             return "redirect:/common/emailRegUI";
@@ -90,6 +100,12 @@ public class CommonController {
             attributes.addFlashAttribute("result",new FilmResult(404,"格式填写错误",null));
             return "redirect:/common/messageRegUI";
         }
+
+        if (user == null || userService.selectByName(user.getName()) > 0 || userService.selectByPhone(user.getPhone()) > 0){
+            attributes.addFlashAttribute("result",new FilmResult(404,"用户已存在或者手机号码已存在",null));
+            return "redirect:/common/messageRegUI";
+        }
+
         if (StringUtils.isEmpty(session.getAttribute("msgCode")) || !session.getAttribute("msgCode").equals(code)){
             attributes.addFlashAttribute("result", new FilmResult(404, "验证码错误", null));
             return "redirect:/common/messageRegUI";
@@ -102,14 +118,25 @@ public class CommonController {
     // 登录验证
     @RequestMapping("/login")
     public String login(User user, RedirectAttributes attributes, HttpSession session){
-        user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
-        User login = userService.login(user);
-        if (login == null){
+        if (user == null || user.getPassword() == null || user.getName() == null){
+            attributes.addFlashAttribute("result", "用户名不存在或密码错误");
+            return "redirect:/common/loginUI";
+        }
+        Subject u = SecurityUtils.getSubject();
+        // 把密码和用户名封装为一个token
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getName(), user.getPassword());
+        try {
+            // 执行登录
+            u.login(token);
+            // 去除密码，然后session保存
+            user.setPassword(null);
+            User login = userService.login(user);
+            session.setAttribute("user", login);
+            return "redirect:/common/index";
+        } catch (AuthenticationException e) {
             attributes.addFlashAttribute("result", "用户名或密码错误");
             return "redirect:/common/loginUI";
         }
-        session.setAttribute("user", login);
-        return "redirect:/common/index";
     }
 
     // 验证name的唯一

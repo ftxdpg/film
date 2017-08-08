@@ -41,117 +41,12 @@
 
 <body>
     <div class="wrapper">
-        <!-- Banner -->
         <!-- Header section -->
-        <header class="header-wrapper header-wrapper--home">
-            <div class="container">
-                <!-- Logo link-->
-                <a href='${pageContext.request.contextPath}/common/index' class="logo">
-                    <img alt='logo' src="${pageContext.request.contextPath}/resources/images/logo.png">
-                </a>
+        <jsp:include page="../../common/Head.jsp"/>
 
-                <!-- Main website navigation-->
-                <nav id="navigation-box">
-                    <!-- Toggle for mobile menu mode -->
-                    <a href="#" id="navigation-toggle">
-                        <span class="menu-icon">
-                            <span class="icon-toggle" role="button" aria-label="Toggle Navigation">
-                              <span class="lines"></span>
-                            </span>
-                        </span>
-                    </a>
-
-                    <!-- Link navigation -->
-                    <ul id="navigation">
-
-                        <li>
-                            <span class="sub-nav-toggle plus"></span>
-                            <a href="" style="margin-left: 290px;">电影分类</a>
-                            <ul class="mega-menu container">
-                                <li class="col-md-3 mega-menu__coloum">
-                                    <ul class="mega-menu__list">
-                                        <%-- 第一格 --%>
-                                        <li class="mega-menu__nav-item"><a href="#">喜剧</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">爱情</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">动作</a></li>
-                                    </ul>
-                                </li>
-
-                                <%-- 第二格 --%>
-                                <li class="col-md-3 mega-menu__coloum">
-                                    <ul class="mega-menu__list">
-                                        <li class="mega-menu__nav-item"><a href="#">惊悚</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">悬疑</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">动画</a></li>
-                                    </ul>
-                                </li>
-
-                                <%-- 第三格 --%>
-                                <li class="col-md-3 mega-menu__coloum">
-                                    <ul class="mega-menu__list">
-                                        <li class="mega-menu__nav-item"><a href="#">科幻</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">战争</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">青春</a></li>
-                                    </ul>
-                                </li>
-
-                                <%-- 第四格 --%>
-                                <li class="col-md-3 mega-menu__coloum">
-                                    <ul class="mega-menu__list">
-                                        <li class="mega-menu__nav-item"><a href="#">华语</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">美国</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">其他</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-
-                <!-- Additional header buttons / Auth and direct link to booking-->
-                <div class="control-panel">
-                    <c:choose>
-                        <c:when test="${!empty sessionScope.user}">
-                            <div class="auth auth--home">
-                                <div class="auth__show">
-                            <span class="auth__image">
-                              <img alt="" src="${pageContext.request.contextPath}/resources/images/31-31.png">
-                            </span>
-                                </div>
-                                <a href="#" class="btn btn--sign btn--singin">
-                                        ${sessionScope.user.name}
-                                </a>
-                                <ul class="auth__function">
-                                    <li><a href="#" class="auth__function-item">我的动态</a></li>
-                                    <li><a href="#" class="auth__function-item">用户设置</a></li>
-                                    <li><a href="#" class="auth__function-item">注销</a></li>
-                                </ul>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="auth auth--home" style="margin-top: 6px; left: -150px; top: -8px;">
-                                <a href="${pageContext.request.contextPath}/common/loginUI" class="btn btn--sign">登录</a>
-                            </div>
-                            <div class="auth auth--home" style="top: -8px; margin-top: 1px; left: -100px;">
-                                <a href="${pageContext.request.contextPath}/common/emailRegUI" class="btn btn--sign" style="top: 5px;">注册</a>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                    <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">预定电影票</a>
-                </div>
-            </div>
-        </header>
-        
         <!-- Search bar -->
-        <div class="search-wrapper" style="margin-top: 56px;">
-            <div class="container container--add">
-                <form id='search-form' method='get' class="search">
-                    <input type="text" class="search__field" placeholder="Search">
-                    <button type='submit' class="btn btn-md btn--danger search__button">search a movie</button>
-                </form>
-            </div>
-        </div>
-        
+        <jsp:include page="../../common/search.jsp"/>
+
         <!-- Main content -->
         <section class="container">
             <div class="col-sm-12" style="padding-bottom: 50px;">
@@ -304,6 +199,7 @@
             </div>
         </section>
         <div class="clearfix"></div>
+        <jsp:include page="/WEB-INF/common/bottom.jsp"/>
     </div>
 
 	<!-- JavaScript-->

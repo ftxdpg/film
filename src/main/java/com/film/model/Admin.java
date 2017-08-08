@@ -29,6 +29,13 @@ public class Admin {
     @Pattern(regexp = "^1[3,5,8]\\d{9}$", groups = ValidatedPhone.class)
     private String phone;
 
+    public Admin() {
+    }
+
+    public Admin(String name) {
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }

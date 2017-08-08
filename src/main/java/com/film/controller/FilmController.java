@@ -98,8 +98,13 @@ public class FilmController {
     @RequestMapping("/updateFilm")
     public String updateFilm(Film film, @RequestParam("imgs") CommonsMultipartFile imgs, String[] type, HttpServletRequest request, Model model){
         try {
-            if (film == null || film.getCreatetime() == null || film.getName() == null || type == null || film.getActor() == null || film.getDirector() == null || film.getPrice() == null || film.getPoint()== null || film.getContry() == null || film.getIntroduction() == null){
+            if (film.getCreatetime() == null || film.getName() == null || type == null || film.getActor() == null || film.getDirector() == null || film.getPrice() == null || film.getPoint()== null || film.getContry() == null || film.getIntroduction() == null){
                 model.addAttribute("result", "信息不完整，请重新确认");
+                return info(film.getFilmid(),model);
+            }
+
+            if (filmService.testFilmName(film.getName()) > 1){
+                model.addAttribute("result", "电影已存在");
                 return info(film.getFilmid(),model);
             }
 

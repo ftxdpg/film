@@ -9,7 +9,6 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
-        <!-- 时间操作组件，不用再用什么SimpleDataFormat来格式化时间 -->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
@@ -182,6 +181,11 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>3.7</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
         </dependency>
     </dependencies>
 

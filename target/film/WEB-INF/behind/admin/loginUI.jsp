@@ -44,7 +44,7 @@
     <form id="login-form" class="login" method='post' novalidate='' style="margin-top: 100px;" action="${pageContext.request.contextPath}/adminCommon/login">
         <p class="login__title">管理员登录<br></p>
         <div class="field-wrap">
-            <input placeholder='手机号、邮箱、昵称' id="name" name='name' class="login__input">
+            <input placeholder='请输入管理员名' id="name" name='name' class="login__input">
             <input type='password' placeholder='密码' id="password" name='password' class="login__input">
         </div>
 

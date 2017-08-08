@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -22,10 +23,18 @@ public class User {
     @Size(min = 3, max = 20)
     private String name;
 
+    @NotNull
     private String password;
 
     @Pattern(regexp = "^1[3,5,8]\\d{9}$", groups = ValidatedPhone.class)
     private String phone;
+
+    public User() {
+    }
+
+    public User(String name) {
+        this.name = name;
+    }
 
     // 用户与电影收藏的关系
     @Transient

@@ -35,129 +35,31 @@
 
 <body>
     <div class="wrapper">
-
         <!-- Header section -->
-        <header class="header-wrapper header-wrapper--home">
-            <div class="container">
-                <!-- Logo link-->
-                <a href='${pageContext.request.contextPath}/common/index' class="logo">
-                    <img alt='logo' src="${pageContext.request.contextPath}/resources/images/logo.png">
-                </a>
-
-                <!-- Main website navigation-->
-                <nav id="navigation-box">
-                    <!-- Toggle for mobile menu mode -->
-                    <a href="#" id="navigation-toggle">
-                        <span class="menu-icon">
-                            <span class="icon-toggle" role="button" aria-label="Toggle Navigation">
-                              <span class="lines"></span>
-                            </span>
-                        </span>
-                    </a>
-
-                    <!-- Link navigation -->
-                    <ul id="navigation">
-
-                        <li>
-                            <span class="sub-nav-toggle plus"></span>
-                            <a href="" style="margin-left: 290px;">电影分类</a>
-                            <ul class="mega-menu container">
-                                <li class="col-md-3 mega-menu__coloum">
-                                    <ul class="mega-menu__list">
-                                        <%-- 第一格 --%>
-                                        <li class="mega-menu__nav-item"><a href="#">喜剧</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">爱情</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">动作</a></li>
-                                    </ul>
-                                </li>
-
-                                <%-- 第二格 --%>
-                                <li class="col-md-3 mega-menu__coloum">
-                                    <ul class="mega-menu__list">
-                                        <li class="mega-menu__nav-item"><a href="#">惊悚</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">悬疑</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">动画</a></li>
-                                    </ul>
-                                </li>
-
-                                <%-- 第三格 --%>
-                                <li class="col-md-3 mega-menu__coloum">
-                                    <ul class="mega-menu__list">
-                                        <li class="mega-menu__nav-item"><a href="#">科幻</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">战争</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">青春</a></li>
-                                    </ul>
-                                </li>
-
-                                <%-- 第四格 --%>
-                                <li class="col-md-3 mega-menu__coloum">
-                                    <ul class="mega-menu__list">
-                                        <li class="mega-menu__nav-item"><a href="#">华语</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">美国</a></li>
-                                        <li class="mega-menu__nav-item"><a href="#">其他</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-
-                <!-- Additional header buttons / Auth and direct link to booking-->
-                <div class="control-panel">
-                    <c:choose>
-                        <c:when test="${!empty sessionScope.user}">
-                            <div class="auth auth--home">
-                                <div class="auth__show">
-                            <span class="auth__image">
-                              <img alt="" src="${pageContext.request.contextPath}/resources/images/31-31.png">
-                            </span>
-                                </div>
-                                <a href="#" class="btn btn--sign btn--singin">
-                                        ${sessionScope.user.name}
-                                </a>
-                                <ul class="auth__function">
-                                    <li><a href="#" class="auth__function-item">我的动态</a></li>
-                                    <li><a href="#" class="auth__function-item">用户设置</a></li>
-                                    <li><a href="#" class="auth__function-item">注销</a></li>
-                                </ul>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="auth auth--home" style="margin-top: 6px; left: -150px; top: -8px;">
-                                <a href="${pageContext.request.contextPath}/common/loginUI" class="btn btn--sign">登录</a>
-                            </div>
-                            <div class="auth auth--home" style="top: -8px; margin-top: 1px; left: -100px;">
-                                <a href="${pageContext.request.contextPath}/common/emailRegUI" class="btn btn--sign" style="top: 5px;">注册</a>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                    <a href="#" class="btn btn-md btn--warning btn--book btn-control--home login-window">预定电影票</a>
-                </div>
-            </div>
-        </header>
+        <jsp:include page="/WEB-INF/common/Head.jsp"/>
 
 
         <!-- Main content -->
-                <form id="login-form" class="login" method='post' novalidate='' style="margin-top: 100px;" action="${pageContext.request.contextPath}/common/login">
-                    <c:if test="${!empty result}">
-                        <div class="alert alert-danger">
-                            <span class="icon-warning"></span>
-                                ${result}
-                            <a class="close" data-dismiss="alert" href="#" aria-hidden="true"></a>
-                        </div>
-                    </c:if>
-                    <p class="login__title">登录<br></p>
-                    <div class="field-wrap">
-                        <input placeholder='手机号、邮箱、昵称' id="name" name='name' class="login__input">
-                        <input type='password' placeholder='密码' id="password" name='password' class="login__input">
+            <form id="login-form" class="login" method='post' novalidate='' style="margin-top: 100px;" action="${pageContext.request.contextPath}/common/login">
+                <c:if test="${!empty result}">
+                    <div class="alert alert-danger">
+                        <span class="icon-warning"></span>
+                            ${result}
+                        <a class="close" data-dismiss="alert" href="#" aria-hidden="true"></a>
                     </div>
+                </c:if>
+                <p class="login__title">登录<br></p>
+                <div class="field-wrap">
+                    <input placeholder='输入用户名' id="name" name='name' class="login__input">
+                    <input type='password' placeholder='密码' id="password" name='password' class="login__input">
+                </div>
 
-                    <div class="login__control">
-                        <button type='submit' class="btn btn-md btn--warning btn--wider">确认登陆</button>
-                        <a href="${pageContext.request.contextPath}/common/forgetPasswordUI" class="login__tracker form__tracker">忘记密码？</a>
-                        <a href="${pageContext.request.contextPath}/common/emailRegUI" class="login__tracker form__tracker">没有账号？现在注册一个</a>
-                    </div>
-                </form>
+                <div class="login__control">
+                    <button type='submit' class="btn btn-md btn--warning btn--wider">确认登陆</button>
+                    <a href="${pageContext.request.contextPath}/common/forgetPasswordUI" class="login__tracker form__tracker">忘记密码？</a>
+                    <a href="${pageContext.request.contextPath}/common/emailRegUI" class="login__tracker form__tracker">没有账号？现在注册一个</a>
+                </div>
+            </form>
         <div class="clearfix"></div>
     </div>
 

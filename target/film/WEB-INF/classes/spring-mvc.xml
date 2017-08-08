@@ -16,8 +16,7 @@
 
 		配置校验器：校验器的名字，在这里配置完校验器之后，还要在pojo类中添加校验规则
 	-->
-    <mvc:annotation-driven
-            conversion-service="conversionService" validator="validator">
+    <mvc:annotation-driven validator="validator">
     </mvc:annotation-driven>
 
     <!-- 配置视图解析器 -->
@@ -30,17 +29,6 @@
 
     <!-- 解析静态资源，当请求被web.xml的"/"拦截之后，就会被解析，就会被映射 -->
     <mvc:resources location="resources" mapping="/**"/>
-
-    <!-- 日期类型转换器 -->
-    <bean id="conversionService"
-          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="converters">
-            <set>
-                <!-- 日期类型转换 -->
-                <bean class="com.film.converter.DateConverter"/>
-            </set>
-        </property>
-    </bean>
 
     <!-- 校验器，配置完校验器之后，还要把校验器写到处理器适配器中 -->
     <bean name="validator"
@@ -57,13 +45,4 @@
             <value>5242880</value>
         </property>
     </bean>
-
-    <!-- 拦截器 -->
-    <mvc:interceptors>
-        <!-- 登录验证拦截器 -->
-        <mvc:interceptor>
-            <mvc:mapping path="/film/**"/>
-            <bean class="com.film.interceptor.LoginInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
 </beans>

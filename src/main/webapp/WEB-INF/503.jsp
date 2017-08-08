@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page isErrorPage="true" language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -90,7 +90,7 @@
     <span class="errorTitle">Ahh, something went wrong here :(</span>
     <span class="errorNum">503</span>
     <span class="errorDesc">Oops! Sorry, an error has occured. Service Unavailable!</span>
-    <a href="index.html" title="" class="button dredB"><span>Back to dashboard</span></a>
+    <a href="${pageContext.request.contextPath}/common/index" title="" class="button dredB"><span>返回主页</span></a>
 </div>    
     
 </body>

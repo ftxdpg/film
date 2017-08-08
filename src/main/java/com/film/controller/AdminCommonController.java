@@ -2,11 +2,16 @@ package com.film.controller;
 
 import com.film.model.Admin;
 import com.film.model.Film;
+import com.film.model.User;
 import com.film.service.AdminService;
 import com.film.service.FilmService;
 import com.film.util.FilmResult;
 import com.film.util.ValidatedEmail;
 import com.film.util.ValidatedPhone;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,15 +48,25 @@ public class AdminCommonController {
     // 登录验证
     @RequestMapping("/login")
     public String login(Admin admin, RedirectAttributes attributes, HttpSession session){
-        admin.setPassword(DigestUtils.md5DigestAsHex(admin.getPassword().getBytes()));
-        Admin login = adminService.login(admin);
-        if (login == null){
+        if (admin == null || admin.getPassword() == null || admin.getName() == null){
+            attributes.addFlashAttribute("result", "管理员不存在或密码错误");
+            return "redirect:/adminCommon/loginUI";
+        }
+        Subject u = SecurityUtils.getSubject();
+        // 把密码和用户名封装为一个token
+        UsernamePasswordToken token = new UsernamePasswordToken(admin.getName(), admin.getPassword());
+        try {
+            // 执行登录
+            u.login(token);
+            // 去除密码，然后session保存
+            admin.setPassword(null);
+            Admin login = adminService.login(admin);
+            session.setAttribute("admin", login);
+            return "redirect:/film/user/list";
+        } catch (AuthenticationException e) {
             attributes.addFlashAttribute("result", "用户名或密码错误");
             return "redirect:/adminCommon/loginUI";
         }
-        admin.setPassword(null);
-        session.setAttribute("admin", login);
-        return "redirect:/film/user/list";
     }
 
 }

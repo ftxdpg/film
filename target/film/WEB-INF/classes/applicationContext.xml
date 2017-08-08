@@ -115,4 +115,82 @@
     <!-- 启用对事务注解的支持 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!-- 自定义realm -->
+        <property name="realms">
+            <list>
+                <ref bean="myRealm"/>
+                <ref bean="adminRealm"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="myRealm" class="com.film.shiro.MyRealm">
+        <!-- HashedCredentialsMatcher是实现自定义加密手段的必要条件 -->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <!-- 用什么加密 -->
+                <property name="hashAlgorithmName" value="MD5"/>
+                <!-- 加密的次数 -->
+                <property name="hashIterations" value="1"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="adminRealm" class="com.film.shiro.AdminRealm">
+        <!-- HashedCredentialsMatcher是实现自定义加密手段的必要条件 -->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <!-- 用什么加密 -->
+                <property name="hashAlgorithmName" value="MD5"/>
+                <!-- 加密的次数 -->
+                <property name="hashIterations" value="1"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- 保证实现了Shiro内部lifecycle函数的bean执行，生命周期类，可以自动地调用springIOC容器中的shiro生命周期方法 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- 开启Shiro注解，必须配置了生命周期类后才配置 -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!-- Shiro过滤器,id和web.xml中的name一致 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- Shiro的核心安全接口 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 身份认证失败，则跳转到登录页面 -->
+        <property name="loginUrl" value="/common/loginUI"/>
+        <!-- 权限认证失败，则跳转到指定页面 -->
+        <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
+        <!--
+            shiro受保护的页面，以及访问需要的权限
+            anon:可以匿名访问
+            authc：要登录后才访问的页面
+         -->
+        <property name="filterChainDefinitions">
+            <value>
+                <!-- 不用登录行为 -->
+                /resources/** = anon
+                /common/** = anon
+                /film/frontInfo = anon
+                /film/filmCommon/common/** = anon
+                /adminCommon/** = anon
+
+                <!-- 需要管理员权限 -->
+                /admin/** = roles[admin]
+
+                <!-- 登出行为 -->
+                /logout = logout
+
+                <!-- 除了以上的行为，否则都要登录才可以操作 -->
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
 </beans>

@@ -89,23 +89,7 @@
 <div id="rightSide">
 
     <!-- 头顶功能 -->
-    <div class="topNav">
-        <div class="wrapper">
-            <div class="welcome"><a href="#" title=""><img src="${pageContext.request.contextPath}/resources/behind/images/userPic.png" alt="" /></a><span>${sessionScope.admin.name}</span></div>
-            <div class="userNav">
-                <ul>
-                    <li class="dd"><a href="#" title=""><img src="${pageContext.request.contextPath}/resources/behind/images/icons/topnav/profile.png" alt="" /><span>Profile</span><span class="numberTop">2</span></a>
-						<ul class="userDropdown">
-                            <li><a href="${pageContext.request.contextPath}/" title="" class="sAdd">查看账号信息</a></li>
-                            <li><a href="${pageContext.request.contextPath}/resources/behind/admin/update" class="sInbox">更改账号信息</a></li>
-                        </ul>
-					</li>
-                    <li><a href="${pageContext.request.contextPath}/common/logout" title=""><img src="${pageContext.request.contextPath}/resources/behind/images/icons/topnav/logout.png" alt="" /><span>注销</span></a></li>
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
+    <jsp:include page="/WEB-INF/common/admin.jsp"/>
     
     <!-- Title area -->
     <div class="titleArea">
