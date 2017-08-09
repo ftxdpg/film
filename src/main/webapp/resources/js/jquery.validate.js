@@ -870,7 +870,7 @@ $.extend($.validator, {
 				rules[method] = value;
 			} else if ( type === method && type !== 'range' ) {
 				// exception: the jquery validate 'range' method
-				// does not test for the html5 'range' type
+				// does not quartz for the html5 'range' type
 				rules[method] = true;
 			}
 		}

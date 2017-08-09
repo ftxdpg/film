@@ -17,7 +17,7 @@ $(document).ready(function () {
 	var headerHTML = '';
 	var loadingHTML = '';
 	
-	headerHTML += '<p class="twitter__head">Tweets</p><a href="'+ followaddres +'" target="_blank" class="twitter-follow-button twitter__follow" data-show-count="false" data-show-screen-name="false">Follow</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?"http":"https";if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document, "script", "twitter-wjs");</script>';
+	headerHTML += '<p class="twitter__head">Tweets</p><a href="'+ followaddres +'" target="_blank" class="twitter-follow-button twitter__follow" data-show-count="false" data-show-screen-name="false">Follow</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.quartz(d.location)?"http":"https";if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document, "script", "twitter-wjs");</script>';
 	loadingHTML += '<div id="loading-container"><img src="images/ajax-loader.GIF" width="32" height="32"/></div>';
 
 	

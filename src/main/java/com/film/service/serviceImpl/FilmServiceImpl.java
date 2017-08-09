@@ -140,19 +140,13 @@ public class FilmServiceImpl implements FilmService{
             if (!StringUtils.isBlank(s)) {
                 List<Film> topFiveFilms = JSON.parseArray(s, Film.class);
                 indexInfo.setUp(topFiveFilms);
+            } else {
+                List<Film> films = filmMapper.selectTopFilms(new PageUtil(0,6));
+                //把list转换成字符串
+                String topFilms = JSON.toJSONString(films);
+                indexInfo.setUp(films);
+                jedisClient.set("topFive", topFilms);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // 从数据库查询
-        //向缓存中添加内容
-        try {
-            List<Film> films = filmMapper.selectTopFilms(new PageUtil(0,6));
-            //把list转换成字符串
-            String topFilms = JSON.toJSONString(films);
-            indexInfo.setUp(films);
-            jedisClient.set("topFive", topFilms);
         } catch (Exception e) {
             e.printStackTrace();
         }

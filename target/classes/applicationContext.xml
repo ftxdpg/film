@@ -193,4 +193,6 @@
         </property>
     </bean>
 
+    <!-- 导入外部spring配置文件 -->
+    <import resource="quartz-spring.xml"/>
 </beans>
