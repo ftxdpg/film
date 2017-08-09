@@ -26,9 +26,6 @@ public class CarController {
     @Autowired
     private CarService carService;
 
-    @Autowired
-    private UserService userService;
-
     // 添加进购物车
     @RequestMapping("/insetCar")
     public String insertCar(Integer filmId, Integer userId){

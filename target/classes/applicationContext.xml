@@ -76,6 +76,7 @@
         <property name="filters" value="stat"/>
     </bean>
 
+
     <!-- mybatis文件配置，扫描所有mapper文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
           p:dataSource-ref="dataSource"
@@ -121,24 +122,11 @@
         <property name="realms">
             <list>
                 <ref bean="myRealm"/>
-                <ref bean="adminRealm"/>
             </list>
         </property>
     </bean>
 
     <bean id="myRealm" class="com.film.shiro.MyRealm">
-        <!-- HashedCredentialsMatcher是实现自定义加密手段的必要条件 -->
-        <property name="credentialsMatcher">
-            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-                <!-- 用什么加密 -->
-                <property name="hashAlgorithmName" value="MD5"/>
-                <!-- 加密的次数 -->
-                <property name="hashIterations" value="1"/>
-            </bean>
-        </property>
-    </bean>
-
-    <bean id="adminRealm" class="com.film.shiro.AdminRealm">
         <!-- HashedCredentialsMatcher是实现自定义加密手段的必要条件 -->
         <property name="credentialsMatcher">
             <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
@@ -166,7 +154,7 @@
         <!-- 身份认证失败，则跳转到登录页面 -->
         <property name="loginUrl" value="/common/loginUI"/>
         <!-- 权限认证失败，则跳转到指定页面 -->
-        <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
+        <property name="unauthorizedUrl" value="/common/unauthorized"/>
         <!--
             shiro受保护的页面，以及访问需要的权限
             anon:可以匿名访问
@@ -174,15 +162,27 @@
          -->
         <property name="filterChainDefinitions">
             <value>
+                <!-- 需要管理员权限 -->
+                /admin/** = roles[admin]
+                /film/user/info = roles[admin]
+                /film/user/export = roles[admin]
+                /film/user/list = roles[admin]
+                /film/newFilm = roles[admin]
+                /film/newFilmUI = roles[admin]
+                /film/updateFilmUI = roles[admin]
+                /film/updateFilm = roles[admin]
+                /film/deleteFilm = roles[admin]
+                /film/importFilms = roles[admin]
+                /film/filmInfo = roles[admin]
+                /film/deleteAll = roles[admin]
+                /film/deleteOne = roles[admin]
+
                 <!-- 不用登录行为 -->
                 /resources/** = anon
                 /common/** = anon
                 /film/frontInfo = anon
                 /film/filmCommon/common/** = anon
                 /adminCommon/** = anon
-
-                <!-- 需要管理员权限 -->
-                /admin/** = roles[admin]
 
                 <!-- 登出行为 -->
                 /logout = logout

@@ -43,11 +43,8 @@ public class CommonController {
     // 首页
     @RequestMapping("/index")
     public String index(Model model){
-        // 置顶的5条电影
-        List<Film> fiveTopFilms = filmService.selectTopFilms(new PageUtil(0,6));
-        // 正在上映的前8条电影
-        List<Film> onNowFilms = filmService.selectTopFilms(new PageUtil(0, 8));
-        model.addAttribute("indexInfo", new IndexInfo(fiveTopFilms,onNowFilms,null));
+        IndexInfo indexInfo = filmService.selectTopFilms();
+        model.addAttribute("indexInfo", indexInfo);
         return "index";
     }
 
@@ -101,7 +98,7 @@ public class CommonController {
             return "redirect:/common/messageRegUI";
         }
 
-        if (user == null || userService.selectByName(user.getName()) > 0 || userService.selectByPhone(user.getPhone()) > 0){
+        if (user == null || userService.selectByName(user.getName()) > 0 || userService.selectByPhone(user.getPhone()) > 0 || "admin".equals(user.getName())){
             attributes.addFlashAttribute("result",new FilmResult(404,"用户已存在或者手机号码已存在",null));
             return "redirect:/common/messageRegUI";
         }
@@ -349,5 +346,10 @@ public class CommonController {
             attributes.addFlashAttribute("result", "修改失败，请稍候重试");
             return "redirect:/common/forgetPasswordUI";
         }
+    }
+
+    @RequestMapping("unauthorized")
+    public String unauthorizedUI(){
+        return "unauthorezed";
     }
 }

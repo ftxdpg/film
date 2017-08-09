@@ -237,6 +237,7 @@
         </div>
     </section>
     <div class="clearfix"></div>
+    <jsp:include page="/WEB-INF/common/bottom.jsp"/>
 </div>
 
 <!-- JavaScript-->

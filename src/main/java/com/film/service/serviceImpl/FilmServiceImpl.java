@@ -1,14 +1,19 @@
 package com.film.service.serviceImpl;
 
+import com.alibaba.fastjson.JSON;
 import com.film.dao.FilmMapper;
 import com.film.dao.FilmTypeMapper;
 import com.film.dao.TypesMapper;
 import com.film.model.Film;
 import com.film.model.FilmType;
+import com.film.model.IndexInfo;
 import com.film.model.Types;
 import com.film.service.FilmService;
+import com.film.service.JedisClient;
 import com.film.util.PageUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,11 +32,13 @@ public class FilmServiceImpl implements FilmService{
     private FilmTypeMapper filmTypeMapper;
     @Autowired
     private TypesMapper typesMapper;
+    @Autowired
+    JedisClient jedisClient;
 
     // 新增电影
     @Override
     public void insert(Film film, String[] types) {
-        FilmType filmType = null;
+        FilmType filmType;
         filmMapper.insert(film);
         // 获取类型
         for (String typ: types) {
@@ -91,7 +98,7 @@ public class FilmServiceImpl implements FilmService{
     // 修改电影
     @Override
     public void update(Film film, String[] types) throws Exception{
-        FilmType filmType = null;
+        FilmType filmType;
         // 修改电影
         filmMapper.updateByPrimaryKey(film);
 
@@ -121,10 +128,61 @@ public class FilmServiceImpl implements FilmService{
         filmMapper.delete(new Film(id));
     }
 
-    // 5条置顶电影
+    // 置顶电影
     @Override
-    public List<Film> selectTopFilms(PageUtil pageUtil){
-        return filmMapper.selectTopFilms(pageUtil);
+    public IndexInfo selectTopFilms(){
+        IndexInfo indexInfo = new IndexInfo();
+        // 从缓存中取内容
+        // 查询顶部电影
+        try {
+            String s = jedisClient.get("topFive");
+            //把字符串转换成list
+            if (!StringUtils.isBlank(s)) {
+                List<Film> topFiveFilms = JSON.parseArray(s, Film.class);
+                indexInfo.setUp(topFiveFilms);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 从数据库查询
+        //向缓存中添加内容
+        try {
+            List<Film> films = filmMapper.selectTopFilms(new PageUtil(0,6));
+            //把list转换成字符串
+            String topFilms = JSON.toJSONString(films);
+            indexInfo.setUp(films);
+            jedisClient.set("topFive", topFilms);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 查询中间电影
+        try {
+            String s = jedisClient.get("onNow");
+            if (!StringUtils.isBlank(s)) {
+                //把字符串转换成list
+                List<Film> onNows = JSON.parseArray(s, Film.class);
+                indexInfo.setOnNow(onNows);
+                return indexInfo;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 从数据库查询
+        //向缓存中添加内容
+        try {
+            List<Film> films = filmMapper.selectTopFilms(new PageUtil(0,8));
+            //把list转换成字符串
+            String onNows = JSON.toJSONString(films);
+            indexInfo.setOnNow(films);
+            jedisClient.set("onNow", onNows);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return indexInfo;
     }
 
     // 电影类型查询

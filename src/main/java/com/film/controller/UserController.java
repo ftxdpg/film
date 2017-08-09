@@ -12,6 +12,7 @@ import com.film.util.BehindAjaxResult;
 import com.film.util.FilmResult;
 import com.film.util.PageUtil;
 import com.github.pagehelper.PageInfo;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,6 +1,7 @@
 package com.film.service;
 
 import com.film.model.Film;
+import com.film.model.IndexInfo;
 import com.film.util.PageUtil;
 
 import java.util.List;
@@ -28,8 +29,8 @@ public interface FilmService extends BaseService<Film> {
     // 删除单个
     void deleteOne(Integer id) throws Exception;
 
-    // 5条置顶电影
-    List<Film> selectTopFilms(PageUtil pageUtil);
+    // 置顶电影
+    IndexInfo selectTopFilms();
 
     // 电影类型查询
     PageUtil<Film> selectType(Integer page, Integer size, String[] types);

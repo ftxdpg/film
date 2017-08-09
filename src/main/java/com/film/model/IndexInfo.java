@@ -15,16 +15,12 @@ public class IndexInfo {
     // 正在上映的8条电影
     private List<Film> onNow;
 
-    // 用户看过的电影--最近3条
-    private List<Film> watched;
-
     public IndexInfo() {
     }
 
-    public IndexInfo(List<Film> up, List<Film> onNow, List<Film> watched) {
+    public IndexInfo(List<Film> up, List<Film> onNow) {
         this.up = up;
         this.onNow = onNow;
-        this.watched = watched;
     }
 
     public List<Film> getUp() {
@@ -41,13 +37,5 @@ public class IndexInfo {
 
     public void setOnNow(List<Film> onNow) {
         this.onNow = onNow;
-    }
-
-    public List<Film> getWatched() {
-        return watched;
-    }
-
-    public void setWatched(List<Film> watched) {
-        this.watched = watched;
     }
 }
