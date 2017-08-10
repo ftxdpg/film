@@ -185,13 +185,13 @@ public class BehindAjaxResult {
     }
 
     // 订单分页
-    public static String order(PageUtil<Order> orderPageUtil, Integer page, Integer size) {
+    public static String order(PageUtil<Order> orderPageUtil, Integer page, Integer size, HttpServletRequest request) {
         if (orderPageUtil.getData() == null || orderPageUtil.getData().size() == 0) {
             return "";
         }
         String orders = "";
         for (Order order : orderPageUtil.getData()) {
-            String pay = "未付款".equals(order.getStatus()) ? "<a href=\"#\">立即付款</a></c:if>\n" : "";
+            String pay = "未付款".equals(order.getStatus()) ? "<a href=\""+request.getContextPath()+"/film/user/orderDetail/orderDetailUI?orderId="+order.getOrderId()+"\">立即付款</a></c:if>\n" : "";
             orders +=
                     "                                            <tr>\n" +
                             "                                                <td align=\"center\">" + order.getOrderId() + "</td>\n" +
@@ -200,7 +200,7 @@ public class BehindAjaxResult {
                             "                                                <td align=\"center\">" + order.getMoney() + "</td>\n" +
                             "                                                <td align=\"center\">\n" +
                             "                                                    <a onclick=\"removeOrder(" + page + ", " + size + "," + order.getOrderId() + ")\">删除该订单</a> &nbsp;\n" +
-                            "                                                    <a href=\"#\">查看详情</a> &nbsp;\n" +
+                            "                                                    <a href=\""+request.getContextPath()+"/film/user/orderDetail/orderDetailUI?orderId="+order.getOrderId()+"\">查看详情</a> &nbsp;\n" +
                             pay +
                             "                                                </td>\n" +
                             "                                            </tr>\n";

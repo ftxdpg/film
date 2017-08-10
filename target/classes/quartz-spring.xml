@@ -12,7 +12,7 @@
 		<!-- 设置执行对象 -->
 		<property name="targetObject" ref="quartzTest"/>
 		<!-- 设置执行方法 -->
-		<property name="targetMethod" value="test"/>
+		<property name="targetMethod" value="quartz"/>
 		<!-- 设置是否并发执行 -->
 		<property name="concurrent" value="false"/>
 	</bean>
@@ -22,7 +22,7 @@
 		<!-- 设置任务详细信息 -->
 		<property name="jobDetail" ref="jobDetail"/>
 		<!-- 设置执行时机 (秒 分 时 日 月 周 年（可选）) -->
-		<property name="cronExpression" value="0/3 * * * * ?"/>
+		<property name="cronExpression" value="0 0 0 * * ?"/>
 	</bean>
 
 	<!-- 3、设置任务调度工厂（设置触发器） -->

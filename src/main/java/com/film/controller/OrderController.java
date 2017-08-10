@@ -59,13 +59,13 @@ public class OrderController {
     // 订单列表分页
     @RequestMapping("/orderPage")
     @ResponseBody
-    public FilmResult orderPage(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "5")Integer size, Integer uid){
+    public FilmResult orderPage(@RequestParam(defaultValue = "1")Integer page, @RequestParam(defaultValue = "5")Integer size, Integer uid, HttpServletRequest request){
         try {
             if (uid == null){
                 return new FilmResult(500, "不存在用户", null);
             }
             PageUtil<Order> orderPageUtil = orderService.selectOrderPage(page, size, uid);
-            String order = BehindAjaxResult.order(orderPageUtil, page, size);
+            String order = BehindAjaxResult.order(orderPageUtil, page, size, request);
             String order_page = BehindAjaxResult.order_page(orderPageUtil, uid);
             return new FilmResult(200, order, order_page);
         }catch (Exception e){
@@ -77,14 +77,14 @@ public class OrderController {
     // 删除订单
     @RequestMapping("/deleteOrder")
     @ResponseBody
-    public FilmResult deleteOrder(Integer uid, Integer orderId, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5")Integer size){
+    public FilmResult deleteOrder(Integer uid, Integer orderId, @RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "5")Integer size, HttpServletRequest request){
         try {
             if (uid == null){
                 return new FilmResult(500, "不存在的用户", null);
             }
             orderService.deleteByPrimaryKey(orderId);
             PageUtil<Order> orderPageUtil = orderService.selectOrderPage(page, size, uid);
-            String order = BehindAjaxResult.order(orderPageUtil, page, size);
+            String order = BehindAjaxResult.order(orderPageUtil, page, size, request);
             String order_page = BehindAjaxResult.order_page(orderPageUtil, uid);
             return new FilmResult(200, order, order_page);
         }catch (Exception e){
