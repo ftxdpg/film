@@ -84,4 +84,8 @@
     <error-code>503</error-code>
     <location>/WEB-INF/503.jsp</location>
   </error-page>
+
+  <welcome-file-list>
+    <welcome-file>/film/filmCommom/index</welcome-file>
+  </welcome-file-list>
 </web-app>
